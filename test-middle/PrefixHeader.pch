@@ -1,0 +1,25 @@
+//
+//  PrefixHeader.pch
+//  test-middle
+//
+//  Created by Андрей on 25.03.15.
+//  Copyright (c) 2015 sebbia. All rights reserved.
+//
+
+#ifndef test_middle_PrefixHeader_pch
+#define test_middle_PrefixHeader_pch
+
+#define MR_SHORTHAND
+#import "CoreData+MagicalRecord.h"
+#import "AFNetworking.h"
+#import <VKSdk/VKSdk.h>
+
+#import "UIFont+Styles.h"
+#import "UIColor+Styles.h"
+
+#define OBJ_OR_NIL(x, ClassName) ([x isKindOfClass:[ClassName class]] ? x : nil)
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif

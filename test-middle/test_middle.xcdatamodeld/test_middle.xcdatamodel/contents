@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1510" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="AlbumList" representedClassName="AlbumList" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="PhotoList" representedClassName="PhotoList" parentEntity="AlbumList" syncable="YES">
+        <attribute name="createdDate" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
+    <fetchRequest name="AlbumListFetchRequest" entity="AlbumList" predicateString="uid == $uid"/>
+    <elements>
+        <element name="AlbumList" positionX="-56" positionY="-183" width="128" height="75"/>
+        <element name="PhotoList" positionX="-54" positionY="9" width="128" height="58"/>
+    </elements>
+</model>

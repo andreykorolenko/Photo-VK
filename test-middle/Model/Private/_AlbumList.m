@@ -4,6 +4,8 @@
 #import "_AlbumList.h"
 
 const struct AlbumListAttributes AlbumListAttributes = {
+	.date = @"date",
+	.imageURL = @"imageURL",
 	.name = @"name",
 	.uid = @"uid",
 };
@@ -42,6 +44,10 @@ const struct AlbumListAttributes AlbumListAttributes = {
 
 	return keyPaths;
 }
+
+@dynamic date;
+
+@dynamic imageURL;
 
 @dynamic name;
 

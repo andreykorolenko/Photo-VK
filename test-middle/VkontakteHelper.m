@@ -42,7 +42,7 @@ NSString * const AppID = @"4844768";
 }
 
 - (void)getAlbumsWithComplitionBlock:(RequestCompletionBlock)completion {
-    VKRequest *getAlbums = [VKRequest requestWithMethod:@"photos.getAlbums" andParameters:@{VK_API_OWNER_ID : @"-1"} andHttpMethod:@"GET"];
+    VKRequest *getAlbums = [VKRequest requestWithMethod:@"photos.getAlbums" andParameters:@{VK_API_OWNER_ID : @"80074128", @"need_covers": @YES} andHttpMethod:@"GET"];
     
     [getAlbums executeWithResultBlock:^(VKResponse * response) {
         NSLog(@"Json result: %@", response.json);

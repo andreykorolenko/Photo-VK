@@ -8,6 +8,7 @@
 
 #import "PhotoListViewController.h"
 #import "VkontakteHelper.h"
+#import "TableViewCell.h"
 
 #import "AlbumList.h"
 //#import "PhotoList.h"
@@ -40,8 +41,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    
 }
 
 - (void)viewDidLoad {
@@ -49,8 +48,12 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationItem.title = (self.listType == PhotoAlbumList) ? @"Фотоальбомы": @"Фотографии";
     
+    // возьмем сохраненные альбомы
     self.dataSource = [AlbumList findAll];
-    [self updateDataSource];
+    // отсортировать по дате
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    self.dataSource = [self.dataSource sortedArrayUsingDescriptors:@[sortDescriptor]];
+    [self updateDataSourceFromServer];
     
     // table
     [self createAndLayoutTableView];
@@ -59,6 +62,8 @@
 - (void)createAndLayoutTableView {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     
     NSDictionary *views = @{@"tableView": self.tableView};
@@ -66,7 +71,7 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:views]];
 }
 
-- (void)updateDataSource {
+- (void)updateDataSourceFromServer {
     [[VkontakteHelper sharedHelper] getAlbumsWithComplitionBlock:^(NSArray *responseObject, NSError *error, VKResponse *response) {
         if (!error && responseObject) {
             self.dataSource = responseObject;
@@ -81,13 +86,14 @@
     return self.dataSource.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (TableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"PhotoAlbumCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    AlbumList *album = self.dataSource[indexPath.row];
+    
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.textLabel.text = @"Тест";
+        cell = [TableViewCell cellWithAlbum:album];
     }
     return cell;
 }
@@ -95,7 +101,7 @@
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 55.f;
+    return 80.f;
 }
 
 @end

@@ -33,6 +33,12 @@
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary inContext:(NSManagedObjectContext *)context {
     self.name = OBJ_OR_NIL(dictionary[@"title"], NSString);
+    
+    NSNumber *dateNumberSince = OBJ_OR_NIL(dictionary[@"created"], NSNumber);
+    self.date = [NSDate dateWithTimeIntervalSince1970:[dateNumberSince longValue]];
+    
+    self.imageURL = OBJ_OR_NIL(dictionary[@"thumb_src"], NSString);
+    
     // еще фото
 }
 

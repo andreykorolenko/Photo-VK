@@ -34,6 +34,20 @@
                ReferencedContainer = "container:test-middle.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "556759671AC444E90071059B"
+               BuildableName = "ModelGenerator"
+               BlueprintName = "ModelGenerator"
+               ReferencedContainer = "container:test-middle.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

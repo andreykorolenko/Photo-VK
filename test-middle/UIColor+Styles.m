@@ -11,7 +11,7 @@
 @implementation UIColor (Styles)
 
 + (instancetype)mainColor {
-    return [UIColor colorWithRed:0.8 green:0.1 blue:0.31 alpha:1];
+    return [UIColor colorWithRed:0.98 green:0.07 blue:0.29 alpha:1];
 }
 
 @end

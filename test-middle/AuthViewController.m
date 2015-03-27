@@ -53,6 +53,16 @@
     } completion:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateLogoLayout];
+}
+
+// logo layout
+- (void)updateLogoLayout {
+    [self layoutLogoForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
 #pragma mark - Layout UI
 
 - (void)createAndLayoutUI {
@@ -154,9 +164,6 @@
                                                        attribute:NSLayoutAttributeCenterY
                                                       multiplier:1.0
                                                         constant:0.0]];
-    
-    // logo layout
-    [self layoutLogoForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     
     // layout buttons
     [self.downView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[backgroundButtons]|" options:0 metrics:metrics views:views]];

@@ -70,51 +70,34 @@ CGFloat const kHeightRow = 80.f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.view.backgroundColor = [UIColor whiteColor];
     [self showLightStatusBar:YES];
-    self.navigationItem.title = (self.listType == PhotoAlbumList) ? @"Фотоальбомы": @"Фотографии";
-}
-
-- (void)showLightStatusBar:(BOOL)isLight {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[UIApplication sharedApplication] setStatusBarStyle:isLight ? UIStatusBarStyleLightContent: UIStatusBarStyleDefault];
-    });
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationItem.title = (self.listType == PhotoAlbumList) ? @"Фотоальбомы": @"Фотографии";
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"main_color"] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont thinFontWithSize:22.f], NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    // настраиваем navigation bar
+    [self customizeNavigationBar];
     
+    // загружаем данные из Core Data
+    [self loadDataSourceWithType:self.listType];
     
-    [self.navigationController.navigationBar setBackIndicatorImage:[UIImage imageNamed:@"icon_back"]];
-    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"icon_back"]];
-    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.navigationItem setBackBarButtonItem:backButtonItem];
-    
-    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_switch"] style:UIBarButtonItemStylePlain target:self action:@selector(closePhotoLibrary)];
-    self.navigationItem.rightBarButtonItem = closeButton;
-    
-    // table
+    // создаем таблицу
     [self createAndLayoutTableView];
     
-    // возьмем сохраненные альбомы
-    self.dataSource = [AlbumList findAll];
-    // отсортировать по дате
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
-    self.dataSource = [self.dataSource sortedArrayUsingDescriptors:@[sortDescriptor]];
-    
-    [self updateDataSourceFromServer];
+    // загружаем данные из сети
+    [self updateDataSourceFromServerWithType:self.listType];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self showLightStatusBar:NO];
 }
+
+#pragma mark - UI
 
 - (void)createAndLayoutTableView {
     self.tableView = [[TableViewRefreshNoJump alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -131,29 +114,78 @@ CGFloat const kHeightRow = 80.f;
     
     [self.tableView setContentInset:UIEdgeInsetsMake(64, 0, 0, 0)];
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0);
-    [self.tableView layoutIfNeeded];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
 }
 
-- (void)refresh:(UIRefreshControl *)sender {
-    [self updateDataSourceFromServer];
+- (void)customizeNavigationBar {
+    
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    
+    // общее
+    [navigationBar setBackgroundImage:[UIImage imageNamed:@"main_color"] forBarMetrics:UIBarMetricsDefault];
+    navigationBar.translucent = YES;
+    navigationBar.tintColor = [UIColor whiteColor];
+    
+    // тайтл
+    [navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont thinFontWithSize:22.f],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    // кнопка назад
+    navigationBar.backIndicatorImage = [UIImage imageNamed:@"icon_back"];
+    navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"icon_back"];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:nil
+                                                                      action:nil];
+    // иконка смены экранов
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_switch"]
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:@selector(closePhotoLibrary)];
 }
 
-- (void)updateDataSourceFromServer {
-    [[VkontakteHelper sharedHelper] getAlbumsWithComplitionBlock:^(NSArray *responseObject, NSError *error, VKResponse *response) {
-        if (!error && responseObject) {
-            self.dataSource = responseObject;
-            [self.tableView reloadData];
-            [self.refreshControl endRefreshing];
-        }
-    }];
+- (void)showLightStatusBar:(BOOL)isLight {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] setStatusBarStyle:isLight ? UIStatusBarStyleLightContent: UIStatusBarStyleDefault];
+    });
 }
 
 - (void)closePhotoLibrary {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Load Content
+
+- (void)loadDataSourceWithType:(PhotoListType)type {
+    if (type == PhotoAlbumList) {
+        // возьмем сохраненные альбомы из Core Data
+        self.dataSource = [AlbumList findAll];
+        // отсортируем по дате
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+        self.dataSource = [self.dataSource sortedArrayUsingDescriptors:@[sortDescriptor]];
+    } else {
+        
+    }
+}
+
+- (void)refresh:(UIRefreshControl *)sender {
+    [self updateDataSourceFromServerWithType:self.listType];
+}
+
+- (void)updateDataSourceFromServerWithType:(PhotoListType)type {
+    if (type == PhotoAlbumList) {
+        [[VkontakteHelper sharedHelper] getAlbumsWithComplitionBlock:^(NSArray *responseObject, NSError *error, VKResponse *response) {
+            if (!error && responseObject) {
+                self.dataSource = responseObject;
+                [self.tableView reloadData];
+                [self.refreshControl endRefreshing];
+            }
+        }];
+    } else {
+        
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -165,11 +197,15 @@ CGFloat const kHeightRow = 80.f;
 - (TableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"PhotoAlbumCell";
     
-    AlbumList *album = self.dataSource[indexPath.row];
+    NSManagedObject *object = self.dataSource[indexPath.row];
     
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [TableViewCell cellWithAlbum:album];
+        if (self.listType == PhotoAlbumList) {
+            cell = [TableViewCell cellWithAlbum:(AlbumList *)object];
+        } else {
+            
+        }
     }
     return cell;
 }
@@ -181,7 +217,11 @@ CGFloat const kHeightRow = 80.f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.navigationController pushViewController:[PhotoListViewController photoListWithType:PhotoAlbumList] animated:YES];
+    if (self.listType == PhotoAlbumList) {
+        [self.navigationController pushViewController:[PhotoListViewController photoListWithType:PhotoList] animated:YES];
+    } else {
+        // открыть фото полноэкранно
+    }
 }
 
 @end

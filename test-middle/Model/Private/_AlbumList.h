@@ -4,6 +4,7 @@
 #import <CoreData/CoreData.h>
 
 extern const struct AlbumListAttributes {
+	__unsafe_unretained NSString *countPhoto;
 	__unsafe_unretained NSString *date;
 	__unsafe_unretained NSString *imageURL;
 	__unsafe_unretained NSString *name;
@@ -18,6 +19,14 @@ extern const struct AlbumListAttributes {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) AlbumListID* objectID;
+
+@property (nonatomic, strong) NSNumber* countPhoto;
+
+@property (atomic) int16_t countPhotoValue;
+- (int16_t)countPhotoValue;
+- (void)setCountPhotoValue:(int16_t)value_;
+
+//- (BOOL)validateCountPhoto:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSDate* date;
 
@@ -45,6 +54,12 @@ extern const struct AlbumListAttributes {
 @end
 
 @interface _AlbumList (CoreDataGeneratedPrimitiveAccessors)
+
+- (NSNumber*)primitiveCountPhoto;
+- (void)setPrimitiveCountPhoto:(NSNumber*)value;
+
+- (int16_t)primitiveCountPhotoValue;
+- (void)setPrimitiveCountPhotoValue:(int16_t)value_;
 
 - (NSDate*)primitiveDate;
 - (void)setPrimitiveDate:(NSDate*)value;

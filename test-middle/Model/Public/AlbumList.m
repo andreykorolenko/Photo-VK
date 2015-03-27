@@ -32,14 +32,19 @@
 }
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary inContext:(NSManagedObjectContext *)context {
+    
+    // название альбома
     self.name = OBJ_OR_NIL(dictionary[@"title"], NSString);
     
+    // дата создания
     NSNumber *dateNumberSince = OBJ_OR_NIL(dictionary[@"created"], NSNumber);
     self.date = [NSDate dateWithTimeIntervalSince1970:[dateNumberSince longValue]];
     
+    // url обложки
     self.imageURL = OBJ_OR_NIL(dictionary[@"thumb_src"], NSString);
     
-    // еще фото
+    // количество фото
+    self.countPhoto = OBJ_OR_NIL(dictionary[@"size"], NSNumber);
 }
 
 

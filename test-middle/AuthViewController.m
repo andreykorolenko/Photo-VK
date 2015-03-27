@@ -196,7 +196,7 @@
         [self.photoButton setColorType:ButtonGrayLockedColor];
     }
     NSString *userName = [VkontakteHelper sharedHelper].login;
-    self.nameLabel.text = (userName) ? userName : @"Пожалуйста, авторизуйтесь";
+    self.nameLabel.text = (userName) ? [NSString stringWithFormat:@"Привет, %@", userName] : @"Пожалуйста, авторизуйтесь";
 }
 
 #pragma mark - Authorization

@@ -71,6 +71,7 @@ CGFloat const kHeightRow = 80.f;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.view.backgroundColor = [UIColor whiteColor];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)viewDidLoad {
@@ -82,7 +83,9 @@ CGFloat const kHeightRow = 80.f;
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont thinFontWithSize:22.f], NSForegroundColorAttributeName: [UIColor whiteColor]}];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    
+    [self.navigationController.navigationBar setBackIndicatorImage:[UIImage imageNamed:@"icon_back"]];
     
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_close"] style:UIBarButtonItemStylePlain target:self action:@selector(closePhotoLibrary)];
     self.navigationItem.rightBarButtonItem = closeButton;
@@ -99,12 +102,18 @@ CGFloat const kHeightRow = 80.f;
     [self updateDataSourceFromServer];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+}
+
 - (void)createAndLayoutTableView {
     self.tableView = [[TableViewRefreshNoJump alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = kHeightRow;
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 15);
     [self.view addSubview:self.tableView];
     
     NSDictionary *views = @{@"tableView": self.tableView};
@@ -161,5 +170,17 @@ CGFloat const kHeightRow = 80.f;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return kHeightRow;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.navigationController pushViewController:[PhotoListViewController photoListWithType:PhotoAlbumList] animated:YES];
+}
+
+//- (NSString *)stringPhotoCount:(NSNumber *)count {
+//    NSInteger lastDigit = count.integerValue % 10;
+//    switch (lastDigit) {
+//        case 0: case <#expression#>:
+//            return @"фотографий";
+//    }
+//}
 
 @end

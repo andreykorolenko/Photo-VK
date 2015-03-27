@@ -23,6 +23,7 @@
     self = [super init];
     if (self) {
         [self createAndLayoutUIWithAlbum:album];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -40,14 +41,22 @@
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectZero];
     name.translatesAutoresizingMaskIntoConstraints = NO;
     name.numberOfLines = NO;
-    name.font = [UIFont thinFontWithSize:20.f];
+    name.font = [UIFont thinFontWithSize:18.f];
     name.text = album.name;
     [self.contentView addSubview:name];
     
-    NSDictionary *views = @{@"photo": photo, @"name": name};
-    NSDictionary *metrics = @{@"size": @70, @"side": @20};
+    UILabel *countPhotoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    countPhotoLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    countPhotoLabel.numberOfLines = 0;
+    countPhotoLabel.font = [UIFont thinFontWithSize:16.f];
+    countPhotoLabel.text = [NSString stringWithFormat:@"%@ фотографий", album.countPhoto];
+    [self.contentView addSubview:countPhotoLabel];
+    
+    NSDictionary *views = @{@"photo": photo, @"name": name, @"countPhoto": countPhotoLabel};
+    NSDictionary *metrics = @{@"size": @70, @"side": @15, @"top": @10};
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[photo(size)]-side-[name]-side-|" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[name]|" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[photo]-side-[countPhoto]-side-|" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[name][countPhoto(==name)]-top-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[photo(size)]" options:0 metrics:metrics views:views]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:photo
                                                                  attribute:NSLayoutAttributeCenterY

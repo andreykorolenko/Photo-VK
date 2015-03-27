@@ -4,6 +4,7 @@
 #import "_AlbumList.h"
 
 const struct AlbumListAttributes AlbumListAttributes = {
+	.countPhoto = @"countPhoto",
 	.date = @"date",
 	.imageURL = @"imageURL",
 	.name = @"name",
@@ -36,6 +37,11 @@ const struct AlbumListAttributes AlbumListAttributes = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"countPhotoValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"countPhoto"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"uidValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"uid"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -43,6 +49,26 @@ const struct AlbumListAttributes AlbumListAttributes = {
 	}
 
 	return keyPaths;
+}
+
+@dynamic countPhoto;
+
+- (int16_t)countPhotoValue {
+	NSNumber *result = [self countPhoto];
+	return [result shortValue];
+}
+
+- (void)setCountPhotoValue:(int16_t)value_ {
+	[self setCountPhoto:[NSNumber numberWithShort:value_]];
+}
+
+- (int16_t)primitiveCountPhotoValue {
+	NSNumber *result = [self primitiveCountPhoto];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveCountPhotoValue:(int16_t)value_ {
+	[self setPrimitiveCountPhoto:[NSNumber numberWithShort:value_]];
 }
 
 @dynamic date;

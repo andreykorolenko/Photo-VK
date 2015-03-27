@@ -31,7 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
+    self.view.backgroundColor = [UIColor whiteColor];
+
     [self createAndLayoutUI];
 }
 
@@ -83,8 +84,6 @@
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.nameLabel.font = [UIFont thinFontWithSize:24.f];
-    NSString *userName = [VkontakteHelper sharedHelper].login;
-    self.nameLabel.text = (userName) ? userName : @"Пожалуйста, авторизуйтесь";
     self.nameLabel.numberOfLines = 0;
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.nameLabel];
@@ -104,7 +103,7 @@
     self.authButton = [Button buttonWithColorType:ButtonEmptyColor text:@"" target:self action:nil];
     [self.backgroundButtons addSubview:self.authButton];
     
-    self.photoButton = [Button buttonWithColorType:ButtonFullColor text:@"Просмотр фотоальбомов" target:self action:@selector(showAlbums)];
+    self.photoButton = [Button buttonWithColorType:ButtonFullColor text:@"" target:self action:@selector(showAlbums)];
     [self.backgroundButtons addSubview:self.photoButton];
     
     //
@@ -145,8 +144,8 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[upView]|" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[downView]|" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[nameLabel]|" options:0 metrics:metrics views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[upView][nameLabel(==heightLabel)][downView]|" options:0 metrics:metrics views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[upView(==downView)]" options:0 metrics:metrics views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[upView][nameLabel(heightLabel@20)][downView]|" options:0 metrics:metrics views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[upView(downView)]" options:0 metrics:metrics views:views]];
     
     // layout logo
     [upView addConstraint:[NSLayoutConstraint constraintWithItem:self.logoView
@@ -204,6 +203,7 @@
     }
     NSString *userName = [VkontakteHelper sharedHelper].login;
     self.nameLabel.text = (userName) ? [NSString stringWithFormat:@"Привет, %@", userName] : @"Пожалуйста, авторизуйтесь";
+    [self.photoButton setTitle:(userName) ? @"Просмотр фотоальбомов" : @"Фотоальбомы недоступны" forState:UIControlStateNormal];
 }
 
 #pragma mark - Authorization
@@ -224,6 +224,7 @@
 - (void)showAlbums {
     PhotoListViewController *listViewController = [PhotoListViewController photoListWithType:PhotoAlbumList];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:listViewController];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 

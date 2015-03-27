@@ -49,7 +49,7 @@
     countPhotoLabel.translatesAutoresizingMaskIntoConstraints = NO;
     countPhotoLabel.numberOfLines = 0;
     countPhotoLabel.font = [UIFont thinFontWithSize:16.f];
-    countPhotoLabel.text = [NSString stringWithFormat:@"%@ фотографий", album.countPhoto];
+    countPhotoLabel.text = [NSString stringWithFormat:@"%@ %@", album.countPhoto, [self stringPhotoCount:album.countPhoto]];
     [self.contentView addSubview:countPhotoLabel];
     
     NSDictionary *views = @{@"photo": photo, @"name": name, @"countPhoto": countPhotoLabel};
@@ -81,6 +81,35 @@
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
+}
+
+- (NSString *)stringPhotoCount:(NSNumber *)count {
+    NSString *stringCount = [count stringValue];
+    NSString *lastCharacter = [stringCount substringFromIndex:stringCount.length - 1];
+    NSString *twoLastCharacter = nil;
+    if (stringCount.length > 1) {
+        twoLastCharacter = [stringCount substringFromIndex:stringCount.length - 2];
+    }
+    
+    // цифры, с особыми склонениями
+    NSArray *exclusiveNumbers = @[@"11", @"12", @"13", @"14"];
+    
+    if ([@"567890" rangeOfString:lastCharacter].location != NSNotFound || [self haveString:twoLastCharacter inArray:exclusiveNumbers]) {
+        return @"фотографий";
+    } else if ([@"1" rangeOfString:lastCharacter].location != NSNotFound) {
+        return @"фотография";
+    } else {
+        return @"фотографии";
+    }
+}
+
+- (BOOL)haveString:(NSString *)searchString inArray:(NSArray *)array {
+    for (NSString *string in array) {
+        if ([string isEqualToString:searchString]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

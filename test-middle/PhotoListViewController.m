@@ -71,13 +71,19 @@ CGFloat const kHeightRow = 80.f;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.view.backgroundColor = [UIColor whiteColor];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self showLightStatusBar:YES];
+    self.navigationItem.title = (self.listType == PhotoAlbumList) ? @"Фотоальбомы": @"Фотографии";
+}
+
+- (void)showLightStatusBar:(BOOL)isLight {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] setStatusBarStyle:isLight ? UIStatusBarStyleLightContent: UIStatusBarStyleDefault];
+    });
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.navigationItem.title = (self.listType == PhotoAlbumList) ? @"Фотоальбомы": @"Фотографии";
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"main_color"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.translucent = YES;
@@ -86,8 +92,11 @@ CGFloat const kHeightRow = 80.f;
     
     
     [self.navigationController.navigationBar setBackIndicatorImage:[UIImage imageNamed:@"icon_back"]];
+    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"icon_back"]];
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [self.navigationItem setBackBarButtonItem:backButtonItem];
     
-    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_close"] style:UIBarButtonItemStylePlain target:self action:@selector(closePhotoLibrary)];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_switch"] style:UIBarButtonItemStylePlain target:self action:@selector(closePhotoLibrary)];
     self.navigationItem.rightBarButtonItem = closeButton;
     
     // table
@@ -104,7 +113,7 @@ CGFloat const kHeightRow = 80.f;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [self showLightStatusBar:NO];
 }
 
 - (void)createAndLayoutTableView {
@@ -174,13 +183,5 @@ CGFloat const kHeightRow = 80.f;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.navigationController pushViewController:[PhotoListViewController photoListWithType:PhotoAlbumList] animated:YES];
 }
-
-//- (NSString *)stringPhotoCount:(NSNumber *)count {
-//    NSInteger lastDigit = count.integerValue % 10;
-//    switch (lastDigit) {
-//        case 0: case <#expression#>:
-//            return @"фотографий";
-//    }
-//}
 
 @end

@@ -14,8 +14,8 @@
     return [self fontWithName:@"HelveticaNeue-Thin" size:size];
 }
 
-+ (instancetype)lightFontWithSize:(CGFloat)size {
-    return [self fontWithName:@"HelveticaNeue-Lignt" size:size];
++ (instancetype)regularFontWithSize:(CGFloat)size {
+    return [self fontWithName:@"HelveticaNeue" size:size];
 }
 
 @end

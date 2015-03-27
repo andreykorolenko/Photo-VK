@@ -20,8 +20,8 @@
         self.translatesAutoresizingMaskIntoConstraints = NO;
         [self addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         [self setTitle:text forState:UIControlStateNormal];
-        self.titleLabel.font = [UIFont lightFontWithSize:5.f];
-        self.layer.borderWidth = 1.f;
+        self.titleLabel.font = [UIFont thinFontWithSize:20.f];
+        self.layer.borderWidth = 0.5;
         [self setColorType:type];
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 3;
@@ -33,17 +33,17 @@
     switch (colorType) {
         case ButtonEmptyColor:
             [self setBackgroundImage:[UIImage new] forState:UIControlStateNormal];
-            [self setBackgroundImage:[UIImage imageNamed:@"teakColor"] forState:UIControlStateHighlighted];
-            [self setTitleColor:[UIColor teakColor] forState:UIControlStateNormal];
+            [self setBackgroundImage:[UIImage imageNamed:@"main_color"] forState:UIControlStateHighlighted];
+            [self setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
             [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-            self.layer.borderColor = [UIColor teakColor].CGColor;
+            self.layer.borderColor = [UIColor mainColor].CGColor;
             self.userInteractionEnabled = YES;
             break;
         case ButtonFullColor:
-            [self setBackgroundImage:[UIImage imageNamed:@"teakColor"] forState:UIControlStateNormal];
+            [self setBackgroundImage:[UIImage imageNamed:@"main_color"] forState:UIControlStateNormal];
             [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [self setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
-            self.layer.borderColor = [UIColor teakColor].CGColor;
+            self.layer.borderColor = [UIColor mainColor].CGColor;
             self.userInteractionEnabled = YES;
             break;
         case ButtonGrayLockedColor:
@@ -52,7 +52,6 @@
             self.layer.borderColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1].CGColor;
             break;
     }
-
 }
 
 @end

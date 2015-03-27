@@ -43,6 +43,7 @@ NSString * const AppID = @"4844768";
 
 - (void)getAlbumsWithComplitionBlock:(RequestCompletionBlock)completion {
     VKRequest *getAlbums = [VKRequest requestWithMethod:@"photos.getAlbums" andParameters:@{VK_API_OWNER_ID : @"80074128", @"need_covers": @YES} andHttpMethod:@"GET"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     [getAlbums executeWithResultBlock:^(VKResponse * response) {
         NSLog(@"Json result: %@", response.json);
@@ -68,7 +69,7 @@ NSString * const AppID = @"4844768";
                  completion(nil, error, response);
                  NSLog(@"%@", error.description);
              }
-
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
          
     } errorBlock:^(NSError * error) {
@@ -76,6 +77,7 @@ NSString * const AppID = @"4844768";
             [error.vkError.request repeat];
         } else {
             NSLog(@"VK error: %@", error);
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             completion(nil, error, nil);
         }
     }];

@@ -10,8 +10,8 @@
 
 @implementation UIColor (Styles)
 
-+ (instancetype)teakColor {
-    return [UIColor colorWithRed:0.67 green:0.61 blue:0.36 alpha:1];
++ (instancetype)mainColor {
+    return [UIColor colorWithRed:0.8 green:0.1 blue:0.31 alpha:1];
 }
 
 @end

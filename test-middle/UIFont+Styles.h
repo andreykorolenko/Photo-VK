@@ -11,6 +11,6 @@
 @interface UIFont (Styles)
 
 + (instancetype)thinFontWithSize:(CGFloat)size;
-+ (instancetype)lightFontWithSize:(CGFloat)size;
++ (instancetype)regularFontWithSize:(CGFloat)size;
 
 @end

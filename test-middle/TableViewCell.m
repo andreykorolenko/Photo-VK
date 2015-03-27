@@ -29,7 +29,7 @@
 
 - (void)createAndLayoutUIWithAlbum:(AlbumList *)album {
     
-    UIImageView *photo = [[UIImageView alloc] initWithFrame:CGRectZero];
+    __block UIImageView *photo = [[UIImageView alloc] initWithFrame:CGRectZero];
     photo.translatesAutoresizingMaskIntoConstraints = NO;
     photo.layer.cornerRadius = 35;
     photo.layer.masksToBounds = YES;
@@ -40,7 +40,7 @@
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectZero];
     name.translatesAutoresizingMaskIntoConstraints = NO;
     name.numberOfLines = NO;
-    name.font = [UIFont thinFontWithSize:18.f];
+    name.font = [UIFont thinFontWithSize:20.f];
     name.text = album.name;
     [self.contentView addSubview:name];
     
@@ -57,7 +57,21 @@
                                                                 multiplier:1.0
                                                                   constant:0.0]];
     
-    [photo setImageWithURL:[NSURL URLWithString:album.imageURL] placeholderImage:nil];
+    //[photo setImageWithURL:[NSURL URLWithString:album.imageURL] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    NSURL *url = [NSURL URLWithString:album.imageURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    __weak UIImageView *weakPhoto = photo;
+    
+    [photo setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"placeholder"]
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        weakPhoto.image = image;
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
 }
 
 @end

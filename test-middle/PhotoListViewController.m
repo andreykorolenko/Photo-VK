@@ -9,15 +9,45 @@
 #import "PhotoListViewController.h"
 #import "VkontakteHelper.h"
 #import "TableViewCell.h"
+#import "UIFont+Styles.h"
 
 #import "AlbumList.h"
 //#import "PhotoList.h"
+
+CGFloat const kHeightRow = 80.f;
+
+@interface TableViewRefreshNoJump : UITableView
+// http://stackoverflow.com/questions/19483511/uirefreshcontrol-with-uicollectionview-in-ios7
+@end
+
+@implementation TableViewRefreshNoJump
+
+- (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
+    self = [super initWithFrame:frame style:style];
+    if (self) {
+        self.scrollsToTop = NO;
+    }
+    return self;
+}
+
+- (void)setContentInset:(UIEdgeInsets)contentInset {
+    if (self.tracking) {
+        CGFloat diff = contentInset.top - self.contentInset.top;
+        CGPoint translation = [self.panGestureRecognizer translationInView:self];
+        translation.y -= diff * 3.0 / 2.0;
+        [self.panGestureRecognizer setTranslation:translation inView:self];
+    }
+    [super setContentInset:contentInset];
+}
+
+@end
 
 @interface PhotoListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, assign) PhotoListType listType;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -48,27 +78,50 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationItem.title = (self.listType == PhotoAlbumList) ? @"Фотоальбомы": @"Фотографии";
     
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"main_color"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont thinFontWithSize:22.f], NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_close"] style:UIBarButtonItemStylePlain target:self action:@selector(closePhotoLibrary)];
+    self.navigationItem.rightBarButtonItem = closeButton;
+    
+    // table
+    [self createAndLayoutTableView];
+    
     // возьмем сохраненные альбомы
     self.dataSource = [AlbumList findAll];
     // отсортировать по дате
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
     self.dataSource = [self.dataSource sortedArrayUsingDescriptors:@[sortDescriptor]];
-    [self updateDataSourceFromServer];
     
-    // table
-    [self createAndLayoutTableView];
+    [self updateDataSourceFromServer];
 }
 
 - (void)createAndLayoutTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero];
+    self.tableView = [[TableViewRefreshNoJump alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.rowHeight = kHeightRow;
     [self.view addSubview:self.tableView];
     
     NSDictionary *views = @{@"tableView": self.tableView};
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[tableView]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-64)-[tableView]|" options:0 metrics:nil views:views]];
+    
+    [self.tableView setContentInset:UIEdgeInsetsMake(64, 0, 0, 0)];
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0);
+    [self.tableView layoutIfNeeded];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
+}
+
+- (void)refresh:(UIRefreshControl *)sender {
+    [self updateDataSourceFromServer];
 }
 
 - (void)updateDataSourceFromServer {
@@ -76,8 +129,13 @@
         if (!error && responseObject) {
             self.dataSource = responseObject;
             [self.tableView reloadData];
+            [self.refreshControl endRefreshing];
         }
     }];
+}
+
+- (void)closePhotoLibrary {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource
@@ -101,7 +159,7 @@
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80.f;
+    return kHeightRow;
 }
 
 @end

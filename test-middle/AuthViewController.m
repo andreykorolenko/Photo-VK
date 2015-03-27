@@ -48,7 +48,7 @@
                                                              multiplier:1.0
                                                                constant:0.0]];
     
-    [UIView animateWithDuration:0.15 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.15 delay:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [self.view layoutIfNeeded];
     } completion:nil];
 }
@@ -72,7 +72,7 @@
     // name
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.nameLabel.font = [UIFont thinFontWithSize:22.f];
+    self.nameLabel.font = [UIFont thinFontWithSize:24.f];
     NSString *userName = [VkontakteHelper sharedHelper].login;
     self.nameLabel.text = (userName) ? userName : @"Пожалуйста, авторизуйтесь";
     self.nameLabel.numberOfLines = 0;

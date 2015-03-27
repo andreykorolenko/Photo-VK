@@ -10,6 +10,6 @@
 
 @interface UIColor (Styles)
 
-+ (instancetype)teakColor;
++ (instancetype)mainColor;
 
 @end

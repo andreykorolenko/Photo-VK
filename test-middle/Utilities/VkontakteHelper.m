@@ -143,6 +143,30 @@ NSString * const kVKOwnerID = @"3845529"; // лу
     }];
 }
 
+// загрузка изображения
+- (void)downloadImageWithURL:(NSURL *)url onCompletion:(void(^)(UIImage *image, NSError *error))completion {
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Response: %@", responseObject);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Image error: %@", error);
+    }];
+    [requestOperation start];
+}
+
+//- (NSURLSessionDataTask *)downloadImageWithURLString:(NSString *)urlString onCompletion:(void(^)(UIImage *image, NSError *error))completion {
+//    NSURLSessionDataTask *task = [self.imageSessionManager GET:urlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//        completion(responseObject, nil);
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        completion(nil, error);
+//    }];
+//    [task resume];
+//    return task;
+//}
+
 - (instancetype)init {
     self = [super init];
     if (self) {

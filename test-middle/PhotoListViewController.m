@@ -9,6 +9,7 @@
 #import "PhotoListViewController.h"
 #import "VkontakteHelper.h"
 #import "ListViewCell.h"
+#import "ListViewCellDelegate.h"
 #import "UIFont+Styles.h"
 
 #import "AlbumManager.h"
@@ -48,7 +49,7 @@ typedef NS_ENUM(NSInteger, ListType) {
     PhotosList
 };
 
-@interface PhotoListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface PhotoListViewController () <UITableViewDataSource, UITableViewDelegate, ListViewCellDelegate>
 
 @property (nonatomic, assign) ListType listType;
 @property (nonatomic, strong) Album *selectedAlbum;
@@ -232,7 +233,7 @@ typedef NS_ENUM(NSInteger, ListType) {
         if (self.listType == AlbumsList) {
             cell = [ListViewCell cellWithAlbum:(Album *)object];
         } else {
-            cell = [ListViewCell cellWithPhoto:(Photo *)object];
+            cell = [ListViewCell cellWithPhoto:(Photo *)object delegate:self];
         }
     }
     return cell;
@@ -249,6 +250,12 @@ typedef NS_ENUM(NSInteger, ListType) {
         Album *selectedAlbum = self.dataSource[indexPath.row];
         [self.navigationController pushViewController:[PhotoListViewController photoListWithPhotosFromAlbum:selectedAlbum] animated:YES];
     }
+}
+
+#pragma mark - ListViewCellDelegate
+
+- (void)userDidSelectPhoto:(NSNumber *)uid {
+    NSLog(@"User Did Select Photo %@", uid);
 }
 
 @end

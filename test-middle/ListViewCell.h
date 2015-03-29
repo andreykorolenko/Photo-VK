@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class Album, Photo;
+@protocol ListViewCellDelegate;
 
 @interface ListViewCell : UITableViewCell
 
 + (instancetype)cellWithAlbum:(Album *)album;
-+ (instancetype)cellWithPhoto:(Photo *)photo;
++ (instancetype)cellWithPhoto:(Photo *)photo delegate:(id <ListViewCellDelegate>)delegate;
 
 @end

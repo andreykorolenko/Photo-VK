@@ -7,6 +7,7 @@
 //
 
 #import "ListViewCell.h"
+#import "ListViewCellDelegate.h"
 #import "Album.h"
 #import "Photo.h"
 
@@ -16,10 +17,14 @@
 
 @interface ListViewCell ()
 
-@property (nonatomic, strong) __block UIImageView *photo;
+@property (nonatomic, weak) id <ListViewCellDelegate> delegate;
+
+@property (nonatomic, strong) __block UIImageView *photoView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIView *infoView;
 @property (nonatomic, assign) BOOL isHaveLike;
+
+@property (nonatomic, strong) NSNumber *photoUID;
 
 @end
 
@@ -40,15 +45,16 @@
     return self;
 }
 
-+ (instancetype)cellWithPhoto:(Photo *)photo {
-    return [[self alloc] initWithPhoto:photo];
++ (instancetype)cellWithPhoto:(Photo *)photo delegate:(id <ListViewCellDelegate>)delegate {
+    return [[self alloc] initWithPhoto:photo delegate:delegate];
 }
 
-- (instancetype)initWithPhoto:(Photo *)photo
+- (instancetype)initWithPhoto:(Photo *)photo delegate:(id <ListViewCellDelegate>)delegate
 {
     self = [super init];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.delegate = delegate;
         [self createAndLayoutUI];
         [self addInfoFromPhoto:photo];
     }
@@ -56,12 +62,12 @@
 }
 
 - (void)createAndLayoutUI {
-    self.photo = [[UIImageView alloc] initWithFrame:CGRectZero];
-    self.photo.translatesAutoresizingMaskIntoConstraints = NO;
-    self.photo.layer.cornerRadius = 35;
-    self.photo.layer.masksToBounds = YES;
-    self.photo.contentMode = UIViewContentModeScaleAspectFill;
-    [self.contentView addSubview:self.photo];
+    self.photoView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    self.photoView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.photoView.layer.cornerRadius = 35;
+    self.photoView.layer.masksToBounds = YES;
+    self.photoView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.contentView addSubview:self.photoView];
     
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -73,13 +79,13 @@
     self.infoView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:self.infoView];
     
-    NSDictionary *views = @{@"photo": self.photo, @"name": self.nameLabel, @"info": self.infoView};
+    NSDictionary *views = @{@"photo": self.photoView, @"name": self.nameLabel, @"info": self.infoView};
     NSDictionary *metrics = @{@"size": @70, @"side": @15, @"top": @10};
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[photo(size)]-side-[name]-side-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[photo]-side-[info]-side-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[name][info(==name)]-top-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[photo(size)]" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.photo
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.photoView
                                                                  attribute:NSLayoutAttributeCenterY
                                                                  relatedBy:NSLayoutRelationEqual
                                                                     toItem:self.contentView
@@ -105,6 +111,13 @@
 }
 
 - (void)addInfoFromPhoto:(Photo *)photo {
+    
+    self.photoUID = photo.uid; // для делегата
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)];
+    self.photoView.userInteractionEnabled = YES;
+    [self.photoView addGestureRecognizer:tapGesture];
+    
     self.nameLabel.text = @"Фото";
     
     UIView *likeBackround = [[UIView alloc] initWithFrame:CGRectZero];
@@ -154,9 +167,9 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
-    __weak UIImageView *weakPhoto = self.photo;
+    __weak UIImageView *weakPhoto = self.photoView;
     
-    [self.photo setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"placeholder"]
+    [self.photoView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"placeholder"]
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                               weakPhoto.image = image;
                               //[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -166,6 +179,12 @@
 }
 
 #pragma mark - Gestures
+
+- (void)selectPhoto:(UITapGestureRecognizer *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(userDidSelectPhoto:)]) {
+        [self.delegate userDidSelectPhoto:self.photoUID];
+    }
+}
 
 - (void)tapLike:(UITapGestureRecognizer *)sender {
     self.isHaveLike = self.isHaveLike ? NO : YES;

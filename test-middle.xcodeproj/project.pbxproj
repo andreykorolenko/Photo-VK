@@ -100,6 +100,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		555CC0F31AC86DAC00B9E8FC /* ListViewCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewCellDelegate.h; sourceTree = "<group>"; };
 		556563AE1AC4B1AF00881517 /* ListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewCell.h; sourceTree = "<group>"; };
 		556563AF1AC4B1AF00881517 /* ListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewCell.m; sourceTree = "<group>"; };
 		556563B21AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -414,6 +415,7 @@
 				55FA2CD41AC355F300B7706B /* Button.m */,
 				556563AE1AC4B1AF00881517 /* ListViewCell.h */,
 				556563AF1AC4B1AF00881517 /* ListViewCell.m */,
+				555CC0F31AC86DAC00B9E8FC /* ListViewCellDelegate.h */,
 			);
 			name = Views;
 			sourceTree = "<group>";

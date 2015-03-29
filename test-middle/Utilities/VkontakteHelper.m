@@ -120,7 +120,7 @@ NSString * const kVKOwnerID = @"3845529"; // лу
     __typeof(self) __weak welf = self;
     VKRequest * meRequest = [[VKApi users] get];
     [meRequest executeWithResultBlock:^(VKResponse * response) {
-        NSLog(@"Json result: %@", response.json);
+        //NSLog(@"Json result: %@", response.json);
         if ([response.json isKindOfClass:[NSArray class]]) {
             for (NSDictionary *eachUser in response.json) {
                 NSString *firstName = [eachUser objectForKey:@"first_name"];

@@ -2234,7 +2234,7 @@ static BOOL PSTRegisterClass(NSString *UIClassName, Class PSTClass) {
         // If the UIKit class is smaller then our subclass, ivars won't clash, so there's no issue.
         long sizeDifference = class_getInstanceSize(UIClass) - class_getInstanceSize(PSTClass);
         if (sizeDifference > 0) {
-            NSLog(@"Warning! ivar size mismatch in %@ - can't change the superclass.", PSTClass);
+            //NSLog(@"Warning! ivar size mismatch in %@ - can't change the superclass.", PSTClass);
             return NO;
         } else {
 #pragma clang diagnostic push

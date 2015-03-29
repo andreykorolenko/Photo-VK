@@ -5,8 +5,11 @@
 
 extern const struct PhotoAttributes {
 	__unsafe_unretained NSString *date;
+	__unsafe_unretained NSString *haveMap;
 	__unsafe_unretained NSString *isUserLike;
+	__unsafe_unretained NSString *latitude;
 	__unsafe_unretained NSString *likes;
+	__unsafe_unretained NSString *longitude;
 	__unsafe_unretained NSString *originalSizeURL;
 	__unsafe_unretained NSString *smallSizeURL;
 	__unsafe_unretained NSString *uid;
@@ -31,6 +34,14 @@ extern const struct PhotoRelationships {
 
 //- (BOOL)validateDate:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* haveMap;
+
+@property (atomic) BOOL haveMapValue;
+- (BOOL)haveMapValue;
+- (void)setHaveMapValue:(BOOL)value_;
+
+//- (BOOL)validateHaveMap:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSNumber* isUserLike;
 
 @property (atomic) BOOL isUserLikeValue;
@@ -39,6 +50,14 @@ extern const struct PhotoRelationships {
 
 //- (BOOL)validateIsUserLike:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* latitude;
+
+@property (atomic) double latitudeValue;
+- (double)latitudeValue;
+- (void)setLatitudeValue:(double)value_;
+
+//- (BOOL)validateLatitude:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSNumber* likes;
 
 @property (atomic) int16_t likesValue;
@@ -46,6 +65,14 @@ extern const struct PhotoRelationships {
 - (void)setLikesValue:(int16_t)value_;
 
 //- (BOOL)validateLikes:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* longitude;
+
+@property (atomic) double longitudeValue;
+- (double)longitudeValue;
+- (void)setLongitudeValue:(double)value_;
+
+//- (BOOL)validateLongitude:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* originalSizeURL;
 
@@ -77,17 +104,35 @@ extern const struct PhotoRelationships {
 - (NSDate*)primitiveDate;
 - (void)setPrimitiveDate:(NSDate*)value;
 
+- (NSNumber*)primitiveHaveMap;
+- (void)setPrimitiveHaveMap:(NSNumber*)value;
+
+- (BOOL)primitiveHaveMapValue;
+- (void)setPrimitiveHaveMapValue:(BOOL)value_;
+
 - (NSNumber*)primitiveIsUserLike;
 - (void)setPrimitiveIsUserLike:(NSNumber*)value;
 
 - (BOOL)primitiveIsUserLikeValue;
 - (void)setPrimitiveIsUserLikeValue:(BOOL)value_;
 
+- (NSNumber*)primitiveLatitude;
+- (void)setPrimitiveLatitude:(NSNumber*)value;
+
+- (double)primitiveLatitudeValue;
+- (void)setPrimitiveLatitudeValue:(double)value_;
+
 - (NSNumber*)primitiveLikes;
 - (void)setPrimitiveLikes:(NSNumber*)value;
 
 - (int16_t)primitiveLikesValue;
 - (void)setPrimitiveLikesValue:(int16_t)value_;
+
+- (NSNumber*)primitiveLongitude;
+- (void)setPrimitiveLongitude:(NSNumber*)value;
+
+- (double)primitiveLongitudeValue;
+- (void)setPrimitiveLongitudeValue:(double)value_;
 
 - (NSString*)primitiveOriginalSizeURL;
 - (void)setPrimitiveOriginalSizeURL:(NSString*)value;

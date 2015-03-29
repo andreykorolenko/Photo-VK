@@ -367,10 +367,10 @@
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:animated];
+            //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:animated];
 #pragma clang diagnostic push
         } else {
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
+            //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
         }
     }
     
@@ -390,7 +390,8 @@
         }
         _viewHasAppearedInitially = YES;
     }
-
+    
+    //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -429,6 +430,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     _viewIsActive = YES;
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)willMoveToParentViewController:(UIViewController *)parent {

@@ -33,9 +33,6 @@
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary inContext:(NSManagedObjectContext *)context {
     
-    // название альбома
-    //self.name = OBJ_OR_NIL(dictionary[@"title"], NSString);
-    
     // дата создания
     NSNumber *dateNumberSince = OBJ_OR_NIL(dictionary[@"date"], NSNumber);
     self.date = [NSDate dateWithTimeIntervalSince1970:[dateNumberSince longValue]];
@@ -52,6 +49,13 @@
     
     // full photo
     self.originalSizeURL = OBJ_OR_NIL(dictionary[@"photo_1280"], NSString);
+    
+    // местоположение
+    self.latitude = OBJ_OR_NIL(dictionary[@"lat"], NSNumber);
+    self.longitude = OBJ_OR_NIL(dictionary[@"long"], NSNumber);
+    if (self.latitude && self.longitude) {
+        self.haveMap = @YES;
+    }
 }
 
 @end

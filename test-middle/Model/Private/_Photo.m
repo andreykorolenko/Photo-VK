@@ -5,8 +5,11 @@
 
 const struct PhotoAttributes PhotoAttributes = {
 	.date = @"date",
+	.haveMap = @"haveMap",
 	.isUserLike = @"isUserLike",
+	.latitude = @"latitude",
 	.likes = @"likes",
+	.longitude = @"longitude",
 	.originalSizeURL = @"originalSizeURL",
 	.smallSizeURL = @"smallSizeURL",
 	.uid = @"uid",
@@ -42,13 +45,28 @@ const struct PhotoRelationships PhotoRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"haveMapValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"haveMap"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"isUserLikeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"isUserLike"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"latitudeValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"latitude"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"likesValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"likes"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"longitudeValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"longitude"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -62,6 +80,26 @@ const struct PhotoRelationships PhotoRelationships = {
 }
 
 @dynamic date;
+
+@dynamic haveMap;
+
+- (BOOL)haveMapValue {
+	NSNumber *result = [self haveMap];
+	return [result boolValue];
+}
+
+- (void)setHaveMapValue:(BOOL)value_ {
+	[self setHaveMap:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveHaveMapValue {
+	NSNumber *result = [self primitiveHaveMap];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveHaveMapValue:(BOOL)value_ {
+	[self setPrimitiveHaveMap:[NSNumber numberWithBool:value_]];
+}
 
 @dynamic isUserLike;
 
@@ -83,6 +121,26 @@ const struct PhotoRelationships PhotoRelationships = {
 	[self setPrimitiveIsUserLike:[NSNumber numberWithBool:value_]];
 }
 
+@dynamic latitude;
+
+- (double)latitudeValue {
+	NSNumber *result = [self latitude];
+	return [result doubleValue];
+}
+
+- (void)setLatitudeValue:(double)value_ {
+	[self setLatitude:[NSNumber numberWithDouble:value_]];
+}
+
+- (double)primitiveLatitudeValue {
+	NSNumber *result = [self primitiveLatitude];
+	return [result doubleValue];
+}
+
+- (void)setPrimitiveLatitudeValue:(double)value_ {
+	[self setPrimitiveLatitude:[NSNumber numberWithDouble:value_]];
+}
+
 @dynamic likes;
 
 - (int16_t)likesValue {
@@ -101,6 +159,26 @@ const struct PhotoRelationships PhotoRelationships = {
 
 - (void)setPrimitiveLikesValue:(int16_t)value_ {
 	[self setPrimitiveLikes:[NSNumber numberWithShort:value_]];
+}
+
+@dynamic longitude;
+
+- (double)longitudeValue {
+	NSNumber *result = [self longitude];
+	return [result doubleValue];
+}
+
+- (void)setLongitudeValue:(double)value_ {
+	[self setLongitude:[NSNumber numberWithDouble:value_]];
+}
+
+- (double)primitiveLongitudeValue {
+	NSNumber *result = [self primitiveLongitude];
+	return [result doubleValue];
+}
+
+- (void)setPrimitiveLongitudeValue:(double)value_ {
+	[self setPrimitiveLongitude:[NSNumber numberWithDouble:value_]];
 }
 
 @dynamic originalSizeURL;

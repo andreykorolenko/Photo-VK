@@ -17,6 +17,7 @@
 #import "Photo.h"
 
 #import "MWPhotoBrowser.h"
+#import "PhotoShow.h"
 
 CGFloat const kHeightRow = 80.f;
 
@@ -58,6 +59,7 @@ typedef NS_ENUM(NSInteger, ListType) {
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, assign) BOOL needBlackStatusBar;
 
 @property (nonatomic, strong) NSMutableArray *photos;
 
@@ -97,6 +99,7 @@ typedef NS_ENUM(NSInteger, ListType) {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self showLightStatusBar:YES];
+    self.needBlackStatusBar = YES;
     [self.view layoutIfNeeded];
 }
 
@@ -121,7 +124,10 @@ typedef NS_ENUM(NSInteger, ListType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self showLightStatusBar:NO];
+    
+    if (self.needBlackStatusBar) {
+        [self showLightStatusBar:NO];
+    }
 }
 
 #pragma mark - UI
@@ -228,9 +234,8 @@ typedef NS_ENUM(NSInteger, ListType) {
     
     NSMutableArray *photos = [NSMutableArray array];
     for (Photo *photo in self.dataSource) {
-        MWPhoto *bigPhoto = [MWPhoto photoWithURL:[NSURL URLWithString:photo.originalSizeURL]];
-        bigPhoto.caption = @"Fireworks";
-        [photos addObject:bigPhoto];
+        PhotoShow *photoShow = [PhotoShow photoWithPhoto:photo];
+        [photos addObject:photoShow];
     }
     self.photos = photos;
 }
@@ -265,6 +270,7 @@ typedef NS_ENUM(NSInteger, ListType) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.listType == AlbumsList) {
+        self.needBlackStatusBar = NO;
         Album *selectedAlbum = self.dataSource[indexPath.row];
         [self.navigationController pushViewController:[PhotoListViewController photoListWithPhotosFromAlbum:selectedAlbum] animated:YES];
     }
@@ -274,19 +280,14 @@ typedef NS_ENUM(NSInteger, ListType) {
 
 - (void)userDidSelectPhoto:(NSNumber *)uid {
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-    browser.displayActionButton = YES; // Show action button to allow sharing, copying, etc (defaults to YES)
-    browser.displayNavArrows = NO; // Whether to display left and right nav arrows on toolbar (defaults to NO)
-    browser.displaySelectionButtons = NO; // Whether selection buttons are shown on each image (defaults to NO)
-    browser.zoomPhotosToFill = YES; // Images that almost fill the screen will be initially zoomed to fill (defaults to YES)
-    browser.alwaysShowControls = NO; // Allows to control whether the bars and controls are always visible or whether they fade away to show the photo full (defaults to NO)
-    browser.enableGrid = YES; // Whether to allow the viewing of all the photo thumbnails on a grid (defaults to YES)
-    browser.startOnGrid = NO; // Whether to start on the grid of thumbnails instead of the first photo (defaults to NO)
-    
+    browser.displayActionButton = YES;
     [browser setCurrentPhotoIndex:[self numberPhotoInListByUID:uid]];
     
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
-    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:nc animated:YES completion:nil];
+    self.needBlackStatusBar = NO;
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:browser];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (NSInteger)numberPhotoInListByUID:(NSNumber *)uid {
@@ -300,6 +301,12 @@ typedef NS_ENUM(NSInteger, ListType) {
     return -1;
 }
 
+//- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
+//    MWPhoto *photo = [self.photos objectAtIndex:index];
+//    MyMWCaptionViewSubclass *captionView = [[MyMWCaptionViewSubclass alloc] initWithPhoto:photo];
+//    return captionView;
+//}
+
 #pragma mark - MWPhotoBrowserDelegate
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
@@ -310,47 +317,6 @@ typedef NS_ENUM(NSInteger, ListType) {
     if (index < self.photos.count)
         return [self.photos objectAtIndex:index];
     return nil;
-}
-
-- (void)createPhotoBrowser {
-    
-    // Browser
-    NSMutableArray *photos = [[NSMutableArray alloc] init];
-    
-    BOOL displayActionButton = YES;
-    BOOL displaySelectionButtons = NO;
-    BOOL displayNavArrows = NO;
-    BOOL enableGrid = YES;
-    BOOL startOnGrid = NO;
-    
-    // Photos
-    
-    
-    // Options
-    enableGrid = NO;
-    
-    self.photos = photos;
-//    /self.thumbs = thumbs;
-    
-    // Create browser
-    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-    browser.displayActionButton = displayActionButton;
-    browser.displayNavArrows = displayNavArrows;
-    browser.displaySelectionButtons = displaySelectionButtons;
-    browser.alwaysShowControls = displaySelectionButtons;
-    browser.zoomPhotosToFill = YES;
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
-    browser.wantsFullScreenLayout = YES;
-#endif
-    browser.enableGrid = enableGrid;
-    browser.startOnGrid = startOnGrid;
-    browser.enableSwipeToDismiss = YES;
-    [browser setCurrentPhotoIndex:0];
-    
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
-    //nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:nc animated:YES completion:nil];
-
 }
 
 @end

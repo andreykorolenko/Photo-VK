@@ -14,7 +14,8 @@
 #import "Photo.h"
 
 NSString * const AppID = @"4844768";
-NSString * const kVKOwnerID = @"3845529"; // лу
+NSString * const kVKOwnerID = @"284922027";
+//NSString * const kVKOwnerID = @"3845529"; // лу
 //NSString * const kVKOwnerID = @"80074128"; // чулаков
 
 @interface VkontakteHelper () <VKSdkDelegate>

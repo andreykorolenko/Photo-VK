@@ -64,6 +64,7 @@
 		552F10D81AC874740028EDF9 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10A81AC874740028EDF9 /* UIImageView+WebCache.m */; };
 		552F10D91AC874740028EDF9 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10AA1AC874740028EDF9 /* UIView+WebCacheOperation.m */; };
 		552F10DA1AC874740028EDF9 /* MWPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 552F10AC1AC874740028EDF9 /* MWPhotoBrowser.bundle */; };
+		552F10E11AC87D310028EDF9 /* PhotoShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10E01AC87D310028EDF9 /* PhotoShow.m */; };
 		555CC1421AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.m in Sources */ = {isa = PBXBuildFile; fileRef = 555CC1411AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.m */; };
 		556563B01AC4B1AF00881517 /* ListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563AF1AC4B1AF00881517 /* ListViewCell.m */; };
 		556563C31AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563B31AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.m */; };
@@ -241,6 +242,8 @@
 		552F10AB1AC874740028EDF9 /* MWPhotoBrowser-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWPhotoBrowser-Prefix.pch"; sourceTree = "<group>"; };
 		552F10AC1AC874740028EDF9 /* MWPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MWPhotoBrowser.bundle; sourceTree = "<group>"; };
 		552F10AD1AC874740028EDF9 /* MWPhotoBrowser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MWPhotoBrowser.xcodeproj; sourceTree = "<group>"; };
+		552F10DF1AC87D310028EDF9 /* PhotoShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoShow.h; sourceTree = "<group>"; };
+		552F10E01AC87D310028EDF9 /* PhotoShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoShow.m; sourceTree = "<group>"; };
 		555CC0F31AC86DAC00B9E8FC /* ListViewCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewCellDelegate.h; sourceTree = "<group>"; };
 		555CC1401AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+ClassMethodPriority.h"; path = "Utilities/NSLayoutConstraint+ClassMethodPriority.h"; sourceTree = "<group>"; };
 		555CC1411AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+ClassMethodPriority.m"; path = "Utilities/NSLayoutConstraint+ClassMethodPriority.m"; sourceTree = "<group>"; };
@@ -620,6 +623,8 @@
 			children = (
 				5567596D1AC44AA90071059B /* Private */,
 				556759701AC44AA90071059B /* Public */,
+				552F10DF1AC87D310028EDF9 /* PhotoShow.h */,
+				552F10E01AC87D310028EDF9 /* PhotoShow.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1069,6 +1074,7 @@
 				552F10D51AC874740028EDF9 /* UIImage+MultiFormat.m in Sources */,
 				55FA2CCC1AC3125600B7706B /* AFHTTPSessionManager.m in Sources */,
 				552F10B91AC874740028EDF9 /* MBProgressHUD.m in Sources */,
+				552F10E11AC87D310028EDF9 /* PhotoShow.m in Sources */,
 				55FA2CB21AC3110100B7706B /* MagicalRecord+ShorthandSupport.m in Sources */,
 				558476BF1AC80DEE00E60568 /* AlbumManager.m in Sources */,
 				552F10C91AC874740028EDF9 /* README.md in Sources */,

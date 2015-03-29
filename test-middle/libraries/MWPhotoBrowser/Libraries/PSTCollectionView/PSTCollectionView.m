@@ -2284,7 +2284,7 @@ CGFloat PSTSimulatorAnimationDragCoefficient(void) {
     static CGFloat (*UIAnimationDragCoefficient)(void) = NULL;
 #if TARGET_IPHONE_SIMULATOR
 //#import <dlfcn.h>
-    static dispatch_once_t onceToken;
+    //static dispatch_once_t onceToken;
 //    dispatch_once(&onceToken, ^{
 //        UIAnimationDragCoefficient = (CGFloat (*)(void))dlsym(RTLD_DEFAULT, "UIAnimationDragCoefficient");
 //    });

@@ -303,7 +303,7 @@ typedef NS_ENUM(NSInteger, ListType) {
 }
 
 - (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
-    MWPhoto *photo = [self.photos objectAtIndex:index];
+    PhotoShow *photo = [self.photos objectAtIndex:index];
     CaptionView *captionView = [[CaptionView alloc] initWithPhoto:photo];
     return captionView;
 }

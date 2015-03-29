@@ -12,6 +12,8 @@
 #import "MWCommon.h"
 #import "Photo.h"
 
+#import "NSDate+Helper.h"
+
 static CGFloat const kHeightCaptionView = 70.0;
 
 @interface CaptionView ()
@@ -41,7 +43,7 @@ static CGFloat const kHeightCaptionView = 70.0;
 - (void)setupCaption {
     UILabel *author = [[UILabel alloc] initWithFrame:CGRectZero];
     author.translatesAutoresizingMaskIntoConstraints = NO;
-    author.font = [UIFont thinFontWithSize:22.f];
+    author.font = [UIFont thinFontWithSize:20.f];
     author.textColor = [UIColor whiteColor];
     author.numberOfLines = 0;
     author.text = [VkontakteHelper sharedHelper].login;
@@ -67,34 +69,49 @@ static CGFloat const kHeightCaptionView = 70.0;
     
     UILabel *countLikes = [[UILabel alloc] initWithFrame:CGRectZero];
     countLikes.translatesAutoresizingMaskIntoConstraints = NO;
-    countLikes.font = [UIFont thinFontWithSize:18.0];
+    countLikes.font = [UIFont regularFontWithSize:20.0];
+    countLikes.textColor = [UIColor whiteColor];
     countLikes.text = [self.photoShow.photoModel.likes stringValue];
     [infoView addSubview:countLikes];
     
-    // кнопки
-    UIView *backgroundShare = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundShare.translatesAutoresizingMaskIntoConstraints = NO;
-    backgroundShare.backgroundColor = [UIColor yellowColor];
-    [self addSubview:backgroundShare];
-
+    // дата
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    dateLabel.font = [UIFont thinFontWithSize:16.0];
+    dateLabel.textColor = [UIColor whiteColor];
+    dateLabel.textAlignment = NSTextAlignmentRight;
+    dateLabel.text = [NSDate stringFromDate:self.photoShow.photoModel.date];
+    [infoView addSubview:dateLabel];
+    
+    // map icon
     UIView *backgroundMap = [[UIView alloc] initWithFrame:CGRectZero];
     backgroundMap.translatesAutoresizingMaskIntoConstraints = NO;
-    backgroundMap.backgroundColor = [UIColor purpleColor];
+    //backgroundMap.backgroundColor = [UIColor purpleColor];
     [self addSubview:backgroundMap];
+    
+    UIImageView *mapPinView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    mapPinView.translatesAutoresizingMaskIntoConstraints = NO;
+    mapPinView.alpha = 0.9;
+    mapPinView.image = [UIImage imageNamed:@"map_pin"];
+    [backgroundMap addSubview:mapPinView];
 
-    NSDictionary *views = NSDictionaryOfVariableBindings(author, infoView, backgroundShare, backgroundMap, likeBackround, likeImageView, countLikes);
-    NSDictionary *metrics = @{@"side": @20, @"infoHeight": @25, @"likeSide": @35, @"widthButtons": @(kHeightCaptionView)};
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[author][backgroundShare]" options:0 metrics:metrics views:views]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[infoView][backgroundShare]" options:0 metrics:metrics views:views]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[author][infoView(infoHeight)]|" options:0 metrics:metrics views:views]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[backgroundShare(widthButtons)][backgroundMap(widthButtons)]|" options:0 metrics:metrics views:views]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[backgroundShare]|" options:0 metrics:metrics views:views]];
+    NSDictionary *views = NSDictionaryOfVariableBindings(author, infoView, likeBackround, likeImageView, countLikes, dateLabel, backgroundMap, mapPinView);
+    NSDictionary *metrics = @{@"side": @20, @"infoHeight": @25, @"likeSide": @35, @"widthButtons": @(kHeightCaptionView), @"pinSide": @12};
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[author][backgroundMap]" options:0 metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[infoView][backgroundMap]" options:0 metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[author][infoView(infoHeight)]-5-|" options:0 metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[backgroundMap(widthButtons)]-10-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[backgroundMap]|" options:0 metrics:metrics views:views]];
     
+    // map
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-pinSide-[mapPinView]-pinSide-|" options:0 metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-pinSide-[mapPinView]-pinSide-|" options:0 metrics:metrics views:views]];
+    
     // likes
-    [infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeBackround(infoHeight)][countLikes]" options:0 metrics:metrics views:views]];
+    [infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeBackround(infoHeight)]-8-[countLikes][dateLabel]-10-|" options:0 metrics:metrics views:views]];
+    [infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[dateLabel]-2-|" options:0 metrics:metrics views:views]];
     [infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeBackround]|" options:0 metrics:metrics views:views]];
-    [infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[countLikes]|" options:0 metrics:metrics views:views]];
+    [infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[countLikes]-2-|" options:0 metrics:metrics views:views]];
     [likeBackround addConstraint:[NSLayoutConstraint constraintWithItem:likeImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:likeBackround attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
     [likeBackround addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeImageView]" options:0 metrics:metrics views:views]];
 }

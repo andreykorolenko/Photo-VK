@@ -1,5 +1,5 @@
 //
-//  TableViewCell.h
+//  ListViewCell.h
 //  test-middle
 //
 //  Created by Андрей on 27.03.15.
@@ -10,7 +10,7 @@
 
 @class Album, Photo;
 
-@interface TableViewCell : UITableViewCell
+@interface ListViewCell : UITableViewCell
 
 + (instancetype)cellWithAlbum:(Album *)album;
 + (instancetype)cellWithPhoto:(Photo *)photo;

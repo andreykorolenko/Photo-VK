@@ -1,12 +1,12 @@
 //
-//  TableViewCell.m
+//  ListViewCell.m
 //  test-middle
 //
 //  Created by Андрей on 27.03.15.
 //  Copyright (c) 2015 sebbia. All rights reserved.
 //
 
-#import "TableViewCell.h"
+#import "ListViewCell.h"
 #import "Album.h"
 #import "Photo.h"
 
@@ -14,7 +14,7 @@
 #import "NSDate+Helper.h"
 #import "UIImageView+AFNetworking.h"
 
-@interface TableViewCell ()
+@interface ListViewCell ()
 
 @property (nonatomic, strong) __block UIImageView *photo;
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation TableViewCell
+@implementation ListViewCell
 
 + (instancetype)cellWithAlbum:(Album *)album {
     return [[self alloc] initWithAlbum:album];

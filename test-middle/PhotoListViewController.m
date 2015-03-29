@@ -8,7 +8,7 @@
 
 #import "PhotoListViewController.h"
 #import "VkontakteHelper.h"
-#import "TableViewCell.h"
+#import "ListViewCell.h"
 #import "UIFont+Styles.h"
 
 #import "AlbumManager.h"
@@ -222,17 +222,17 @@ typedef NS_ENUM(NSInteger, ListType) {
     return self.dataSource.count;
 }
 
-- (TableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (ListViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"PhotoAlbumCell";
     
     NSManagedObject *object = self.dataSource[indexPath.row];
     
-    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    ListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         if (self.listType == AlbumsList) {
-            cell = [TableViewCell cellWithAlbum:(Album *)object];
+            cell = [ListViewCell cellWithAlbum:(Album *)object];
         } else {
-            cell = [TableViewCell cellWithPhoto:(Photo *)object];
+            cell = [ListViewCell cellWithPhoto:(Photo *)object];
         }
     }
     return cell;

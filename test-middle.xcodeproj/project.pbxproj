@@ -21,7 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		556563B01AC4B1AF00881517 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563AF1AC4B1AF00881517 /* TableViewCell.m */; };
+		556563B01AC4B1AF00881517 /* ListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563AF1AC4B1AF00881517 /* ListViewCell.m */; };
 		556563C31AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563B31AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.m */; };
 		556563C41AC4C3EB00881517 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563B51AC4C3EB00881517 /* UIActivityIndicatorView+AFNetworking.m */; };
 		556563C51AC4C3EB00881517 /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563B71AC4C3EB00881517 /* UIAlertView+AFNetworking.m */; };
@@ -100,8 +100,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		556563AE1AC4B1AF00881517 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
-		556563AF1AC4B1AF00881517 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		556563AE1AC4B1AF00881517 /* ListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewCell.h; sourceTree = "<group>"; };
+		556563AF1AC4B1AF00881517 /* ListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewCell.m; sourceTree = "<group>"; };
 		556563B21AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		556563B31AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		556563B41AC4C3EB00881517 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -412,8 +412,8 @@
 			children = (
 				55FA2CD31AC355F300B7706B /* Button.h */,
 				55FA2CD41AC355F300B7706B /* Button.m */,
-				556563AE1AC4B1AF00881517 /* TableViewCell.h */,
-				556563AF1AC4B1AF00881517 /* TableViewCell.m */,
+				556563AE1AC4B1AF00881517 /* ListViewCell.h */,
+				556563AF1AC4B1AF00881517 /* ListViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -710,7 +710,7 @@
 				557DF68C1AC2E926008E26C9 /* AppDelegate.m in Sources */,
 				557DF68F1AC2E926008E26C9 /* test_middle.xcdatamodeld in Sources */,
 				5576728F1AC8429E00D9B166 /* UIColor+Styles.m in Sources */,
-				556563B01AC4B1AF00881517 /* TableViewCell.m in Sources */,
+				556563B01AC4B1AF00881517 /* ListViewCell.m in Sources */,
 				55FA2CAF1AC3110100B7706B /* MagicalRecord+iCloud.m in Sources */,
 				55FA2CAC1AC3110100B7706B /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				558476B51AC80DD600E60568 /* _AlbumManager.m in Sources */,

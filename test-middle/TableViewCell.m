@@ -11,6 +11,7 @@
 #import "Photo.h"
 
 #import "UIFont+Styles.h"
+#import "NSDate+Helper.h"
 #import "UIImageView+AFNetworking.h"
 
 @interface TableViewCell ()
@@ -127,9 +128,9 @@
     
     UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    dateLabel.font = [UIFont thinFontWithSize:18.0];
+    dateLabel.font = [UIFont thinFontWithSize:16.0];
     dateLabel.textAlignment = NSTextAlignmentRight;
-    dateLabel.text = @"Вчера";
+    dateLabel.text = [NSDate stringFromDate:photo.date];
     [self.infoView addSubview:dateLabel];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(likeBackround, likeImageView, countLikes, dateLabel);

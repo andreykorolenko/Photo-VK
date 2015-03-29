@@ -47,21 +47,23 @@
     self.countPhoto = OBJ_OR_NIL(dictionary[@"size"], NSNumber);
 }
 
-- (void)updatePhotos:(NSArray *)photos {
+- (void)updatePhotos:(NSArray *)photos inContext:(NSManagedObjectContext *)context {
     
     NSMutableOrderedSet *orderedSet = [NSMutableOrderedSet orderedSet];
     
     for (NSDictionary *eachDictionary in photos) {
-        Photo *photo = [Photo photoWithDictionary:eachDictionary inContext:[NSManagedObjectContext defaultContext]];
+        Photo *photo = [Photo photoWithDictionary:eachDictionary inContext:context];
         if (photo) {
             [orderedSet addObject:photo];
         }
-        self.photos = orderedSet;
     }
+    Album *album = [self inContext:context];
+    album.photos = orderedSet;
 }
 
 - (NSArray *)allPhotos {
-    return [self.photos array];
+    Album *album = [self inContext:[NSManagedObjectContext defaultContext]];
+    return [album.photos array];
 }
 
 @end

@@ -31,6 +31,10 @@
 		556563C91AC4C3EB00881517 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563C01AC4C3EB00881517 /* UIRefreshControl+AFNetworking.m */; };
 		556563CA1AC4C3EB00881517 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563C21AC4C3EB00881517 /* UIWebView+AFNetworking.m */; };
 		556759661AC43A2C0071059B /* PhotoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 556759651AC43A2C0071059B /* PhotoListViewController.m */; };
+		5576728E1AC8429E00D9B166 /* VkontakteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 557672871AC8429E00D9B166 /* VkontakteHelper.m */; };
+		5576728F1AC8429E00D9B166 /* UIColor+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = 557672891AC8429E00D9B166 /* UIColor+Styles.m */; };
+		557672901AC8429E00D9B166 /* UIFont+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = 5576728B1AC8429E00D9B166 /* UIFont+Styles.m */; };
+		557672911AC8429E00D9B166 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5576728D1AC8429E00D9B166 /* NSDate+Helper.m */; };
 		557DF6891AC2E926008E26C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 557DF6881AC2E926008E26C9 /* main.m */; };
 		557DF68C1AC2E926008E26C9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 557DF68B1AC2E926008E26C9 /* AppDelegate.m */; };
 		557DF68F1AC2E926008E26C9 /* test_middle.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 557DF68D1AC2E926008E26C9 /* test_middle.xcdatamodeld */; };
@@ -83,9 +87,6 @@
 		55FA2CD11AC3125600B7706B /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FA2CC71AC3125600B7706B /* AFURLResponseSerialization.m */; };
 		55FA2CD21AC3125600B7706B /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FA2CC91AC3125600B7706B /* AFURLSessionManager.m */; };
 		55FA2CD51AC355F300B7706B /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FA2CD41AC355F300B7706B /* Button.m */; };
-		55FA2CD81AC357BC00B7706B /* UIFont+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FA2CD71AC357BC00B7706B /* UIFont+Styles.m */; };
-		55FA2CDB1AC358A600B7706B /* UIColor+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FA2CDA1AC358A600B7706B /* UIColor+Styles.m */; };
-		55FA2CDF1AC3666F00B7706B /* VkontakteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FA2CDE1AC3666F00B7706B /* VkontakteHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,14 @@
 		556563C21AC4C3EB00881517 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		556759641AC43A2C0071059B /* PhotoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoListViewController.h; sourceTree = "<group>"; };
 		556759651AC43A2C0071059B /* PhotoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoListViewController.m; sourceTree = "<group>"; };
+		557672861AC8429E00D9B166 /* VkontakteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VkontakteHelper.h; path = Utilities/VkontakteHelper.h; sourceTree = "<group>"; };
+		557672871AC8429E00D9B166 /* VkontakteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VkontakteHelper.m; path = Utilities/VkontakteHelper.m; sourceTree = "<group>"; };
+		557672881AC8429E00D9B166 /* UIColor+Styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Styles.h"; path = "Utilities/UIColor+Styles.h"; sourceTree = "<group>"; };
+		557672891AC8429E00D9B166 /* UIColor+Styles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Styles.m"; path = "Utilities/UIColor+Styles.m"; sourceTree = "<group>"; };
+		5576728A1AC8429E00D9B166 /* UIFont+Styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+Styles.h"; path = "Utilities/UIFont+Styles.h"; sourceTree = "<group>"; };
+		5576728B1AC8429E00D9B166 /* UIFont+Styles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+Styles.m"; path = "Utilities/UIFont+Styles.m"; sourceTree = "<group>"; };
+		5576728C1AC8429E00D9B166 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Helper.h"; path = "Utilities/NSDate+Helper.h"; sourceTree = "<group>"; };
+		5576728D1AC8429E00D9B166 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Helper.m"; path = "Utilities/NSDate+Helper.m"; sourceTree = "<group>"; };
 		557DF6831AC2E926008E26C9 /* test-middle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "test-middle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		557DF6871AC2E926008E26C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		557DF6881AC2E926008E26C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -227,12 +236,6 @@
 		55FA2CC91AC3125600B7706B /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		55FA2CD31AC355F300B7706B /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
 		55FA2CD41AC355F300B7706B /* Button.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Button.m; sourceTree = "<group>"; };
-		55FA2CD61AC357BC00B7706B /* UIFont+Styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Styles.h"; sourceTree = "<group>"; };
-		55FA2CD71AC357BC00B7706B /* UIFont+Styles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Styles.m"; sourceTree = "<group>"; };
-		55FA2CD91AC358A600B7706B /* UIColor+Styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Styles.h"; sourceTree = "<group>"; };
-		55FA2CDA1AC358A600B7706B /* UIColor+Styles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Styles.m"; sourceTree = "<group>"; };
-		55FA2CDD1AC3666F00B7706B /* VkontakteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VkontakteHelper.h; sourceTree = "<group>"; };
-		55FA2CDE1AC3666F00B7706B /* VkontakteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VkontakteHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,12 +284,14 @@
 		556759621AC438EC0071059B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				55FA2CD61AC357BC00B7706B /* UIFont+Styles.h */,
-				55FA2CD71AC357BC00B7706B /* UIFont+Styles.m */,
-				55FA2CD91AC358A600B7706B /* UIColor+Styles.h */,
-				55FA2CDA1AC358A600B7706B /* UIColor+Styles.m */,
-				55FA2CDD1AC3666F00B7706B /* VkontakteHelper.h */,
-				55FA2CDE1AC3666F00B7706B /* VkontakteHelper.m */,
+				557672861AC8429E00D9B166 /* VkontakteHelper.h */,
+				557672871AC8429E00D9B166 /* VkontakteHelper.m */,
+				557672881AC8429E00D9B166 /* UIColor+Styles.h */,
+				557672891AC8429E00D9B166 /* UIColor+Styles.m */,
+				5576728A1AC8429E00D9B166 /* UIFont+Styles.h */,
+				5576728B1AC8429E00D9B166 /* UIFont+Styles.m */,
+				5576728C1AC8429E00D9B166 /* NSDate+Helper.h */,
+				5576728D1AC8429E00D9B166 /* NSDate+Helper.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -697,14 +702,14 @@
 				558476B61AC80DD600E60568 /* _Photo.m in Sources */,
 				55FA2CCB1AC3125600B7706B /* AFHTTPRequestOperationManager.m in Sources */,
 				556563C91AC4C3EB00881517 /* UIRefreshControl+AFNetworking.m in Sources */,
+				557672901AC8429E00D9B166 /* UIFont+Styles.m in Sources */,
 				55FA2C991AC3110100B7706B /* MagicalImportFunctions.m in Sources */,
-				55FA2CDF1AC3666F00B7706B /* VkontakteHelper.m in Sources */,
 				55FA2C9B1AC3110100B7706B /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				556563C51AC4C3EB00881517 /* UIAlertView+AFNetworking.m in Sources */,
 				55FA2CAB1AC3110100B7706B /* NSPersistentStore+MagicalRecord.m in Sources */,
 				557DF68C1AC2E926008E26C9 /* AppDelegate.m in Sources */,
-				55FA2CD81AC357BC00B7706B /* UIFont+Styles.m in Sources */,
 				557DF68F1AC2E926008E26C9 /* test_middle.xcdatamodeld in Sources */,
+				5576728F1AC8429E00D9B166 /* UIColor+Styles.m in Sources */,
 				556563B01AC4B1AF00881517 /* TableViewCell.m in Sources */,
 				55FA2CAF1AC3110100B7706B /* MagicalRecord+iCloud.m in Sources */,
 				55FA2CAC1AC3110100B7706B /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
@@ -714,9 +719,9 @@
 				556563C31AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				556563C81AC4C3EB00881517 /* UIProgressView+AFNetworking.m in Sources */,
 				55FA2CCC1AC3125600B7706B /* AFHTTPSessionManager.m in Sources */,
-				55FA2CDB1AC358A600B7706B /* UIColor+Styles.m in Sources */,
 				55FA2CB21AC3110100B7706B /* MagicalRecord+ShorthandSupport.m in Sources */,
 				558476BF1AC80DEE00E60568 /* AlbumManager.m in Sources */,
+				5576728E1AC8429E00D9B166 /* VkontakteHelper.m in Sources */,
 				55FA2CCD1AC3125600B7706B /* AFNetworkReachabilityManager.m in Sources */,
 				55FA2C9D1AC3110100B7706B /* NSObject+MagicalDataImport.m in Sources */,
 				55FA2CCF1AC3125600B7706B /* AFURLConnectionOperation.m in Sources */,
@@ -732,6 +737,7 @@
 				55FA2CB31AC3110100B7706B /* MagicalRecord.m in Sources */,
 				55FA2CA91AC3110100B7706B /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				55FA2CA71AC3110100B7706B /* NSManagedObjectContext+MagicalRecord.m in Sources */,
+				557672911AC8429E00D9B166 /* NSDate+Helper.m in Sources */,
 				55FA2CCE1AC3125600B7706B /* AFSecurityPolicy.m in Sources */,
 				55FA2CD51AC355F300B7706B /* Button.m in Sources */,
 				558476B41AC80DD600E60568 /* _Album.m in Sources */,

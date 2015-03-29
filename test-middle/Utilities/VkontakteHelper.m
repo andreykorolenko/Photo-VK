@@ -14,6 +14,8 @@
 #import "Photo.h"
 
 NSString * const AppID = @"4844768";
+NSString * const kVKOwnerID = @"3845529"; // лу
+//NSString * const kVKOwnerID = @"80074128"; // чулаков
 
 @interface VkontakteHelper () <VKSdkDelegate>
 
@@ -43,7 +45,7 @@ NSString * const AppID = @"4844768";
 }
 
 - (void)getAlbumsWithComplitionBlock:(RequestCompletionBlock)completion {
-    VKRequest *getAlbums = [VKRequest requestWithMethod:@"photos.getAlbums" andParameters:@{VK_API_OWNER_ID : @"80074128", @"need_covers": @YES} andHttpMethod:@"GET"];
+    VKRequest *getAlbums = [VKRequest requestWithMethod:@"photos.getAlbums" andParameters:@{VK_API_OWNER_ID : kVKOwnerID, @"need_covers": @YES} andHttpMethod:@"GET"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     [getAlbums executeWithResultBlock:^(VKResponse * response) {
@@ -80,7 +82,7 @@ NSString * const AppID = @"4844768";
 }
 
 - (void)getPhotosFromAlbum:(Album *)album withComplitionBlock:(RequestCompletionBlock)completion {
-    VKRequest *getPhotos = [VKRequest requestWithMethod:@"photos.get" andParameters:@{VK_API_OWNER_ID : @"80074128", VK_API_ALBUM_ID: album.uid, @"rev": @YES, @"extended": @YES} andHttpMethod:@"GET"];
+    VKRequest *getPhotos = [VKRequest requestWithMethod:@"photos.get" andParameters:@{VK_API_OWNER_ID : kVKOwnerID, VK_API_ALBUM_ID: album.uid, @"rev": @YES, @"extended": @YES} andHttpMethod:@"GET"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     [getPhotos executeWithResultBlock:^(VKResponse * response) {
@@ -90,7 +92,7 @@ NSString * const AppID = @"4844768";
             NSArray *photos = OBJ_OR_NIL([(NSDictionary *)response.json objectForKey:@"items"], NSArray);
             
             if (photos) {
-                [album updatePhotos:photos];
+                [album updatePhotos:photos inContext:localContext];
             }
             
         } completion:^(BOOL contextDidSave, NSError *error) {

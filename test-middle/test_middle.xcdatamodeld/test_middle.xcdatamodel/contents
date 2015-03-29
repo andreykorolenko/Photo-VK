@@ -6,7 +6,7 @@
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="albumManager" maxCount="1" deletionRule="Nullify" destinationEntity="AlbumManager" inverseName="albums" inverseEntity="AlbumManager" syncable="YES"/>
+        <relationship name="albumManager" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="AlbumManager" inverseName="albums" inverseEntity="AlbumManager" syncable="YES"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Photo" inverseName="album" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <entity name="AlbumManager" representedClassName="AlbumManager" syncable="YES">
@@ -19,13 +19,13 @@
         <attribute name="originalSizeURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="smallSizeURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="album" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="photos" inverseEntity="Album" syncable="YES"/>
+        <relationship name="album" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="photos" inverseEntity="Album" syncable="YES"/>
     </entity>
     <fetchRequest name="AlbumManagerFetchRequest" entity="AlbumManager"/>
     <fetchRequest name="AlbumsFetchRequest" entity="Album" predicateString="uid == $uid"/>
     <fetchRequest name="PhotosFetchRequest" entity="Photo" predicateString="uid == $uid"/>
     <elements>
-        <element name="Album" positionX="-56" positionY="-183" width="128" height="150"/>
+        <element name="Album" positionX="-56" positionY="-183" width="128" height="148"/>
         <element name="AlbumManager" positionX="-54" positionY="-90" width="128" height="58"/>
         <element name="Photo" positionX="-54" positionY="9" width="128" height="148"/>
     </elements>

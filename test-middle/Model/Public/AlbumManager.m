@@ -50,6 +50,15 @@
         }
     }
     self.albums = orderedSet;
+    
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        NSArray *allAlbums = [Album findAllInContext:context];
+        for (Album *album in allAlbums) {
+            if (!album.albumManager) {
+                [album deleteEntityInContext:context];
+            }
+        }
+    }];
 }
 
 @end

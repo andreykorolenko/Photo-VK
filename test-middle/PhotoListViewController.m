@@ -127,7 +127,7 @@ typedef NS_ENUM(NSInteger, ListType) {
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = kHeightRow;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 15);
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
     [self.view addSubview:self.tableView];
     
     NSDictionary *views = @{@"tableView": self.tableView};
@@ -182,11 +182,7 @@ typedef NS_ENUM(NSInteger, ListType) {
 
 - (void)loadDataSourceWithType:(ListType)type {
     if (type == AlbumsList) {
-        // возьмем сохраненные альбомы из Core Data
         self.dataSource = [AlbumManager allAlbums];
-        // отсортируем по дате
-//        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
-//        self.dataSource = [self.dataSource sortedArrayUsingDescriptors:@[sortDescriptor]];
     } else {
         self.dataSource = [self.selectedAlbum allPhotos];
     }

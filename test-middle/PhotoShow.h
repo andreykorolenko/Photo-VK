@@ -12,6 +12,8 @@
 
 @interface PhotoShow : MWPhoto
 
+@property (nonatomic, strong) Photo *photoModel;
+
 + (instancetype)photoWithPhoto:(Photo *)photo;
 
 @end

@@ -46,9 +46,18 @@
     
     // small photo
     self.smallSizeURL = OBJ_OR_NIL(dictionary[@"photo_130"], NSString);
+    if (!self.smallSizeURL) {
+        self.smallSizeURL = OBJ_OR_NIL(dictionary[@"photo_75"], NSString);
+    }
     
     // full photo
     self.originalSizeURL = OBJ_OR_NIL(dictionary[@"photo_1280"], NSString);
+    if (!self.originalSizeURL) {
+        self.originalSizeURL = OBJ_OR_NIL(dictionary[@"photo_807"], NSString);
+        if (!self.originalSizeURL) {
+            self.originalSizeURL = OBJ_OR_NIL(dictionary[@"photo_604"], NSString);
+        }
+    }
     
     // местоположение
     self.latitude = OBJ_OR_NIL(dictionary[@"lat"], NSNumber);

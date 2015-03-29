@@ -18,6 +18,7 @@
 
 #import "MWPhotoBrowser.h"
 #import "PhotoShow.h"
+#import "CaptionView.h"
 
 CGFloat const kHeightRow = 80.f;
 
@@ -280,7 +281,7 @@ typedef NS_ENUM(NSInteger, ListType) {
 
 - (void)userDidSelectPhoto:(NSNumber *)uid {
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-    browser.displayActionButton = YES;
+    browser.displayActionButton = NO;
     [browser setCurrentPhotoIndex:[self numberPhotoInListByUID:uid]];
     
     self.needBlackStatusBar = NO;
@@ -301,11 +302,11 @@ typedef NS_ENUM(NSInteger, ListType) {
     return -1;
 }
 
-//- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
-//    MWPhoto *photo = [self.photos objectAtIndex:index];
-//    MyMWCaptionViewSubclass *captionView = [[MyMWCaptionViewSubclass alloc] initWithPhoto:photo];
-//    return captionView;
-//}
+- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
+    MWPhoto *photo = [self.photos objectAtIndex:index];
+    CaptionView *captionView = [[CaptionView alloc] initWithPhoto:photo];
+    return captionView;
+}
 
 #pragma mark - MWPhotoBrowserDelegate
 

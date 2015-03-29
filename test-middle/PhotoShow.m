@@ -19,7 +19,7 @@
 {
     self = [super initWithURL:[NSURL URLWithString:photo.originalSizeURL]];
     if (self) {
-
+        self.photoModel = photo;
     }
     return self;
 }

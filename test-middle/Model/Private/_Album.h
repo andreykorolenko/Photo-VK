@@ -5,8 +5,8 @@
 
 extern const struct AlbumAttributes {
 	__unsafe_unretained NSString *countPhoto;
+	__unsafe_unretained NSString *coverURL;
 	__unsafe_unretained NSString *date;
-	__unsafe_unretained NSString *imageURL;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *uid;
 } AlbumAttributes;
@@ -36,13 +36,13 @@ extern const struct AlbumRelationships {
 
 //- (BOOL)validateCountPhoto:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSString* coverURL;
+
+//- (BOOL)validateCoverURL:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSDate* date;
 
 //- (BOOL)validateDate:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSString* imageURL;
-
-//- (BOOL)validateImageURL:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* name;
 
@@ -92,11 +92,11 @@ extern const struct AlbumRelationships {
 - (int16_t)primitiveCountPhotoValue;
 - (void)setPrimitiveCountPhotoValue:(int16_t)value_;
 
+- (NSString*)primitiveCoverURL;
+- (void)setPrimitiveCoverURL:(NSString*)value;
+
 - (NSDate*)primitiveDate;
 - (void)setPrimitiveDate:(NSDate*)value;
-
-- (NSString*)primitiveImageURL;
-- (void)setPrimitiveImageURL:(NSString*)value;
 
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;

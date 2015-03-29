@@ -18,6 +18,7 @@
 @property (nonatomic, strong) __block UIImageView *photo;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIView *infoView;
+@property (nonatomic, assign) BOOL isHaveLike;
 
 @end
 
@@ -99,30 +100,51 @@
     [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[countPhotoLabel]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(countPhotoLabel)]];
     [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[countPhotoLabel]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(countPhotoLabel)]];
     
-    [self setImageFromURL:[NSURL URLWithString:album.imageURL]];
+    [self setImageFromURL:[NSURL URLWithString:album.coverURL]];
 }
 
 - (void)addInfoFromPhoto:(Photo *)photo {
     self.nameLabel.text = @"Фото";
     
-    UIView *like = [[UIView alloc] initWithFrame:CGRectZero];
-    like.translatesAutoresizingMaskIntoConstraints = NO;
-    like.backgroundColor = [UIColor purpleColor];
-    [self.infoView addSubview:like];
+    UIView *likeBackround = [[UIView alloc] initWithFrame:CGRectZero];
+    likeBackround.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.infoView addSubview:likeBackround];
+    
+    UITapGestureRecognizer *likeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLike:)];
+    [likeBackround addGestureRecognizer:likeGesture];
+    
+    UIImageView *likeImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    likeImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    likeImageView.image = photo.isUserLike.boolValue ? [UIImage imageNamed:@"icon_like_yes"] : [UIImage imageNamed:@"icon_like_no"];
+    self.isHaveLike = photo.isUserLike.boolValue;
+    [likeBackround addSubview:likeImageView];
     
     UILabel *countLikes = [[UILabel alloc] initWithFrame:CGRectZero];
     countLikes.translatesAutoresizingMaskIntoConstraints = NO;
-    countLikes.font = [UIFont thinFontWithSize:16.0];
-    countLikes.text = @"5";
+    countLikes.font = [UIFont thinFontWithSize:18.0];
+    countLikes.text = [photo.likes stringValue];
     [self.infoView addSubview:countLikes];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(like, countLikes);
-    NSDictionary *metrics = @{@"likeSide": @10};
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    dateLabel.font = [UIFont thinFontWithSize:18.0];
+    dateLabel.textAlignment = NSTextAlignmentRight;
+    dateLabel.text = @"Вчера";
+    [self.infoView addSubview:dateLabel];
     
-    [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[like(likeSide)]" options:0 metrics:metrics views:views]];
-    [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[countPhotoLabel]|" options:0 metrics:metrics views:views]];
+    NSDictionary *views = NSDictionaryOfVariableBindings(likeBackround, likeImageView, countLikes, dateLabel);
+    NSDictionary *metrics = @{@"likeSide": @35};
     
-    [self setImageFromURL:[NSURL URLWithString:photo.imageURL]];
+    [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeBackround(likeSide)][countLikes][dateLabel]|" options:0 metrics:metrics views:views]];
+    [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeBackround]|" options:0 metrics:metrics views:views]];
+    
+    [likeBackround addConstraint:[NSLayoutConstraint constraintWithItem:likeImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:likeBackround attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+    [likeBackround addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeImageView]" options:0 metrics:metrics views:views]];
+    
+    [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[countLikes]|" options:0 metrics:metrics views:views]];
+    [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[dateLabel]|" options:0 metrics:metrics views:views]];
+    
+    [self setImageFromURL:[NSURL URLWithString:photo.smallSizeURL]];
 }
 
 - (void)setImageFromURL:(NSURL *)URL {
@@ -141,6 +163,16 @@
                               //[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                           }];
 }
+
+#pragma mark - Gestures
+
+- (void)tapLike:(UITapGestureRecognizer *)sender {
+    self.isHaveLike = self.isHaveLike ? NO : YES;
+    UIImageView *likeView = [sender.view.subviews firstObject];
+    likeView.image = self.isHaveLike ? [UIImage imageNamed:@"icon_like_yes"] : [UIImage imageNamed:@"icon_like_no"];
+}
+
+#pragma mark - All Methods
 
 - (NSString *)stringPhotoCount:(NSNumber *)count {
     NSString *stringCount = [count stringValue];

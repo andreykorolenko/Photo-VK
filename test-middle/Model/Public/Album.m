@@ -41,7 +41,7 @@
     self.date = [NSDate dateWithTimeIntervalSince1970:[dateNumberSince longValue]];
     
     // cover url
-    self.imageURL = OBJ_OR_NIL(dictionary[@"thumb_src"], NSString);
+    self.coverURL = OBJ_OR_NIL(dictionary[@"thumb_src"], NSString);
     
     // количество фото
     self.countPhoto = OBJ_OR_NIL(dictionary[@"size"], NSNumber);

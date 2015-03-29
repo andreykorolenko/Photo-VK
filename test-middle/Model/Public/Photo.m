@@ -37,14 +37,21 @@
     //self.name = OBJ_OR_NIL(dictionary[@"title"], NSString);
     
     // дата создания
-    //NSNumber *dateNumberSince = OBJ_OR_NIL(dictionary[@"created"], NSNumber);
-    //self.date = [NSDate dateWithTimeIntervalSince1970:[dateNumberSince longValue]];
+    NSNumber *dateNumberSince = OBJ_OR_NIL(dictionary[@"date"], NSNumber);
+    self.date = [NSDate dateWithTimeIntervalSince1970:[dateNumberSince longValue]];
     
-    // cover url
-//    self.imageURL = OBJ_OR_NIL(dictionary[@"thumb_src"], NSString);
+    // лайки
+    NSDictionary *likes = dictionary[@"likes"];
+    self.likes = likes[@"count"];
     
-    // количество фото
-//    self.countPhoto = OBJ_OR_NIL(dictionary[@"size"], NSNumber);
+    // есть ли лайк пользователя
+    self.isUserLike = likes[@"user_likes"];
+    
+    // small photo
+    self.smallSizeURL = OBJ_OR_NIL(dictionary[@"photo_130"], NSString);
+    
+    // full photo
+    self.originalSizeURL = OBJ_OR_NIL(dictionary[@"photo_1280"], NSString);
 }
 
 @end

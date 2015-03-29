@@ -3,6 +3,15 @@
 
 #import "_Photo.h"
 
+const struct PhotoAttributes PhotoAttributes = {
+	.date = @"date",
+	.isUserLike = @"isUserLike",
+	.likes = @"likes",
+	.originalSizeURL = @"originalSizeURL",
+	.smallSizeURL = @"smallSizeURL",
+	.uid = @"uid",
+};
+
 const struct PhotoRelationships PhotoRelationships = {
 	.album = @"album",
 };
@@ -33,7 +42,89 @@ const struct PhotoRelationships PhotoRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"isUserLikeValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isUserLike"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"likesValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"likes"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"uidValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"uid"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+
 	return keyPaths;
+}
+
+@dynamic date;
+
+@dynamic isUserLike;
+
+- (BOOL)isUserLikeValue {
+	NSNumber *result = [self isUserLike];
+	return [result boolValue];
+}
+
+- (void)setIsUserLikeValue:(BOOL)value_ {
+	[self setIsUserLike:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveIsUserLikeValue {
+	NSNumber *result = [self primitiveIsUserLike];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsUserLikeValue:(BOOL)value_ {
+	[self setPrimitiveIsUserLike:[NSNumber numberWithBool:value_]];
+}
+
+@dynamic likes;
+
+- (int16_t)likesValue {
+	NSNumber *result = [self likes];
+	return [result shortValue];
+}
+
+- (void)setLikesValue:(int16_t)value_ {
+	[self setLikes:[NSNumber numberWithShort:value_]];
+}
+
+- (int16_t)primitiveLikesValue {
+	NSNumber *result = [self primitiveLikes];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveLikesValue:(int16_t)value_ {
+	[self setPrimitiveLikes:[NSNumber numberWithShort:value_]];
+}
+
+@dynamic originalSizeURL;
+
+@dynamic smallSizeURL;
+
+@dynamic uid;
+
+- (int64_t)uidValue {
+	NSNumber *result = [self uid];
+	return [result longLongValue];
+}
+
+- (void)setUidValue:(int64_t)value_ {
+	[self setUid:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveUidValue {
+	NSNumber *result = [self primitiveUid];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveUidValue:(int64_t)value_ {
+	[self setPrimitiveUid:[NSNumber numberWithLongLong:value_]];
 }
 
 @dynamic album;

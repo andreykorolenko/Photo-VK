@@ -84,7 +84,7 @@ NSString * const AppID = @"4844768";
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     [getPhotos executeWithResultBlock:^(VKResponse * response) {
-        NSLog(@"Json result: %@", response.json);
+        //NSLog(@"Json result: %@", response.json);
         
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             NSArray *photos = OBJ_OR_NIL([(NSDictionary *)response.json objectForKey:@"items"], NSArray);

@@ -5,8 +5,8 @@
 
 const struct AlbumAttributes AlbumAttributes = {
 	.countPhoto = @"countPhoto",
+	.coverURL = @"coverURL",
 	.date = @"date",
-	.imageURL = @"imageURL",
 	.name = @"name",
 	.uid = @"uid",
 };
@@ -76,9 +76,9 @@ const struct AlbumRelationships AlbumRelationships = {
 	[self setPrimitiveCountPhoto:[NSNumber numberWithShort:value_]];
 }
 
-@dynamic date;
+@dynamic coverURL;
 
-@dynamic imageURL;
+@dynamic date;
 
 @dynamic name;
 

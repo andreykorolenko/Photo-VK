@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class AlbumList;
+@class Album, Photo;
 
 @interface TableViewCell : UITableViewCell
 
-+ (instancetype)cellWithAlbum:(AlbumList *)album;
++ (instancetype)cellWithAlbum:(Album *)album;
++ (instancetype)cellWithPhoto:(Photo *)photo;
 
 @end

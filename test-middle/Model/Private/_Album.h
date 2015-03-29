@@ -1,24 +1,32 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
-// Make changes to AlbumList.h instead.
+// Make changes to Album.h instead.
 
 #import <CoreData/CoreData.h>
 
-extern const struct AlbumListAttributes {
+extern const struct AlbumAttributes {
 	__unsafe_unretained NSString *countPhoto;
 	__unsafe_unretained NSString *date;
 	__unsafe_unretained NSString *imageURL;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *uid;
-} AlbumListAttributes;
+} AlbumAttributes;
 
-@interface AlbumListID : NSManagedObjectID {}
+extern const struct AlbumRelationships {
+	__unsafe_unretained NSString *albumManager;
+	__unsafe_unretained NSString *photos;
+} AlbumRelationships;
+
+@class AlbumManager;
+@class Photo;
+
+@interface AlbumID : NSManagedObjectID {}
 @end
 
-@interface _AlbumList : NSManagedObject {}
+@interface _Album : NSManagedObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-@property (nonatomic, readonly, strong) AlbumListID* objectID;
+@property (nonatomic, readonly, strong) AlbumID* objectID;
 
 @property (nonatomic, strong) NSNumber* countPhoto;
 
@@ -48,12 +56,35 @@ extern const struct AlbumListAttributes {
 
 //- (BOOL)validateUid:(id*)value_ error:(NSError**)error_;
 
-+ (NSArray*)fetchAlbumListFetchRequest:(NSManagedObjectContext*)moc_ uid:(NSNumber*)uid_ ;
-+ (NSArray*)fetchAlbumListFetchRequest:(NSManagedObjectContext*)moc_ uid:(NSNumber*)uid_ error:(NSError**)error_;
+@property (nonatomic, strong) AlbumManager *albumManager;
+
+//- (BOOL)validateAlbumManager:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSOrderedSet *photos;
+
+- (NSMutableOrderedSet*)photosSet;
+
++ (NSArray*)fetchAlbumsFetchRequest:(NSManagedObjectContext*)moc_ uid:(NSNumber*)uid_ ;
++ (NSArray*)fetchAlbumsFetchRequest:(NSManagedObjectContext*)moc_ uid:(NSNumber*)uid_ error:(NSError**)error_;
 
 @end
 
-@interface _AlbumList (CoreDataGeneratedPrimitiveAccessors)
+@interface _Album (PhotosCoreDataGeneratedAccessors)
+- (void)addPhotos:(NSOrderedSet*)value_;
+- (void)removePhotos:(NSOrderedSet*)value_;
+- (void)addPhotosObject:(Photo*)value_;
+- (void)removePhotosObject:(Photo*)value_;
+
+- (void)insertObject:(Photo*)value inPhotosAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromPhotosAtIndex:(NSUInteger)idx;
+- (void)insertPhotos:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removePhotosAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInPhotosAtIndex:(NSUInteger)idx withObject:(Photo*)value;
+- (void)replacePhotosAtIndexes:(NSIndexSet *)indexes withPhotos:(NSArray *)values;
+
+@end
+
+@interface _Album (CoreDataGeneratedPrimitiveAccessors)
 
 - (NSNumber*)primitiveCountPhoto;
 - (void)setPrimitiveCountPhoto:(NSNumber*)value;
@@ -75,5 +106,11 @@ extern const struct AlbumListAttributes {
 
 - (int64_t)primitiveUidValue;
 - (void)setPrimitiveUidValue:(int64_t)value_;
+
+- (AlbumManager*)primitiveAlbumManager;
+- (void)setPrimitiveAlbumManager:(AlbumManager*)value;
+
+- (NSMutableOrderedSet*)primitivePhotos;
+- (void)setPrimitivePhotos:(NSMutableOrderedSet*)value;
 
 @end

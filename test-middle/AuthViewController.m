@@ -222,7 +222,7 @@
 #pragma mark - Navigation
 
 - (void)showAlbums {
-    PhotoListViewController *listViewController = [PhotoListViewController photoListWithType:PhotoAlbumList];
+    PhotoListViewController *listViewController = [PhotoListViewController photoListWithAllAlbums];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:listViewController];
     navigationController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:navigationController animated:YES completion:nil];

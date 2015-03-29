@@ -1,14 +1,15 @@
-#import "AlbumList.h"
+#import "Album.h"
+#import "Photo.h"
 
-@interface AlbumList ()
+@interface Album ()
 
 // Private interface goes here.
 
 @end
 
-@implementation AlbumList
+@implementation Album
 
-+ (instancetype)albumListWithDictionary:(NSDictionary *)dictionary inContext:(NSManagedObjectContext *)context {
++ (instancetype)albumWithDictionary:(NSDictionary *)dictionary inContext:(NSManagedObjectContext *)context {
     if (![dictionary isKindOfClass:[NSDictionary class]]) {
         return nil;
     }
@@ -17,9 +18,8 @@
         return nil;
     }
     
-    AlbumList *album = nil;
-    
-    NSArray *albums = [self fetchAlbumListFetchRequest:context uid:OBJ_OR_NIL(dictionary[@"id"], NSNumber)];
+    Album *album = nil;
+    NSArray *albums = [self fetchAlbumsFetchRequest:context uid:OBJ_OR_NIL(dictionary[@"id"], NSNumber)];
     
     if (albums.count > 0) {
         album = [albums firstObject];
@@ -40,12 +40,28 @@
     NSNumber *dateNumberSince = OBJ_OR_NIL(dictionary[@"created"], NSNumber);
     self.date = [NSDate dateWithTimeIntervalSince1970:[dateNumberSince longValue]];
     
-    // url обложки
+    // cover url
     self.imageURL = OBJ_OR_NIL(dictionary[@"thumb_src"], NSString);
     
     // количество фото
     self.countPhoto = OBJ_OR_NIL(dictionary[@"size"], NSNumber);
 }
 
+- (void)updatePhotos:(NSArray *)photos {
+    
+    NSMutableOrderedSet *orderedSet = [NSMutableOrderedSet orderedSet];
+    
+    for (NSDictionary *eachDictionary in photos) {
+        Photo *photo = [Photo photoWithDictionary:eachDictionary inContext:[NSManagedObjectContext defaultContext]];
+        if (photo) {
+            [orderedSet addObject:photo];
+        }
+        self.photos = orderedSet;
+    }
+}
+
+- (NSArray *)allPhotos {
+    return [self.photos array];
+}
 
 @end

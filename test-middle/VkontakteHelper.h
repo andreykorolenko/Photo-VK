@@ -12,6 +12,7 @@ typedef void (^AuthBlock)(NSString *accessToken, NSString *secret);
 typedef void (^RequestCompletionBlock)(id responseObject, NSError* error, VKResponse *response);
 
 static NSString * const kLoginVK = @"kLoginVK";
+@class Album;
 
 @interface VkontakteHelper : NSObject
 
@@ -20,6 +21,7 @@ static NSString * const kLoginVK = @"kLoginVK";
 + (instancetype)sharedHelper;
 - (void)authWithCompletionBlock:(AuthBlock)completionBlock;
 - (void)getAlbumsWithComplitionBlock:(RequestCompletionBlock)completion;
+- (void)getPhotosFromAlbum:(Album *)album withComplitionBlock:(RequestCompletionBlock)completion;
 - (void)updateUserNameWithComplitionBlock:(void (^)(void))completionBlock;
 - (void)deauth;
 - (BOOL)isAuthorized;

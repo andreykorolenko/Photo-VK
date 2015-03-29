@@ -9,8 +9,9 @@
 #import "VkontakteHelper.h"
 #import <VKSdk/VKSdk.h>
 
-#import "AlbumList.h"
-//#import "PhotoList.h"
+#import "AlbumManager.h"
+#import "Album.h"
+#import "Photo.h"
 
 NSString * const AppID = @"4844768";
 
@@ -46,25 +47,20 @@ NSString * const AppID = @"4844768";
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     [getAlbums executeWithResultBlock:^(VKResponse * response) {
-        NSLog(@"Json result: %@", response.json);
+        //NSLog(@"Json result: %@", response.json);
         
-        NSMutableArray *localResults = [NSMutableArray array];
+        __block AlbumManager *manager = nil;
         
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             NSArray *albums = OBJ_OR_NIL([(NSDictionary *)response.json objectForKey:@"items"], NSArray);
-            for (NSDictionary *eachAlbum in albums) {
-                AlbumList *albumList = [AlbumList albumListWithDictionary:eachAlbum inContext:localContext];
-                if (albumList) {
-                    [localResults addObject:albumList];
-                }
+            
+            if (albums) {
+                manager = [AlbumManager managerWithArray:albums inContext:localContext];
             }
+            
         } completion:^(BOOL contextDidSave, NSError *error) {
             if (!error) {
-                 NSMutableArray *results = [NSMutableArray array];
-                 for (AlbumList *album in localResults) {
-                     [results addObject:[album inContext:[NSManagedObjectContext defaultContext]]];
-                 }
-                 completion(results, nil, response);
+                 completion([AlbumManager allAlbums], nil, response);
              } else {
                  completion(nil, error, response);
                  NSLog(@"%@", error.description);
@@ -72,6 +68,41 @@ NSString * const AppID = @"4844768";
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
          
+    } errorBlock:^(NSError * error) {
+        if (error.code != VK_API_ERROR) {
+            [error.vkError.request repeat];
+        } else {
+            NSLog(@"VK error: %@", error);
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            completion(nil, error, nil);
+        }
+    }];
+}
+
+- (void)getPhotosFromAlbum:(Album *)album withComplitionBlock:(RequestCompletionBlock)completion {
+    VKRequest *getPhotos = [VKRequest requestWithMethod:@"photos.get" andParameters:@{VK_API_OWNER_ID : @"80074128", VK_API_ALBUM_ID: album.uid, @"rev": @YES, @"extended": @YES} andHttpMethod:@"GET"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    [getPhotos executeWithResultBlock:^(VKResponse * response) {
+        NSLog(@"Json result: %@", response.json);
+        
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            NSArray *photos = OBJ_OR_NIL([(NSDictionary *)response.json objectForKey:@"items"], NSArray);
+            
+            if (photos) {
+                [album updatePhotos:photos];
+            }
+            
+        } completion:^(BOOL contextDidSave, NSError *error) {
+            if (!error) {
+                completion([album allPhotos], nil, response);
+            } else {
+                completion(nil, error, response);
+                NSLog(@"%@", error.description);
+            }
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }];
+        
     } errorBlock:^(NSError * error) {
         if (error.code != VK_API_ERROR) {
             [error.vkError.request repeat];

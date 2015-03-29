@@ -11,8 +11,9 @@
 #import "TableViewCell.h"
 #import "UIFont+Styles.h"
 
-#import "AlbumList.h"
-//#import "PhotoList.h"
+#import "AlbumManager.h"
+#import "Album.h"
+#import "Photo.h"
 
 CGFloat const kHeightRow = 80.f;
 
@@ -42,9 +43,15 @@ CGFloat const kHeightRow = 80.f;
 
 @end
 
+typedef NS_ENUM(NSInteger, ListType) {
+    AlbumsList,
+    PhotosList
+};
+
 @interface PhotoListViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, assign) PhotoListType listType;
+@property (nonatomic, assign) ListType listType;
+@property (nonatomic, strong) Album *selectedAlbum;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
@@ -55,15 +62,29 @@ CGFloat const kHeightRow = 80.f;
 
 #pragma mark - Lifecycle
 
-+ (instancetype)photoListWithType:(PhotoListType)listType {
-    return [[self alloc] initWithType:listType];
++ (instancetype)photoListWithAllAlbums {
+    return [[self alloc] initWithAllAlbums];
 }
 
-- (instancetype)initWithType:(PhotoListType)listType
+- (instancetype)initWithAllAlbums
 {
     self = [super init];
     if (self) {
-        self.listType = listType;
+        self.listType = AlbumsList;
+    }
+    return self;
+}
+
++ (instancetype)photoListWithPhotosFromAlbum:(Album *)album {
+    return [[self alloc] initWithAlbum:album];
+}
+
+- (instancetype)initWithAlbum:(Album *)album
+{
+    self = [super init];
+    if (self) {
+        self.listType = PhotosList;
+        self.selectedAlbum = album;
     }
     return self;
 }
@@ -71,13 +92,14 @@ CGFloat const kHeightRow = 80.f;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self showLightStatusBar:YES];
+    [self.view layoutIfNeeded];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.navigationItem.title = (self.listType == PhotoAlbumList) ? @"Фотоальбомы": @"Фотографии";
+    self.navigationItem.title = (self.listType == AlbumsList) ? @"Фотоальбомы": @"Фотографии";
     
     // настраиваем navigation bar
     [self customizeNavigationBar];
@@ -158,15 +180,15 @@ CGFloat const kHeightRow = 80.f;
 
 #pragma mark - Load Content
 
-- (void)loadDataSourceWithType:(PhotoListType)type {
-    if (type == PhotoAlbumList) {
+- (void)loadDataSourceWithType:(ListType)type {
+    if (type == AlbumsList) {
         // возьмем сохраненные альбомы из Core Data
-        self.dataSource = [AlbumList findAll];
+        self.dataSource = [AlbumManager allAlbums];
         // отсортируем по дате
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
-        self.dataSource = [self.dataSource sortedArrayUsingDescriptors:@[sortDescriptor]];
+//        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+//        self.dataSource = [self.dataSource sortedArrayUsingDescriptors:@[sortDescriptor]];
     } else {
-        
+        self.dataSource = [self.selectedAlbum allPhotos];
     }
 }
 
@@ -174,17 +196,27 @@ CGFloat const kHeightRow = 80.f;
     [self updateDataSourceFromServerWithType:self.listType];
 }
 
-- (void)updateDataSourceFromServerWithType:(PhotoListType)type {
-    if (type == PhotoAlbumList) {
+- (void)updateDataSourceFromServerWithType:(ListType)type {
+    if (type == AlbumsList) {
         [[VkontakteHelper sharedHelper] getAlbumsWithComplitionBlock:^(NSArray *responseObject, NSError *error, VKResponse *response) {
             if (!error && responseObject) {
                 self.dataSource = responseObject;
                 [self.tableView reloadData];
                 [self.refreshControl endRefreshing];
+            } else {
+                // невозможно обновить ленту
             }
         }];
     } else {
-        
+        [[VkontakteHelper sharedHelper] getPhotosFromAlbum:self.selectedAlbum withComplitionBlock:^(id responseObject, NSError *error, VKResponse *response) {
+            if (!error && responseObject) {
+                self.dataSource = responseObject;
+                [self.tableView reloadData];
+                [self.refreshControl endRefreshing];
+            } else {
+                // невозможно обновить ленту
+            }
+        }];
     }
 }
 
@@ -201,10 +233,10 @@ CGFloat const kHeightRow = 80.f;
     
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        if (self.listType == PhotoAlbumList) {
-            cell = [TableViewCell cellWithAlbum:(AlbumList *)object];
+        if (self.listType == AlbumsList) {
+            cell = [TableViewCell cellWithAlbum:(Album *)object];
         } else {
-            
+            cell = [TableViewCell cellWithPhoto:(Photo *)object];
         }
     }
     return cell;
@@ -217,10 +249,9 @@ CGFloat const kHeightRow = 80.f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.listType == PhotoAlbumList) {
-        [self.navigationController pushViewController:[PhotoListViewController photoListWithType:PhotoList] animated:YES];
-    } else {
-        // открыть фото полноэкранно
+    if (self.listType == AlbumsList) {
+        Album *selectedAlbum = self.dataSource[indexPath.row];
+        [self.navigationController pushViewController:[PhotoListViewController photoListWithPhotosFromAlbum:selectedAlbum] animated:YES];
     }
 }
 

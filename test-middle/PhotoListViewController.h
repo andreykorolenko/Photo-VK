@@ -8,13 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, PhotoListType) {
-    PhotoAlbumList,
-    PhotoList
-};
+@class Album;
 
 @interface PhotoListViewController : UIViewController
 
-+ (instancetype)photoListWithType:(PhotoListType)listType;
++ (instancetype)photoListWithAllAlbums;
++ (instancetype)photoListWithPhotosFromAlbum:(Album *)album;
 
 @end

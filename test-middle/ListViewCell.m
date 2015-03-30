@@ -23,6 +23,8 @@
 @property (nonatomic, strong) __block UIImageView *photoView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIView *infoView;
+
+@property (nonatomic, strong) UIImageView *likeImageView;
 @property (nonatomic, strong) UILabel *countLikes;
 @property (nonatomic, assign) BOOL isHaveLike;
 
@@ -129,11 +131,11 @@
     UITapGestureRecognizer *likeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLike:)];
     [likeBackround addGestureRecognizer:likeGesture];
     
-    UIImageView *likeImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    likeImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    likeImageView.image = photo.isUserLike.boolValue ? [UIImage imageNamed:@"icon_like_yes"] : [UIImage imageNamed:@"icon_like_no"];
+    self.likeImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    self.likeImageView.translatesAutoresizingMaskIntoConstraints = NO;
     self.isHaveLike = photo.isUserLike.boolValue;
-    [likeBackround addSubview:likeImageView];
+    [self updateLikeImage];
+    [likeBackround addSubview:self.likeImageView];
     
     self.countLikes = [[UILabel alloc] initWithFrame:CGRectZero];
     self.countLikes.translatesAutoresizingMaskIntoConstraints = NO;
@@ -148,13 +150,13 @@
     dateLabel.text = [NSDate stringFromDate:photo.date];
     [self.infoView addSubview:dateLabel];
     
-    NSDictionary *views = @{@"likeBackround": likeBackround, @"likeImageView": likeImageView, @"countLikes": self.countLikes, @"dateLabel": dateLabel};
+    NSDictionary *views = @{@"likeBackround": likeBackround, @"likeImageView": self.likeImageView, @"countLikes": self.countLikes, @"dateLabel": dateLabel};
     NSDictionary *metrics = @{@"likeSide": @35};
     
     [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeBackround(likeSide)][countLikes][dateLabel]|" options:0 metrics:metrics views:views]];
     [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeBackround]|" options:0 metrics:metrics views:views]];
     
-    [likeBackround addConstraint:[NSLayoutConstraint constraintWithItem:likeImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:likeBackround attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+    [likeBackround addConstraint:[NSLayoutConstraint constraintWithItem:self.likeImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:likeBackround attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
     [likeBackround addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeImageView]" options:0 metrics:metrics views:views]];
     
     [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[countLikes]|" options:0 metrics:metrics views:views]];
@@ -188,19 +190,30 @@
     }
 }
 
+- (void)updateLikeImage {
+    self.likeImageView.image = self.isHaveLike ? [UIImage imageNamed:@"icon_like_yes"] : [UIImage imageNamed:@"icon_like_no"];
+}
+
 - (void)tapLike:(UITapGestureRecognizer *)sender {
     self.isHaveLike = self.isHaveLike ? NO : YES;
-    UIImageView *likeView = [sender.view.subviews firstObject];
-    likeView.image = self.isHaveLike ? [UIImage imageNamed:@"icon_like_yes"] : [UIImage imageNamed:@"icon_like_no"];
+    
+    [self updateLikeImage];
+    
+    sender.enabled = NO;
+    sender.view.userInteractionEnabled = NO;
+    
     [UIView animateWithDuration:0.20 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseOut animations:^{
-        likeView.transform = CGAffineTransformMakeScale(1.4, 1.4);
+        self.likeImageView.transform = CGAffineTransformMakeScale(1.4, 1.4);
     } completion:^(BOOL finished) {
-        likeView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        self.likeImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        sender.view.userInteractionEnabled = YES;
+        
     }];
     
     [[VkontakteHelper sharedHelper] postLike:self.isHaveLike toPhotoID:self.photoUID withComplitionBlock:^(NSNumber *likes, NSError *error, VKResponse *response) {
         // апдейт лайков
         self.countLikes.text = [likes stringValue];
+        sender.enabled = YES;
     }];
 }
 

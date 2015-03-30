@@ -102,6 +102,10 @@ typedef NS_ENUM(NSInteger, ListType) {
     [self showLightStatusBar:YES];
     self.needBlackStatusBar = YES;
     [self.view layoutIfNeeded];
+    
+    if (self.tableView) {
+        [self.tableView reloadData];
+    }
 }
 
 - (void)viewDidLoad {

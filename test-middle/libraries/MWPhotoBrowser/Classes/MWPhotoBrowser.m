@@ -338,16 +338,22 @@
     PhotoShow *photo = [self photoAtIndex:_currentPageIndex];
     self.isHaveLike = self.isHaveLike ? NO : YES;
     UIImageView *likeView = [sender.view.subviews firstObject];
+    
+    sender.enabled = NO;
+    sender.view.userInteractionEnabled = NO;
+    
     likeView.image = self.isHaveLike ? [UIImage imageNamed:@"icon_like_yes"] : [UIImage imageNamed:@"icon_like_no"];
     [UIView animateWithDuration:0.20 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseOut animations:^{
         likeView.transform = CGAffineTransformMakeScale(1.4, 1.4);
     } completion:^(BOOL finished) {
         likeView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        sender.view.userInteractionEnabled = YES;
     }];
     
     [[VkontakteHelper sharedHelper] postLike:self.isHaveLike toPhotoID:photo.photoModel.uid withComplitionBlock:^(NSNumber *likes, NSError *error, VKResponse *response) {
         // апдейт лайков
         self.countLikes.text = [likes stringValue];
+        sender.enabled = YES;
     }];
 }
 
@@ -624,14 +630,6 @@
 - (void)sharePhoto {
     PhotoShow *photo = [self photoAtIndex:_currentPageIndex];
     [SocialPostHelper postPhoto:photo.photoModel fromViewController:self];
-//    VKShareDialogController *shareDialog = [VKShareDialogController new]; //1
-//    shareDialog.text = @"This post created using #vksdk #ios"; //2
-//    shareDialog.vkImages = @[@"-10889156_348122347",@"7840938_319411365",@"-60479154_333497085"]; //3
-////    shareDialog.shareLink = [[VKShareLink alloc] initWithTitle:@"Super puper link, but nobody knows" link:[NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]]; //4
-//    [shareDialog setCompletionHandler:^(VKShareDialogControllerResult result) {
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//    }]; //5
-//    [self presentViewController:shareDialog animated:YES completion:nil]; //6
 }
 
 - (void)storePreviousNavBarAppearance {

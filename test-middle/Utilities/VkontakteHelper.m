@@ -131,8 +131,27 @@ NSString * const AppID = @"4844768";
         }
         
         like ? photo.likesValue++ : photo.likesValue--;
+        photo.isUserLike = like ? @YES : @NO;
         [[NSManagedObjectContext defaultContext] saveToPersistentStoreAndWait];
         completion(photo.likes, nil, response);
+        
+    } errorBlock:^(NSError * error) {
+        if (error.code != VK_API_ERROR) {
+            [error.vkError.request repeat];
+        } else {
+            NSLog(@"VK error: %@", error);
+            completion(nil, error, nil);
+        }
+    }];
+}
+
+- (void)haveLikePhotoByID:(NSNumber *)uid withComplitionBlock:(RequestCompletionBlock)completion {
+    
+    VKRequest *haveLikes = [VKRequest requestWithMethod:@"likes.isLiked" andParameters:@{VK_API_OWNER_ID : self.ownerID, @"type": @"photo", @"item_id": uid} andHttpMethod:@"GET"];
+    
+    [haveLikes executeWithResultBlock:^(VKResponse * response) {
+        //NSLog(@"Json result: %@", response.json);
+        completion([(NSDictionary *)response.json objectForKey:@"liked"], nil, response);
         
     } errorBlock:^(NSError * error) {
         if (error.code != VK_API_ERROR) {

@@ -15,5 +15,6 @@
 
 + (instancetype)cellWithAlbum:(Album *)album;
 + (instancetype)cellWithPhoto:(Photo *)photo delegate:(id <ListViewCellDelegate>)delegate;
+- (void)updateLikeImage;
 
 @end

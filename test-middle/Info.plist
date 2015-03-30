@@ -30,9 +30,23 @@
 				<string>vk4844768</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>fb1582407208680072</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1582407208680072</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>1582407208680072</string>
+	<key>FacebookDisplayName</key>
+	<string>test-middle</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>

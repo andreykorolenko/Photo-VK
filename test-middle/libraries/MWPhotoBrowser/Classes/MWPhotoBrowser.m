@@ -13,6 +13,7 @@
 #import "SDImageCache.h"
 
 #import "VkontakteHelper.h"
+#import "SocialPostHelper.h"
 #import "PhotoShow.h"
 #import "Photo.h"
 
@@ -621,7 +622,16 @@
 }
 
 - (void)sharePhoto {
-    
+    PhotoShow *photo = [self photoAtIndex:_currentPageIndex];
+    [SocialPostHelper postPhoto:photo.photoModel fromViewController:self];
+//    VKShareDialogController *shareDialog = [VKShareDialogController new]; //1
+//    shareDialog.text = @"This post created using #vksdk #ios"; //2
+//    shareDialog.vkImages = @[@"-10889156_348122347",@"7840938_319411365",@"-60479154_333497085"]; //3
+////    shareDialog.shareLink = [[VKShareLink alloc] initWithTitle:@"Super puper link, but nobody knows" link:[NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]]; //4
+//    [shareDialog setCompletionHandler:^(VKShareDialogControllerResult result) {
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//    }]; //5
+//    [self presentViewController:shareDialog animated:YES completion:nil]; //6
 }
 
 - (void)storePreviousNavBarAppearance {

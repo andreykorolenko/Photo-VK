@@ -12,11 +12,13 @@ typedef void (^AuthBlock)(NSString *accessToken, NSString *secret);
 typedef void (^RequestCompletionBlock)(id responseObject, NSError* error, VKResponse *response);
 
 static NSString * const kLoginVK = @"kLoginVK";
+static NSString * const kOwnerID = @"kOwnerID";
 @class Album;
 
 @interface VkontakteHelper : NSObject
 
 @property (nonatomic, strong) NSString *login;
+@property (nonatomic, strong) NSString *ownerID;
 
 + (instancetype)sharedHelper;
 - (void)authWithCompletionBlock:(AuthBlock)completionBlock;

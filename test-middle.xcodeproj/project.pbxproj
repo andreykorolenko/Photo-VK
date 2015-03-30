@@ -66,6 +66,12 @@
 		552F10DA1AC874740028EDF9 /* MWPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 552F10AC1AC874740028EDF9 /* MWPhotoBrowser.bundle */; };
 		552F10E11AC87D310028EDF9 /* PhotoShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10E01AC87D310028EDF9 /* PhotoShow.m */; };
 		552F10E51AC88D730028EDF9 /* CaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10E41AC88D730028EDF9 /* CaptionView.m */; };
+		554586AD1AC95E5800698324 /* SocialPostHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 554586AC1AC95E5800698324 /* SocialPostHelper.m */; };
+		554586B41AC9677500698324 /* FBActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 554586B31AC9677500698324 /* FBActivity.m */; };
+		554586B71AC9691F00698324 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 554586B61AC9691F00698324 /* FacebookHelper.m */; };
+		554586BA1AC96D0200698324 /* VKSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554586B81AC96D0200698324 /* VKSdk.framework */; };
+		554586BB1AC96D0200698324 /* VKSdkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 554586B91AC96D0200698324 /* VKSdkResources.bundle */; };
+		554586C31AC96DA700698324 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554586C21AC96DA700698324 /* FacebookSDK.framework */; };
 		555CC1421AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.m in Sources */ = {isa = PBXBuildFile; fileRef = 555CC1411AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.m */; };
 		556563B01AC4B1AF00881517 /* ListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563AF1AC4B1AF00881517 /* ListViewCell.m */; };
 		556563C31AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563B31AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.m */; };
@@ -94,8 +100,6 @@
 		558476BD1AC80DEE00E60568 /* Album.m in Sources */ = {isa = PBXBuildFile; fileRef = 558476B81AC80DEE00E60568 /* Album.m */; };
 		558476BE1AC80DEE00E60568 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 558476BA1AC80DEE00E60568 /* Photo.m */; };
 		558476BF1AC80DEE00E60568 /* AlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 558476BC1AC80DEE00E60568 /* AlbumManager.m */; };
-		5599F4311AC2F613003D673C /* VKSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5599F42F1AC2F613003D673C /* VKSdk.framework */; };
-		5599F4321AC2F613003D673C /* VKSdkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5599F4301AC2F613003D673C /* VKSdkResources.bundle */; };
 		55FA2C991AC3110100B7706B /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FA2C5D1AC3110100B7706B /* MagicalImportFunctions.m */; };
 		55FA2C9A1AC3110100B7706B /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FA2C5F1AC3110100B7706B /* NSAttributeDescription+MagicalDataImport.m */; };
 		55FA2C9B1AC3110100B7706B /* NSEntityDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FA2C611AC3110100B7706B /* NSEntityDescription+MagicalDataImport.m */; };
@@ -247,6 +251,15 @@
 		552F10E01AC87D310028EDF9 /* PhotoShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoShow.m; sourceTree = "<group>"; };
 		552F10E31AC88D730028EDF9 /* CaptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptionView.h; sourceTree = "<group>"; };
 		552F10E41AC88D730028EDF9 /* CaptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionView.m; sourceTree = "<group>"; };
+		554586AB1AC95E5800698324 /* SocialPostHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocialPostHelper.h; path = Utilities/SocialPostHelper.h; sourceTree = "<group>"; };
+		554586AC1AC95E5800698324 /* SocialPostHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocialPostHelper.m; path = Utilities/SocialPostHelper.m; sourceTree = "<group>"; };
+		554586B21AC9677500698324 /* FBActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBActivity.h; path = Utilities/FBActivity.h; sourceTree = "<group>"; };
+		554586B31AC9677500698324 /* FBActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBActivity.m; path = Utilities/FBActivity.m; sourceTree = "<group>"; };
+		554586B51AC9691F00698324 /* FacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookHelper.h; path = Utilities/FacebookHelper.h; sourceTree = "<group>"; };
+		554586B61AC9691F00698324 /* FacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookHelper.m; path = Utilities/FacebookHelper.m; sourceTree = "<group>"; };
+		554586B81AC96D0200698324 /* VKSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdk.framework; path = Libraries/VKSDK/VKSdk.framework; sourceTree = "<group>"; };
+		554586B91AC96D0200698324 /* VKSdkResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = VKSdkResources.bundle; path = Libraries/VKSDK/VKSdkResources.bundle; sourceTree = "<group>"; };
+		554586C21AC96DA700698324 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Libraries/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		555CC0F31AC86DAC00B9E8FC /* ListViewCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewCellDelegate.h; sourceTree = "<group>"; };
 		555CC1401AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+ClassMethodPriority.h"; path = "Utilities/NSLayoutConstraint+ClassMethodPriority.h"; sourceTree = "<group>"; };
 		555CC1411AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+ClassMethodPriority.m"; path = "Utilities/NSLayoutConstraint+ClassMethodPriority.m"; sourceTree = "<group>"; };
@@ -304,8 +317,6 @@
 		558476BA1AC80DEE00E60568 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		558476BB1AC80DEE00E60568 /* AlbumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumManager.h; sourceTree = "<group>"; };
 		558476BC1AC80DEE00E60568 /* AlbumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumManager.m; sourceTree = "<group>"; };
-		5599F42F1AC2F613003D673C /* VKSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdk.framework; path = libraries/VKSdk.framework; sourceTree = "<group>"; };
-		5599F4301AC2F613003D673C /* VKSdkResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = VKSdkResources.bundle; path = libraries/VKSdkResources.bundle; sourceTree = "<group>"; };
 		55FA2C5C1AC3110100B7706B /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
 		55FA2C5D1AC3110100B7706B /* MagicalImportFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalImportFunctions.m; sourceTree = "<group>"; };
 		55FA2C5E1AC3110100B7706B /* NSAttributeDescription+MagicalDataImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributeDescription+MagicalDataImport.h"; sourceTree = "<group>"; };
@@ -393,7 +404,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5599F4311AC2F613003D673C /* VKSdk.framework in Frameworks */,
+				554586BA1AC96D0200698324 /* VKSdk.framework in Frameworks */,
+				554586C31AC96DA700698324 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +592,14 @@
 			name = "Photo Browser";
 			sourceTree = "<group>";
 		};
+		554586AF1AC965CD00698324 /* FacebookSDK */ = {
+			isa = PBXGroup;
+			children = (
+				554586C21AC96DA700698324 /* FacebookSDK.framework */,
+			);
+			name = FacebookSDK;
+			sourceTree = "<group>";
+		};
 		556563B11AC4C3EB00881517 /* UIKit+AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,6 +637,12 @@
 				5576728D1AC8429E00D9B166 /* NSDate+Helper.m */,
 				555CC1401AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.h */,
 				555CC1411AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.m */,
+				554586AB1AC95E5800698324 /* SocialPostHelper.h */,
+				554586AC1AC95E5800698324 /* SocialPostHelper.m */,
+				554586B21AC9677500698324 /* FBActivity.h */,
+				554586B31AC9677500698324 /* FBActivity.m */,
+				554586B51AC9691F00698324 /* FacebookHelper.h */,
+				554586B61AC9691F00698324 /* FacebookHelper.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -748,6 +774,7 @@
 		5599F42D1AC2F49F003D673C /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				554586AF1AC965CD00698324 /* FacebookSDK */,
 				552F104C1AC874740028EDF9 /* MWPhotoBrowser */,
 				55FA2CB61AC3125600B7706B /* AFNetworking */,
 				55FA2CB41AC3110900B7706B /* MagicalRecord */,
@@ -759,8 +786,8 @@
 		5599F42E1AC2F601003D673C /* VK */ = {
 			isa = PBXGroup;
 			children = (
-				5599F42F1AC2F613003D673C /* VKSdk.framework */,
-				5599F4301AC2F613003D673C /* VKSdkResources.bundle */,
+				554586B81AC96D0200698324 /* VKSdk.framework */,
+				554586B91AC96D0200698324 /* VKSdkResources.bundle */,
 			);
 			name = VK;
 			sourceTree = "<group>";
@@ -1001,7 +1028,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				557DF69A1AC2E926008E26C9 /* LaunchScreen.xib in Resources */,
-				5599F4321AC2F613003D673C /* VKSdkResources.bundle in Resources */,
+				554586BB1AC96D0200698324 /* VKSdkResources.bundle in Resources */,
 				552F10C81AC874740028EDF9 /* LICENSE in Resources */,
 				557DF6971AC2E926008E26C9 /* Images.xcassets in Resources */,
 				552F10DA1AC874740028EDF9 /* MWPhotoBrowser.bundle in Resources */,
@@ -1049,6 +1076,7 @@
 				552F10B31AC874740028EDF9 /* MWPhoto.m in Sources */,
 				55FA2CA41AC3110100B7706B /* NSManagedObject+MagicalRequests.m in Sources */,
 				55FA2C9E1AC3110100B7706B /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
+				554586B41AC9677500698324 /* FBActivity.m in Sources */,
 				556563C71AC4C3EB00881517 /* UIImageView+AFNetworking.m in Sources */,
 				558476B61AC80DD600E60568 /* _Photo.m in Sources */,
 				55FA2CCB1AC3125600B7706B /* AFHTTPRequestOperationManager.m in Sources */,
@@ -1082,6 +1110,7 @@
 				55FA2CB11AC3110100B7706B /* MagicalRecord+Setup.m in Sources */,
 				55FA2CA21AC3110100B7706B /* NSManagedObject+MagicalFinders.m in Sources */,
 				552F10C21AC874740028EDF9 /* PSTCollectionViewLayout.m in Sources */,
+				554586B71AC9691F00698324 /* FacebookHelper.m in Sources */,
 				556563C31AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				556563C81AC4C3EB00881517 /* UIProgressView+AFNetworking.m in Sources */,
 				552F10BB1AC874740028EDF9 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
@@ -1108,6 +1137,7 @@
 				552F10C71AC874740028EDF9 /* PSTGridLayoutSection.m in Sources */,
 				552F10B71AC874740028EDF9 /* MWZoomingScrollView.m in Sources */,
 				552F10C61AC874740028EDF9 /* PSTGridLayoutRow.m in Sources */,
+				554586AD1AC95E5800698324 /* SocialPostHelper.m in Sources */,
 				55FA2CCA1AC3125600B7706B /* AFHTTPRequestOperation.m in Sources */,
 				552F10B61AC874740028EDF9 /* MWTapDetectingView.m in Sources */,
 				55FA2CD21AC3125600B7706B /* AFURLSessionManager.m in Sources */,
@@ -1276,6 +1306,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/test-middle/libraries",
+					"$(PROJECT_DIR)/test-middle/Libraries",
+					"$(PROJECT_DIR)/test-middle/Libraries/VKSDK",
+					"$(PROJECT_DIR)/test-middle/Libraries/FacebookSDK",
 				);
 				GCC_PREFIX_HEADER = "test-middle/PrefixHeader.pch";
 				INFOPLIST_FILE = "test-middle/Info.plist";
@@ -1293,6 +1326,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/test-middle/libraries",
+					"$(PROJECT_DIR)/test-middle/Libraries",
+					"$(PROJECT_DIR)/test-middle/Libraries/VKSDK",
+					"$(PROJECT_DIR)/test-middle/Libraries/FacebookSDK",
 				);
 				GCC_PREFIX_HEADER = "test-middle/PrefixHeader.pch";
 				INFOPLIST_FILE = "test-middle/Info.plist";

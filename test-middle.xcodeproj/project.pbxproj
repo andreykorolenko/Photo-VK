@@ -673,6 +673,7 @@
 		554229C91AC9D7F700C18934 /* Localize */ = {
 			isa = PBXGroup;
 			children = (
+				554229D01AC9DA2000C18934 /* strings.json */,
 			);
 			name = Localize;
 			sourceTree = "<group>";
@@ -815,7 +816,6 @@
 				556759621AC438EC0071059B /* Utilities */,
 				557DF68A1AC2E926008E26C9 /* AppDelegate.h */,
 				557DF68B1AC2E926008E26C9 /* AppDelegate.m */,
-				554229D01AC9DA2000C18934 /* strings.json */,
 				557DF6961AC2E926008E26C9 /* Images.xcassets */,
 				557DF6981AC2E926008E26C9 /* LaunchScreen.xib */,
 				557DF68D1AC2E926008E26C9 /* test_middle.xcdatamodeld */,

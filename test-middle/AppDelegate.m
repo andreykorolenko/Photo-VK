@@ -24,6 +24,20 @@ static NSString * const kGoogleAPIKey = @"AIzaSyBM_dtwX4rbJ6sQ-r4T1t8yLh_f_uTJy1
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    // localization
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"strings.json" ofType:nil];
+    [MCLocalization loadFromJSONFile:path defaultLanguage:@"ru"];
+    
+    // magical record
+    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelVerbose];
+    [MagicalRecord setupCoreDataStackWithStoreNamed:kStorageName];
+    
+    // vk
+    [VkontakteHelper load];
+    
+    // google maps
+    [GMSServices provideAPIKey:kGoogleAPIKey];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -31,17 +45,6 @@ static NSString * const kGoogleAPIKey = @"AIzaSyBM_dtwX4rbJ6sQ-r4T1t8yLh_f_uTJy1
     
     [self.window setRootViewController:authController];
     [self.window makeKeyAndVisible];
-    
-    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelVerbose];
-    [MagicalRecord setupCoreDataStackWithStoreNamed:kStorageName];
-    
-    [VkontakteHelper load];
-    
-    [GMSServices provideAPIKey:kGoogleAPIKey];
-    
-    // localization
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"strings.json" ofType:nil];
-    [MCLocalization loadFromJSONFile:path defaultLanguage:@"ru"];
     
     return YES;
 }

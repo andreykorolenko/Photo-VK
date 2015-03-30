@@ -57,7 +57,7 @@
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
-    self.navigationItem.title = @"Местоположение фото";
+    self.navigationItem.title = [MCLocalization stringForKey:@"photo_location"];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont regularFontWithSize:18.f],NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 

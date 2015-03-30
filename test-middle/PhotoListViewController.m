@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger, ListType) {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.navigationItem.title = (self.listType == AlbumsList) ? @"Фотоальбомы": @"Фотографии";
+    self.navigationItem.title = (self.listType == AlbumsList) ? [MCLocalization stringForKey:@"photo_albums"] : [MCLocalization stringForKey:@"photos"];
     
     // настраиваем navigation bar
     [self customizeNavigationBar];
@@ -147,7 +147,7 @@ typedef NS_ENUM(NSInteger, ListType) {
         messageLabel.font = [UIFont thinFontWithSize:22.0];
         messageLabel.textAlignment = NSTextAlignmentCenter;
         messageLabel.numberOfLines = 0;
-        messageLabel.text = (type == AlbumsList) ? @"Список альбомов пуст" : @"Список фотографий пуст";
+        messageLabel.text = (type == AlbumsList) ? [MCLocalization stringForKey:@"album_list_is_empty"] : [MCLocalization stringForKey:@"photo_list_is_empty"];
         [self.emptyAlbumsView addSubview:messageLabel];
         
         NSDictionary *views = @{@"emptyAlbums": self.emptyAlbumsView, @"message": messageLabel};

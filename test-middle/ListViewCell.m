@@ -122,7 +122,8 @@
     self.photoView.userInteractionEnabled = YES;
     [self.photoView addGestureRecognizer:tapGesture];
     
-    self.nameLabel.text = @"Фото";
+#warning сделать названия фото
+    self.nameLabel.text = [MCLocalization stringForKey:@"photo"];
     
     UIView *likeBackround = [[UIView alloc] initWithFrame:CGRectZero];
     likeBackround.translatesAutoresizingMaskIntoConstraints = NO;
@@ -230,12 +231,20 @@
     // цифры, с особыми склонениями
     NSArray *exclusiveNumbers = @[@"11", @"12", @"13", @"14"];
     
-    if ([@"567890" rangeOfString:lastCharacter].location != NSNotFound || [self haveString:twoLastCharacter inArray:exclusiveNumbers]) {
-        return @"фотографий";
-    } else if ([@"1" rangeOfString:lastCharacter].location != NSNotFound) {
-        return @"фотография";
+    if ([[MCLocalization sharedInstance].language isEqualToString:@"ru"]) {
+        if ([@"567890" rangeOfString:lastCharacter].location != NSNotFound || [self haveString:twoLastCharacter inArray:exclusiveNumbers]) {
+            return [MCLocalization stringForKey:@"photo_declension_1"];
+        } else if ([@"1" rangeOfString:lastCharacter].location != NSNotFound) {
+            return [MCLocalization stringForKey:@"photo_declension_2"];
+        } else {
+            return [MCLocalization stringForKey:@"photo_declension_3"];
+        }
     } else {
-        return @"фотографии";
+        if (count.integerValue == 1) {
+            return [MCLocalization stringForKey:@"photo_declension_0"];
+        } else {
+            return [MCLocalization stringForKey:@"photo_declension_1"];
+        }
     }
 }
 

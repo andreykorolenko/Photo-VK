@@ -1,6 +1,27 @@
 {
     "en": {
         "locale": "en",
+        "profile": "Profile",
+        "logout": "Logout",
+        "login": "Login",
+        "authorization": "Authorization",
+        "hello": "Hello",
+        "please_authorize": "Please, authorize",
+        "view_photo_album": "View photo album",
+        "photo_albums_not_available": "Photo albums not available",
+        "photo_albums": "Photo albums",
+        "photos": "Photos",
+        "album_list_is_empty": "Album list is empty",
+        "photo_list_is_empty": "Photo list is empty",
+        "photo_location": "Photo location",
+        "photo": "Photo",
+        "photo_declension_0": "photo",
+        "photo_declension_1": "photos",
+        "photo_declension_2": "photos",
+        "photo_declension_3": "photos",
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "photo_of": "of"
     },
     "ru": {
         "locale": "ru",
@@ -12,6 +33,17 @@
         "please_authorize": "Пожалуйста, авторизуйтесь",
         "view_photo_album": "Просмотр фотоальбомов",
         "photo_albums_not_available": "Фотоальбомы недоступны",
-        "photo_albums_not_available": "Фотоальбомы недоступны",
+        "photo_albums": "Фотоальбомы",
+        "photos": "Фотографии",
+        "album_list_is_empty": "Список альбомов пуст",
+        "photo_list_is_empty": "Список фотографий пуст",
+        "photo_location": "Местоположение фото",
+        "photo": "Фото",
+        "photo_declension_1": "фотографий",
+        "photo_declension_2": "фотография",
+        "photo_declension_3": "фотографии",
+        "today": "Сегодня",
+        "yesterday": "Вчера",
+        "photo_of": "из"
     }
 }

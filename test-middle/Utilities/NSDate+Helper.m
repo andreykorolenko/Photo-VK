@@ -32,9 +32,9 @@ static NSDateFormatter *dateFromStringFormatter = nil;
     NSDateComponents *photoComponents = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:date];
     
     if (currentComponents.year == photoComponents.year && currentComponents.month == photoComponents.month && currentComponents.day == photoComponents.day) {
-        return @"Сегодня";
+        return [MCLocalization stringForKey:@"today"];
     } else if (currentComponents.year == photoComponents.year && currentComponents.month == photoComponents.month && currentComponents.day == photoComponents.day + 1) {
-        return @"Вчера";
+        return [MCLocalization stringForKey:@"yesterday"];
     }
     return [dateFromStringFormatter stringFromDate:date];
 }

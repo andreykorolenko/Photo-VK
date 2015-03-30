@@ -1297,7 +1297,7 @@
         if ([_delegate respondsToSelector:@selector(photoBrowser:titleForPhotoAtIndex:)]) {
             self.title = [_delegate photoBrowser:self titleForPhotoAtIndex:_currentPageIndex];
         } else {
-            self.title = [NSString stringWithFormat:@"Фото %lu %@ %lu", (unsigned long)(_currentPageIndex+1), NSLocalizedString(@"из", @"Used in the context: 'Showing 1 of 3 items'"), (unsigned long)numberOfPhotos];
+            self.title = [NSString stringWithFormat:@"%@ %lu %@ %lu", [MCLocalization stringForKey:@"photo"], (unsigned long)(_currentPageIndex+1), [MCLocalization stringForKey:@"photo_of"], (unsigned long)numberOfPhotos];
         }
 	} else {
 		self.title = nil;

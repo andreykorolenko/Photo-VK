@@ -30,6 +30,8 @@
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, assign) BOOL isHaveLike;
 
+@property (nonatomic, assign) BOOL isHiddenContentView;
+
 @end
 
 @implementation MWPhotoBrowser
@@ -329,6 +331,14 @@
     }];
 }
 
+#pragma mark - Gestures
+
+- (void)tapLike:(UITapGestureRecognizer *)sender {
+    self.isHaveLike = self.isHaveLike ? NO : YES;
+    UIImageView *likeView = [sender.view.subviews firstObject];
+    likeView.image = self.isHaveLike ? [UIImage imageNamed:@"icon_like_yes"] : [UIImage imageNamed:@"icon_like_no"];
+}
+
 - (void)performLayout {
     
     // Setup
@@ -537,7 +547,7 @@
     // Controls
     [self.navigationController.navigationBar.layer removeAllAnimations]; // Stop all animations on nav bar
     [NSObject cancelPreviousPerformRequestsWithTarget:self]; // Cancel any pending toggles from taps
-    [self setControlsHidden:NO animated:NO permanent:YES];
+    //[self setControlsHidden:NO animated:NO permanent:YES];
     
     // Status bar
     BOOL fullScreen = YES;
@@ -629,36 +639,38 @@
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    [self layoutVisiblePages];
+    if (!_pagingScrollView.dragging) {
+        [self layoutVisiblePages];
+    }
 }
 
 - (void)layoutVisiblePages {
     
-	// Flag
-	_performingLayout = YES;
-	
-	// Toolbar
-	_toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
+    // Flag
+    _performingLayout = YES;
     
-	// Remember index
-	NSUInteger indexPriorToLayout = _currentPageIndex;
-	
-	// Get paging scroll view frame to determine if anything needs changing
-	CGRect pagingScrollViewFrame = [self frameForPagingScrollView];
+    // Toolbar
+    //_toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
     
-	// Frame needs changing
+    // Remember inde
+    NSUInteger indexPriorToLayout = _currentPageIndex;
+    
+    // Get paging scroll view frame to determine if anything needs changing
+    CGRect pagingScrollViewFrame = [self frameForPagingScrollView];
+    
+    // Frame needs changing
     if (!_skipNextPagingScrollViewPositioning) {
         _pagingScrollView.frame = pagingScrollViewFrame;
     }
     _skipNextPagingScrollViewPositioning = NO;
-	
-	// Recalculate contentSize based on current orientation
-	_pagingScrollView.contentSize = [self contentSizeForPagingScrollView];
-	
-	// Adjust frames and configuration of each visible page
-	for (MWZoomingScrollView *page in _visiblePages) {
+    
+    // Recalculate contentSize based on current orientation
+    _pagingScrollView.contentSize = [self contentSizeForPagingScrollView];
+    
+    // Adjust frames and configuration of each visible page
+    for (MWZoomingScrollView *page in _visiblePages) {
         NSUInteger index = page.index;
-		page.frame = [self frameForPageAtIndex:index];
+        page.frame = [self frameForPageAtIndex:index];
         if (page.captionView) {
             page.captionView.frame = [self frameForCaptionView:page.captionView atIndex:index];
         }
@@ -672,16 +684,16 @@
             [page setMaxMinZoomScalesForCurrentBounds];
             _previousLayoutBounds = self.view.bounds;
         }
-
-	}
-	
-	// Adjust contentOffset to preserve page location based on values collected prior to location
-	_pagingScrollView.contentOffset = [self contentOffsetForPageAtIndex:indexPriorToLayout];
-	[self didStartViewingPageAtIndex:_currentPageIndex]; // initial
+        
+    }
     
-	// Reset
-	_currentPageIndex = indexPriorToLayout;
-	_performingLayout = NO;
+    // Adjust contentOffset to preserve page location based on values collected prior to location
+    _pagingScrollView.contentOffset = [self contentOffsetForPageAtIndex:indexPriorToLayout];
+    [self didStartViewingPageAtIndex:_currentPageIndex]; // initial
+    
+    // Reset
+    _currentPageIndex = indexPriorToLayout;
+    _performingLayout = NO;
     
 }
 
@@ -719,6 +731,11 @@
     
     // Layout
     [self layoutVisiblePages];
+    
+    CGFloat animatonOffset = 20.f;
+    if (self.isHiddenContentView) {
+        self.contentView.frame = CGRectOffset(self.contentView.frame, 0, animatonOffset);
+    }
 	
 }
 
@@ -1034,7 +1051,7 @@
     
     if (![self numberOfPhotos]) {
         // Show controls
-        [self setControlsHidden:NO animated:YES permanent:YES];
+        //[self setControlsHidden:NO animated:YES permanent:YES];
         return;
     }
     
@@ -1176,7 +1193,7 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 	// Hide controls when dragging begins
-	[self setControlsHidden:YES animated:YES permanent:NO];
+	//[self setControlsHidden:YES animated:YES permanent:NO];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -1301,7 +1318,7 @@
     
     // Update
     [self updateNavigation];
-    [self setControlsHidden:NO animated:YES permanent:YES];
+    //[self setControlsHidden:NO animated:YES permanent:YES];
     
     // Animate grid in and photo scroller out
     [UIView animateWithDuration:animated ? 0.3 : 0 animations:^(void) {
@@ -1348,7 +1365,7 @@
         [tmpGridController willMoveToParentViewController:nil];
         [tmpGridController.view removeFromSuperview];
         [tmpGridController removeFromParentViewController];
-        [self setControlsHidden:NO animated:YES permanent:NO]; // retrigger timer
+        //[self setControlsHidden:NO animated:YES permanent:NO]; // retrigger timer
     }];
 
 }
@@ -1380,14 +1397,14 @@
             if (!_isVCBasedStatusBarAppearance) {
                 
                 // Non-view controller based
-                [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:animated ? UIStatusBarAnimationSlide : UIStatusBarAnimationNone];
+                [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
                 
             } else {
                 
                 // View controller based so animate away
                 _statusBarShouldBeHidden = hidden;
                 [UIView animateWithDuration:animationDuration animations:^(void) {
-                    [self setNeedsStatusBarAppearanceUpdate];
+                    //[self setNeedsStatusBarAppearanceUpdate];
                 } completion:^(BOOL finished) {}];
                 
             }
@@ -1435,18 +1452,18 @@
     if (slideAndFade && [self areControlsHidden] && !hidden && animated) {
         
         // Toolbar
-        _toolbar.frame = CGRectOffset([self frameForToolbarAtOrientation:self.interfaceOrientation], 0, animatonOffset);
+        //_toolbar.frame = CGRectOffset([self frameForToolbarAtOrientation:self.interfaceOrientation], 0, animatonOffset);
         
         // Captions
-        for (MWZoomingScrollView *page in _visiblePages) {
-            if (page.captionView) {
-                MWCaptionView *v = page.captionView;
-                // Pass any index, all we're interested in is the Y
-                CGRect captionFrame = [self frameForCaptionView:v atIndex:0];
-                captionFrame.origin.x = v.frame.origin.x; // Reset X
-                v.frame = CGRectOffset(captionFrame, 0, animatonOffset);
-            }
-        }
+//        for (MWZoomingScrollView *page in _visiblePages) {
+//            if (page.captionView) {
+//                MWCaptionView *v = page.captionView;
+//                // Pass any index, all we're interested in is the Y
+//                CGRect captionFrame = [self frameForCaptionView:v atIndex:0];
+//                captionFrame.origin.x = v.frame.origin.x; // Reset X
+//                v.frame = CGRectOffset(captionFrame, 0, animatonOffset);
+//            }
+//        }
         
     }
     [UIView animateWithDuration:animationDuration animations:^(void) {
@@ -1456,37 +1473,48 @@
         // Nav bar slides up on it's own on iOS 7
         [self.navigationController.navigationBar setAlpha:alpha];
         
+        // Описание
+        self.contentView.alpha = alpha;
+        self.isHiddenContentView = hidden;
+        //CGRect contentFrame = self.contentView.frame;
+        //contentFrame.origin.x = self.contentView.frame.origin.x; // Reset X
+//        if (hidden) {
+//            self.contentView.frame = CGRectOffset(self.contentView.frame, 0, animatonOffset);
+//        } else {
+//            self.contentView.frame = CGRectOffset(self.contentView.frame, 0, -animatonOffset);
+//        }
+        
         // Toolbar
-        if (slideAndFade) {
-            _toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
-            if (hidden) _toolbar.frame = CGRectOffset(_toolbar.frame, 0, animatonOffset);
-        }
+//        if (slideAndFade) {
+//            _toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
+//            if (hidden) _toolbar.frame = CGRectOffset(_toolbar.frame, 0, animatonOffset);
+//        }
         _toolbar.alpha = alpha;
 
         // Captions
-        for (MWZoomingScrollView *page in _visiblePages) {
-            if (page.captionView) {
-                MWCaptionView *v = page.captionView;
-                if (slideAndFade) {
-                    // Pass any index, all we're interested in is the Y
-                    CGRect captionFrame = [self frameForCaptionView:v atIndex:0];
-                    captionFrame.origin.x = v.frame.origin.x; // Reset X
-                    if (hidden) captionFrame = CGRectOffset(captionFrame, 0, animatonOffset);
-                    v.frame = captionFrame;
-                }
-                v.alpha = alpha;
-            }
-        }
+//        for (MWZoomingScrollView *page in _visiblePages) {
+//            if (page.captionView) {
+//                MWCaptionView *v = page.captionView;
+//                if (slideAndFade) {
+//                    // Pass any index, all we're interested in is the Y
+//                    CGRect captionFrame = [self frameForCaptionView:v atIndex:0];
+//                    captionFrame.origin.x = v.frame.origin.x; // Reset X
+//                    if (hidden) captionFrame = CGRectOffset(captionFrame, 0, animatonOffset);
+//                    v.frame = captionFrame;
+//                }
+//                v.alpha = alpha;
+//            }
+//        }
         
         // Selected buttons
-        for (MWZoomingScrollView *page in _visiblePages) {
-            if (page.selectedButton) {
-                UIButton *v = page.selectedButton;
-                CGRect newFrame = [self frameForSelectedButton:v atIndex:0];
-                newFrame.origin.x = v.frame.origin.x;
-                v.frame = newFrame;
-            }
-        }
+//        for (MWZoomingScrollView *page in _visiblePages) {
+//            if (page.selectedButton) {
+//                UIButton *v = page.selectedButton;
+//                CGRect newFrame = [self frameForSelectedButton:v atIndex:0];
+//                newFrame.origin.x = v.frame.origin.x;
+//                v.frame = newFrame;
+//            }
+//        }
 
     } completion:^(BOOL finished) {}];
     
@@ -1525,7 +1553,7 @@
 	}
 }
 
-- (BOOL)areControlsHidden { return (_toolbar.alpha == 0); }
+- (BOOL)areControlsHidden { return (self.isHiddenContentView); }
 - (void)hideControls { [self setControlsHidden:YES animated:YES permanent:NO]; }
 - (void)toggleControls { [self setControlsHidden:![self areControlsHidden] animated:YES permanent:NO]; }
 
@@ -1657,7 +1685,7 @@
             }
             
             // Keep controls hidden
-            [self setControlsHidden:NO animated:YES permanent:YES];
+            //[self setControlsHidden:NO animated:YES permanent:YES];
 
         }
     }

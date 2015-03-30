@@ -120,12 +120,4 @@ static CGFloat const kHeightCaptionView = 70.0;
     return CGSizeMake(0, kHeightCaptionView);
 }
 
-#pragma mark - Gestures
-
-- (void)tapLike:(UITapGestureRecognizer *)sender {
-    self.isHaveLike = self.isHaveLike ? NO : YES;
-    UIImageView *likeView = [sender.view.subviews firstObject];
-    likeView.image = self.isHaveLike ? [UIImage imageNamed:@"icon_like_yes"] : [UIImage imageNamed:@"icon_like_no"];
-}
-
 @end

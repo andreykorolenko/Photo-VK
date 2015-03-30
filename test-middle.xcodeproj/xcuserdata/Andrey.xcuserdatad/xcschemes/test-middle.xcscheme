@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "557DF6821AC2E926008E26C9"
-               BuildableName = "test-middle.app"
-               BlueprintName = "test-middle"
+               BuildableName = "Photo VK.app"
+               BlueprintName = "Photo VK"
                ReferencedContainer = "container:test-middle.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -71,8 +71,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "557DF6821AC2E926008E26C9"
-            BuildableName = "test-middle.app"
-            BlueprintName = "test-middle"
+            BuildableName = "Photo VK.app"
+            BlueprintName = "Photo VK"
             ReferencedContainer = "container:test-middle.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -91,8 +91,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "557DF6821AC2E926008E26C9"
-            BuildableName = "test-middle.app"
-            BlueprintName = "test-middle"
+            BuildableName = "Photo VK.app"
+            BlueprintName = "Photo VK"
             ReferencedContainer = "container:test-middle.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -110,8 +110,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "557DF6821AC2E926008E26C9"
-            BuildableName = "test-middle.app"
-            BlueprintName = "test-middle"
+            BuildableName = "Photo VK.app"
+            BlueprintName = "Photo VK"
             ReferencedContainer = "container:test-middle.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

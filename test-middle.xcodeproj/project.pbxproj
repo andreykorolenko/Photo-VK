@@ -31,7 +31,6 @@
 		552F10B71AC874740028EDF9 /* MWZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10601AC874740028EDF9 /* MWZoomingScrollView.m */; };
 		552F10B81AC874740028EDF9 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10641AC874740028EDF9 /* DACircularProgressView.m */; };
 		552F10B91AC874740028EDF9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10671AC874740028EDF9 /* MBProgressHUD.m */; };
-		552F10BA1AC874740028EDF9 /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = 552F10681AC874740028EDF9 /* README.mdown */; };
 		552F10BB1AC874740028EDF9 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F106B1AC874740028EDF9 /* NSIndexPath+PSTCollectionViewAdditions.m */; };
 		552F10BC1AC874740028EDF9 /* PSTCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F106D1AC874740028EDF9 /* PSTCollectionView.m */; };
 		552F10BD1AC874740028EDF9 /* PSTCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F106F1AC874740028EDF9 /* PSTCollectionViewCell.m */; };
@@ -46,7 +45,6 @@
 		552F10C61AC874740028EDF9 /* PSTGridLayoutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10831AC874740028EDF9 /* PSTGridLayoutRow.m */; };
 		552F10C71AC874740028EDF9 /* PSTGridLayoutSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10851AC874740028EDF9 /* PSTGridLayoutSection.m */; };
 		552F10C81AC874740028EDF9 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 552F10871AC874740028EDF9 /* LICENSE */; };
-		552F10C91AC874740028EDF9 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 552F10881AC874740028EDF9 /* README.md */; };
 		552F10CA1AC874740028EDF9 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F108B1AC874740028EDF9 /* MKAnnotationView+WebCache.m */; };
 		552F10CB1AC874740028EDF9 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F108D1AC874740028EDF9 /* NSData+ImageContentType.m */; };
 		552F10CC1AC874740028EDF9 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F108F1AC874740028EDF9 /* SDImageCache.m */; };
@@ -323,7 +321,7 @@
 		5576728B1AC8429E00D9B166 /* UIFont+Styles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+Styles.m"; path = "Utilities/UIFont+Styles.m"; sourceTree = "<group>"; };
 		5576728C1AC8429E00D9B166 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Helper.h"; path = "Utilities/NSDate+Helper.h"; sourceTree = "<group>"; };
 		5576728D1AC8429E00D9B166 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Helper.m"; path = "Utilities/NSDate+Helper.m"; sourceTree = "<group>"; };
-		557DF6831AC2E926008E26C9 /* test-middle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "test-middle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		557DF6831AC2E926008E26C9 /* Photo VK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Photo VK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		557DF6871AC2E926008E26C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		557DF6881AC2E926008E26C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		557DF68A1AC2E926008E26C9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -798,7 +796,7 @@
 		557DF6841AC2E926008E26C9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				557DF6831AC2E926008E26C9 /* test-middle.app */,
+				557DF6831AC2E926008E26C9 /* Photo VK.app */,
 				557DF69F1AC2E926008E26C9 /* test-middleTests.xctest */,
 			);
 			name = Products;
@@ -1025,9 +1023,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		557DF6821AC2E926008E26C9 /* test-middle */ = {
+		557DF6821AC2E926008E26C9 /* Photo VK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 557DF6A91AC2E926008E26C9 /* Build configuration list for PBXNativeTarget "test-middle" */;
+			buildConfigurationList = 557DF6A91AC2E926008E26C9 /* Build configuration list for PBXNativeTarget "Photo VK" */;
 			buildPhases = (
 				557DF67F1AC2E926008E26C9 /* Sources */,
 				557DF6801AC2E926008E26C9 /* Frameworks */,
@@ -1037,9 +1035,9 @@
 			);
 			dependencies = (
 			);
-			name = "test-middle";
+			name = "Photo VK";
 			productName = "test-middle";
-			productReference = 557DF6831AC2E926008E26C9 /* test-middle.app */;
+			productReference = 557DF6831AC2E926008E26C9 /* Photo VK.app */;
 			productType = "com.apple.product-type.application";
 		};
 		557DF69E1AC2E926008E26C9 /* test-middleTests */ = {
@@ -1100,7 +1098,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				557DF6821AC2E926008E26C9 /* test-middle */,
+				557DF6821AC2E926008E26C9 /* Photo VK */,
 				557DF69E1AC2E926008E26C9 /* test-middleTests */,
 				556759671AC444E90071059B /* ModelGenerator */,
 			);
@@ -1196,7 +1194,6 @@
 				552F10D61AC874740028EDF9 /* UIImage+WebP.m in Sources */,
 				552F10CE1AC874740028EDF9 /* SDWebImageDecoder.m in Sources */,
 				554229D81ACA065C00C18934 /* ListViewCell.m in Sources */,
-				552F10BA1AC874740028EDF9 /* README.mdown in Sources */,
 				552F10B41AC874740028EDF9 /* MWPhotoBrowser.m in Sources */,
 				55FA2CAF1AC3110100B7706B /* MagicalRecord+iCloud.m in Sources */,
 				552F10BE1AC874740028EDF9 /* PSTCollectionViewController.m in Sources */,
@@ -1217,7 +1214,6 @@
 				552F10B91AC874740028EDF9 /* MBProgressHUD.m in Sources */,
 				55FA2CB21AC3110100B7706B /* MagicalRecord+ShorthandSupport.m in Sources */,
 				558476BF1AC80DEE00E60568 /* AlbumManager.m in Sources */,
-				552F10C91AC874740028EDF9 /* README.md in Sources */,
 				5576728E1AC8429E00D9B166 /* VKManager.m in Sources */,
 				55FA2CCD1AC3125600B7706B /* AFNetworkReachabilityManager.m in Sources */,
 				55FA2C9D1AC3110100B7706B /* NSObject+MagicalDataImport.m in Sources */,
@@ -1285,7 +1281,7 @@
 /* Begin PBXTargetDependency section */
 		557DF6A11AC2E926008E26C9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 557DF6821AC2E926008E26C9 /* test-middle */;
+			target = 557DF6821AC2E926008E26C9 /* Photo VK */;
 			targetProxy = 557DF6A01AC2E926008E26C9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1493,7 +1489,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		557DF6A91AC2E926008E26C9 /* Build configuration list for PBXNativeTarget "test-middle" */ = {
+		557DF6A91AC2E926008E26C9 /* Build configuration list for PBXNativeTarget "Photo VK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				557DF6AA1AC2E926008E26C9 /* Debug */,

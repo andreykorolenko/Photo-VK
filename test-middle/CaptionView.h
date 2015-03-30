@@ -12,6 +12,6 @@
 
 @interface CaptionView : MWCaptionView
 
-- (id)initWithPhoto:(PhotoShow *)photo;
+- (void)updateInfoWithPhoto:(PhotoShow *)photo;
 
 @end

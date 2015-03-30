@@ -12,6 +12,7 @@
 #import "VkontakteHelper.h"
 
 static NSString * const kStorageName = @"test_middle.sqlite";
+static NSString * const kGoogleApiKey = @"AIzaSyCGpHAzdhE_JkhqsiQ4fLV88urYakr_nKQ";
 
 @interface AppDelegate ()
 

@@ -232,6 +232,9 @@
     self.contentView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
     [self.view addSubview:self.contentView];
     
+    UITapGestureRecognizer *mainTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startTimerHide:)];
+    [self.contentView addGestureRecognizer:mainTapGesture];
+    
     self.author = [[UILabel alloc] initWithFrame:CGRectZero];
     self.author.translatesAutoresizingMaskIntoConstraints = NO;
     self.author.font = [UIFont thinFontWithSize:20.f];
@@ -272,11 +275,15 @@
     // map icon
     UIView *backgroundMap = [[UIView alloc] initWithFrame:CGRectZero];
     backgroundMap.translatesAutoresizingMaskIntoConstraints = NO;
-    //backgroundMap.backgroundColor = [UIColor purpleColor];
+    backgroundMap.multipleTouchEnabled = YES;
     [self.contentView addSubview:backgroundMap];
+    
+    UITapGestureRecognizer *mapTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTap:)];
+    [backgroundMap addGestureRecognizer:mapTapGesture];
     
     UIImageView *mapPinView = [[UIImageView alloc] initWithFrame:CGRectZero];
     mapPinView.translatesAutoresizingMaskIntoConstraints = NO;
+    mapPinView.multipleTouchEnabled = YES;
     mapPinView.alpha = 0.9;
     mapPinView.image = [UIImage imageNamed:@"map_pin"];
     [backgroundMap addSubview:mapPinView];
@@ -303,15 +310,15 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[author][backgroundMap]" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[infoView][backgroundMap]" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[author][infoView(infoHeight)]-7-|" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[backgroundMap(heightContent)]-10-|" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[backgroundMap(80)]|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[backgroundMap]|" options:0 metrics:metrics views:views]];
     
     // map
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-pinSide-[mapPinView]-pinSide-|" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[mapPinView]-20-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-pinSide-[mapPinView]-pinSide-|" options:0 metrics:metrics views:views]];
     
     // likes
-    [infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeBackround(infoHeight)]-8-[countLikes][dateLabel]-10-|" options:0 metrics:metrics views:views]];
+    [infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeBackround(infoHeight)]-8-[countLikes][dateLabel]-5-|" options:0 metrics:metrics views:views]];
     [infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[dateLabel]|" options:0 metrics:metrics views:views]];
     [infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeBackround]|" options:0 metrics:metrics views:views]];
     [infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[countLikes]-2-|" options:0 metrics:metrics views:views]];
@@ -335,6 +342,7 @@
 #pragma mark - Gestures
 
 - (void)tapLike:(UITapGestureRecognizer *)sender {
+    [self startTimerHide:nil];
     PhotoShow *photo = [self photoAtIndex:_currentPageIndex];
     self.isHaveLike = self.isHaveLike ? NO : YES;
     UIImageView *likeView = [sender.view.subviews firstObject];
@@ -355,6 +363,21 @@
         self.countLikes.text = [likes stringValue];
         sender.enabled = YES;
     }];
+}
+
+- (void)mapTap:(UITapGestureRecognizer *)sender {
+    [self startTimerHide:nil];
+//    sender.enabled = NO;
+//    [UIView animateKeyframesWithDuration:0.25 delay:0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseOut animations:^{
+//        sender.view.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
+//    } completion:^(BOOL finished) {
+//        sender.enabled = YES;
+//        sender.view.backgroundColor = [UIColor clearColor];
+//    }];
+}
+
+- (void)startTimerHide:(UITapGestureRecognizer *)sender {
+    [self hideControlsAfterDelay];
 }
 
 - (void)performLayout {
@@ -565,7 +588,7 @@
     // Controls
     [self.navigationController.navigationBar.layer removeAllAnimations]; // Stop all animations on nav bar
     [NSObject cancelPreviousPerformRequestsWithTarget:self]; // Cancel any pending toggles from taps
-    //[self setControlsHidden:NO animated:NO permanent:YES];
+    [self setControlsHidden:NO animated:NO permanent:YES];
     
     // Status bar
     BOOL fullScreen = YES;
@@ -620,7 +643,7 @@
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_share"] style:UIBarButtonItemStylePlain target:self action:@selector(sharePhoto)];
     self.navigationItem.rightBarButtonItem = shareButton;
     
-    [navBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont thinFontWithSize:18.f],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [navBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont regularFontWithSize:18.f],NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 
 - (void)closePhotoBrowser {
@@ -729,7 +752,6 @@
     // Reset
     _currentPageIndex = indexPriorToLayout;
     _performingLayout = NO;
-    
 }
 
 #pragma mark - Rotation
@@ -1432,14 +1454,14 @@
             if (!_isVCBasedStatusBarAppearance) {
                 
                 // Non-view controller based
-                [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
+                [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationSlide];
                 
             } else {
                 
                 // View controller based so animate away
                 _statusBarShouldBeHidden = hidden;
                 [UIView animateWithDuration:animationDuration animations:^(void) {
-                    //[self setNeedsStatusBarAppearanceUpdate];
+                    [self setNeedsStatusBarAppearanceUpdate];
                 } completion:^(BOOL finished) {}];
                 
             }
@@ -1490,15 +1512,15 @@
         //_toolbar.frame = CGRectOffset([self frameForToolbarAtOrientation:self.interfaceOrientation], 0, animatonOffset);
         
         // Captions
-//        for (MWZoomingScrollView *page in _visiblePages) {
-//            if (page.captionView) {
-//                MWCaptionView *v = page.captionView;
-//                // Pass any index, all we're interested in is the Y
-//                CGRect captionFrame = [self frameForCaptionView:v atIndex:0];
-//                captionFrame.origin.x = v.frame.origin.x; // Reset X
-//                v.frame = CGRectOffset(captionFrame, 0, animatonOffset);
-//            }
-//        }
+        for (MWZoomingScrollView *page in _visiblePages) {
+            if (page.captionView) {
+                MWCaptionView *v = page.captionView;
+                // Pass any index, all we're interested in is the Y
+                CGRect captionFrame = [self frameForCaptionView:v atIndex:0];
+                captionFrame.origin.x = v.frame.origin.x; // Reset X
+                v.frame = CGRectOffset(captionFrame, 0, animatonOffset);
+            }
+        }
         
     }
     [UIView animateWithDuration:animationDuration animations:^(void) {
@@ -1513,43 +1535,43 @@
         self.isHiddenContentView = hidden;
         //CGRect contentFrame = self.contentView.frame;
         //contentFrame.origin.x = self.contentView.frame.origin.x; // Reset X
-//        if (hidden) {
-//            self.contentView.frame = CGRectOffset(self.contentView.frame, 0, animatonOffset);
-//        } else {
-//            self.contentView.frame = CGRectOffset(self.contentView.frame, 0, -animatonOffset);
-//        }
+        if (hidden) {
+            self.contentView.frame = CGRectOffset(self.contentView.frame, 0, animatonOffset);
+        } else {
+            self.contentView.frame = CGRectOffset(self.contentView.frame, 0, -animatonOffset);
+        }
         
         // Toolbar
-//        if (slideAndFade) {
-//            _toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
-//            if (hidden) _toolbar.frame = CGRectOffset(_toolbar.frame, 0, animatonOffset);
-//        }
+        if (slideAndFade) {
+            _toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
+            if (hidden) _toolbar.frame = CGRectOffset(_toolbar.frame, 0, animatonOffset);
+        }
         _toolbar.alpha = alpha;
 
         // Captions
-//        for (MWZoomingScrollView *page in _visiblePages) {
-//            if (page.captionView) {
-//                MWCaptionView *v = page.captionView;
-//                if (slideAndFade) {
-//                    // Pass any index, all we're interested in is the Y
-//                    CGRect captionFrame = [self frameForCaptionView:v atIndex:0];
-//                    captionFrame.origin.x = v.frame.origin.x; // Reset X
-//                    if (hidden) captionFrame = CGRectOffset(captionFrame, 0, animatonOffset);
-//                    v.frame = captionFrame;
-//                }
-//                v.alpha = alpha;
-//            }
-//        }
+        for (MWZoomingScrollView *page in _visiblePages) {
+            if (page.captionView) {
+                MWCaptionView *v = page.captionView;
+                if (slideAndFade) {
+                    // Pass any index, all we're interested in is the Y
+                    CGRect captionFrame = [self frameForCaptionView:v atIndex:0];
+                    captionFrame.origin.x = v.frame.origin.x; // Reset X
+                    if (hidden) captionFrame = CGRectOffset(captionFrame, 0, animatonOffset);
+                    v.frame = captionFrame;
+                }
+                v.alpha = alpha;
+            }
+        }
         
         // Selected buttons
-//        for (MWZoomingScrollView *page in _visiblePages) {
-//            if (page.selectedButton) {
-//                UIButton *v = page.selectedButton;
-//                CGRect newFrame = [self frameForSelectedButton:v atIndex:0];
-//                newFrame.origin.x = v.frame.origin.x;
-//                v.frame = newFrame;
-//            }
-//        }
+        for (MWZoomingScrollView *page in _visiblePages) {
+            if (page.selectedButton) {
+                UIButton *v = page.selectedButton;
+                CGRect newFrame = [self frameForSelectedButton:v atIndex:0];
+                newFrame.origin.x = v.frame.origin.x;
+                v.frame = newFrame;
+            }
+        }
 
     } completion:^(BOOL finished) {}];
     

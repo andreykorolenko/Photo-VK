@@ -58,12 +58,14 @@ typedef NS_ENUM(NSInteger, ListType) {
 
 @property (nonatomic, assign) ListType listType;
 @property (nonatomic, strong) Album *selectedAlbum;
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-@property (nonatomic, assign) BOOL needBlackStatusBar;
 
+@property (nonatomic, assign) BOOL needBlackStatusBar;
 @property (nonatomic, strong) NSMutableArray *photos;
+@property (nonatomic, strong) UIView *emptyAlbumsView;
 
 @end
 
@@ -126,6 +128,38 @@ typedef NS_ENUM(NSInteger, ListType) {
     
     // загружаем данные из сети
     [self updateDataSourceFromServerWithType:self.listType];
+}
+
+- (void)showMessageEmptyWithType:(ListType)type {
+    
+    [self.emptyAlbumsView removeFromSuperview];
+    
+    // если альбомов или фото нет
+    if (self.dataSource.count == 0) {
+        self.emptyAlbumsView = [[UIView alloc] initWithFrame:CGRectZero];
+        self.emptyAlbumsView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.emptyAlbumsView.backgroundColor = [UIColor whiteColor];
+        self.emptyAlbumsView.alpha = 0.0;
+        [self.view addSubview:self.emptyAlbumsView];
+        
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        messageLabel.font = [UIFont thinFontWithSize:22.0];
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.numberOfLines = 0;
+        messageLabel.text = (type == AlbumsList) ? @"Список альбомов пуст" : @"Список фотографий пуст";
+        [self.emptyAlbumsView addSubview:messageLabel];
+        
+        NSDictionary *views = @{@"emptyAlbums": self.emptyAlbumsView, @"message": messageLabel};
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[emptyAlbums]|" options:0 metrics:nil views:views]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[emptyAlbums]|" options:0 metrics:nil views:views]];
+        
+        [self.emptyAlbumsView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[message]|" options:0 metrics:nil views:views]];
+        [self.emptyAlbumsView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[message]|" options:0 metrics:nil views:views]];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.emptyAlbumsView.alpha = 1.0;
+        }];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -217,6 +251,7 @@ typedef NS_ENUM(NSInteger, ListType) {
                 self.dataSource = responseObject;
                 [self.tableView reloadData];
                 [self.refreshControl endRefreshing];
+                [self showMessageEmptyWithType:type];
             } else {
                 // невозможно обновить ленту
             }
@@ -228,6 +263,7 @@ typedef NS_ENUM(NSInteger, ListType) {
                 [self.tableView reloadData];
                 [self.refreshControl endRefreshing];
                 [self updatePhotosForBrowser];
+                [self showMessageEmptyWithType:type];
             } else {
                 // невозможно обновить ленту
             }

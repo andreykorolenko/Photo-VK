@@ -26,8 +26,7 @@
     BOOL vkIsAuthorizedBeforePost = [[VkontakteHelper sharedHelper] isAuthorized];
     
     applicationActivities = @[[VKActivity new]];
-    excludeActivities = @[UIActivityTypePostToTwitter,
-                          UIActivityTypePostToWeibo,
+    excludeActivities = @[UIActivityTypePostToWeibo,
                           UIActivityTypeMessage,
                           UIActivityTypeAirDrop,
                           UIActivityTypePrint,
@@ -35,8 +34,6 @@
                           UIActivityTypeAssignToContact,
                           UIActivityTypeSaveToCameraRoll,
                           UIActivityTypeAddToReadingList,
-                          UIActivityTypePostToFlickr,
-                          UIActivityTypePostToVimeo,
                           UIActivityTypePostToTencentWeibo];
     
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc]

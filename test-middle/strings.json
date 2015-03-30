@@ -1,0 +1,17 @@
+{
+    "en": {
+        "locale": "en",
+    },
+    "ru": {
+        "locale": "ru",
+        "profile": "Профиль",
+        "logout": "Выйти",
+        "login": "Войти",
+        "authorization": "Авторизация",
+        "hello": "Привет",
+        "please_authorize": "Пожалуйста, авторизуйтесь",
+        "view_photo_album": "Просмотр фотоальбомов",
+        "photo_albums_not_available": "Фотоальбомы недоступны",
+        "photo_albums_not_available": "Фотоальбомы недоступны",
+    }
+}

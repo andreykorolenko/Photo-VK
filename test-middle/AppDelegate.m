@@ -39,6 +39,10 @@ static NSString * const kGoogleAPIKey = @"AIzaSyBM_dtwX4rbJ6sQ-r4T1t8yLh_f_uTJy1
     
     [GMSServices provideAPIKey:kGoogleAPIKey];
     
+    // localization
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"strings.json" ofType:nil];
+    [MCLocalization loadFromJSONFile:path defaultLanguage:@"ru"];
+    
     return YES;
 }
 

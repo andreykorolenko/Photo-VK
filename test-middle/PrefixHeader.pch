@@ -13,12 +13,14 @@
 #import "CoreData+MagicalRecord.h"
 #import "AFNetworking.h"
 #import <VKSdk/VKSdk.h>
+#import "MCLocalization.h"
 
 #import "UIFont+Styles.h"
 #import "UIColor+Styles.h"
 
 #define OBJ_OR_NIL(x, ClassName) ([x isKindOfClass:[ClassName class]] ? x : nil)
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define LS(key) NSLocalizedString((key), (key))
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.

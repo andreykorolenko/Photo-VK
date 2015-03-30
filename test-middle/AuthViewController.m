@@ -70,7 +70,6 @@
     
     // up
     UIView *upView = [[UIView alloc] initWithFrame:CGRectZero];
-    //upView.backgroundColor = [UIColor yellowColor];
     upView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:upView];
     
@@ -90,14 +89,12 @@
     
     // down
     self.downView = [[UIView alloc] initWithFrame:CGRectZero];
-    //self.downView.backgroundColor = [UIColor yellowColor];
     self.downView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.downView];
     
     // buttons
     self.backgroundButtons = [[UIView alloc] initWithFrame:CGRectZero];
     self.backgroundButtons.translatesAutoresizingMaskIntoConstraints = NO;
-    //self.backgroundButtons.backgroundColor = [UIColor blueColor];
     [self.downView addSubview:self.backgroundButtons];
     
     self.authButton = [Button buttonWithColorType:ButtonEmptyColor text:@"" target:self action:nil];
@@ -109,17 +106,14 @@
     //
     UIView *view1 = [[UIView alloc] initWithFrame:CGRectZero];
     view1.translatesAutoresizingMaskIntoConstraints = NO;
-    //view1.backgroundColor = [UIColor redColor];
     [self.backgroundButtons addSubview:view1];
     
     UIView *view2 = [[UIView alloc] initWithFrame:CGRectZero];
     view2.translatesAutoresizingMaskIntoConstraints = NO;
-    //view2.backgroundColor = [UIColor redColor];
     [self.backgroundButtons addSubview:view2];
     
     UIView *view3 = [[UIView alloc] initWithFrame:CGRectZero];
     view3.translatesAutoresizingMaskIntoConstraints = NO;
-    //view3.backgroundColor = [UIColor redColor];
     [self.backgroundButtons addSubview:view3];
     
     [self updateAuthUI];
@@ -187,23 +181,23 @@
 
 - (void)updateAuthUI {
     if ([[VkontakteHelper sharedHelper] isAuthorized]) {
-        self.navigationItem.title = @"Профиль";
+        self.navigationItem.title = [MCLocalization stringForKey:@"profile"];
         [self.authButton setColorType:ButtonEmptyColor];
-        [self.authButton setTitle:@"Выйти" forState:UIControlStateNormal];
+        [self.authButton setTitle:[MCLocalization stringForKey:@"logout"] forState:UIControlStateNormal];
         [self.authButton removeTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
         [self.authButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
         [self.photoButton setColorType:ButtonFullColor];
     } else {
-        self.navigationItem.title = @"Авторизация";
+        self.navigationItem.title = [MCLocalization stringForKey:@"authorization"];
         [self.authButton setColorType:ButtonFullColor];
-        [self.authButton setTitle:@"Войти" forState:UIControlStateNormal];
+        [self.authButton setTitle:[MCLocalization stringForKey:@"login"] forState:UIControlStateNormal];
         [self.authButton removeTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
         [self.authButton addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
         [self.photoButton setColorType:ButtonGrayLockedColor];
     }
     NSString *userName = [VkontakteHelper sharedHelper].login;
-    self.nameLabel.text = (userName) ? [NSString stringWithFormat:@"Привет, %@", userName] : @"Пожалуйста, авторизуйтесь";
-    [self.photoButton setTitle:(userName) ? @"Просмотр фотоальбомов" : @"Фотоальбомы недоступны" forState:UIControlStateNormal];
+    self.nameLabel.text = (userName) ? [NSString stringWithFormat:@"%@, %@", [MCLocalization stringForKey:@"hello"], userName] : [MCLocalization stringForKey:@"please_authorize"];
+    [self.photoButton setTitle:(userName) ? [MCLocalization stringForKey:@"view_photo_album"] : [MCLocalization stringForKey:@"photo_albums_not_available"] forState:UIControlStateNormal];
 }
 
 #pragma mark - Authorization

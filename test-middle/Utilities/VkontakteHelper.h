@@ -26,7 +26,6 @@ static NSString * const kOwnerID = @"kOwnerID";
 - (void)getPhotosFromAlbum:(Album *)album withComplitionBlock:(RequestCompletionBlock)completion;
 - (void)postLike:(BOOL)like toPhotoID:(NSNumber *)uid withComplitionBlock:(RequestCompletionBlock)completion;
 - (void)downloadImageWithURL:(NSURL *)url onCompletion:(void(^)(UIImage *image, NSError *error))completion;
-//- (NSURLSessionDataTask *)downloadImageWithURLString:(NSString *)urlString onCompletion:(void(^)(UIImage *image, NSError *error))completion;
 - (void)updateUserNameWithComplitionBlock:(void (^)(void))completionBlock;
 - (void)deauth;
 - (BOOL)isAuthorized;

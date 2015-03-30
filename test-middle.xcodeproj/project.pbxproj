@@ -67,8 +67,6 @@
 		552F10E11AC87D310028EDF9 /* PhotoShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10E01AC87D310028EDF9 /* PhotoShow.m */; };
 		552F10E51AC88D730028EDF9 /* CaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10E41AC88D730028EDF9 /* CaptionView.m */; };
 		554586AD1AC95E5800698324 /* SocialPostHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 554586AC1AC95E5800698324 /* SocialPostHelper.m */; };
-		554586B41AC9677500698324 /* FBActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 554586B31AC9677500698324 /* FBActivity.m */; };
-		554586B71AC9691F00698324 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 554586B61AC9691F00698324 /* FacebookHelper.m */; };
 		554586BA1AC96D0200698324 /* VKSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554586B81AC96D0200698324 /* VKSdk.framework */; };
 		554586BB1AC96D0200698324 /* VKSdkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 554586B91AC96D0200698324 /* VKSdkResources.bundle */; };
 		554586C31AC96DA700698324 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554586C21AC96DA700698324 /* FacebookSDK.framework */; };
@@ -253,10 +251,6 @@
 		552F10E41AC88D730028EDF9 /* CaptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionView.m; sourceTree = "<group>"; };
 		554586AB1AC95E5800698324 /* SocialPostHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocialPostHelper.h; path = Utilities/SocialPostHelper.h; sourceTree = "<group>"; };
 		554586AC1AC95E5800698324 /* SocialPostHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocialPostHelper.m; path = Utilities/SocialPostHelper.m; sourceTree = "<group>"; };
-		554586B21AC9677500698324 /* FBActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBActivity.h; path = Utilities/FBActivity.h; sourceTree = "<group>"; };
-		554586B31AC9677500698324 /* FBActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBActivity.m; path = Utilities/FBActivity.m; sourceTree = "<group>"; };
-		554586B51AC9691F00698324 /* FacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookHelper.h; path = Utilities/FacebookHelper.h; sourceTree = "<group>"; };
-		554586B61AC9691F00698324 /* FacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookHelper.m; path = Utilities/FacebookHelper.m; sourceTree = "<group>"; };
 		554586B81AC96D0200698324 /* VKSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdk.framework; path = Libraries/VKSDK/VKSdk.framework; sourceTree = "<group>"; };
 		554586B91AC96D0200698324 /* VKSdkResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = VKSdkResources.bundle; path = Libraries/VKSDK/VKSdkResources.bundle; sourceTree = "<group>"; };
 		554586C21AC96DA700698324 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Libraries/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -592,6 +586,17 @@
 			name = "Photo Browser";
 			sourceTree = "<group>";
 		};
+		554229A21AC9821200C18934 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				557672861AC8429E00D9B166 /* VkontakteHelper.h */,
+				557672871AC8429E00D9B166 /* VkontakteHelper.m */,
+				554586AB1AC95E5800698324 /* SocialPostHelper.h */,
+				554586AC1AC95E5800698324 /* SocialPostHelper.m */,
+			);
+			name = Social;
+			sourceTree = "<group>";
+		};
 		554586AF1AC965CD00698324 /* FacebookSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -627,8 +632,6 @@
 		556759621AC438EC0071059B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				557672861AC8429E00D9B166 /* VkontakteHelper.h */,
-				557672871AC8429E00D9B166 /* VkontakteHelper.m */,
 				557672881AC8429E00D9B166 /* UIColor+Styles.h */,
 				557672891AC8429E00D9B166 /* UIColor+Styles.m */,
 				5576728A1AC8429E00D9B166 /* UIFont+Styles.h */,
@@ -637,12 +640,6 @@
 				5576728D1AC8429E00D9B166 /* NSDate+Helper.m */,
 				555CC1401AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.h */,
 				555CC1411AC86ED500B9E8FC /* NSLayoutConstraint+ClassMethodPriority.m */,
-				554586AB1AC95E5800698324 /* SocialPostHelper.h */,
-				554586AC1AC95E5800698324 /* SocialPostHelper.m */,
-				554586B21AC9677500698324 /* FBActivity.h */,
-				554586B31AC9677500698324 /* FBActivity.m */,
-				554586B51AC9691F00698324 /* FacebookHelper.h */,
-				554586B61AC9691F00698324 /* FacebookHelper.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -717,6 +714,7 @@
 		557DF6851AC2E926008E26C9 /* test-middle */ = {
 			isa = PBXGroup;
 			children = (
+				554229A21AC9821200C18934 /* Social */,
 				5567596C1AC44A9D0071059B /* Model */,
 				5599F42D1AC2F49F003D673C /* Libraries */,
 				556759631AC439080071059B /* View Controllers */,
@@ -1076,7 +1074,6 @@
 				552F10B31AC874740028EDF9 /* MWPhoto.m in Sources */,
 				55FA2CA41AC3110100B7706B /* NSManagedObject+MagicalRequests.m in Sources */,
 				55FA2C9E1AC3110100B7706B /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
-				554586B41AC9677500698324 /* FBActivity.m in Sources */,
 				556563C71AC4C3EB00881517 /* UIImageView+AFNetworking.m in Sources */,
 				558476B61AC80DD600E60568 /* _Photo.m in Sources */,
 				55FA2CCB1AC3125600B7706B /* AFHTTPRequestOperationManager.m in Sources */,
@@ -1110,7 +1107,6 @@
 				55FA2CB11AC3110100B7706B /* MagicalRecord+Setup.m in Sources */,
 				55FA2CA21AC3110100B7706B /* NSManagedObject+MagicalFinders.m in Sources */,
 				552F10C21AC874740028EDF9 /* PSTCollectionViewLayout.m in Sources */,
-				554586B71AC9691F00698324 /* FacebookHelper.m in Sources */,
 				556563C31AC4C3EB00881517 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				556563C81AC4C3EB00881517 /* UIProgressView+AFNetworking.m in Sources */,
 				552F10BB1AC874740028EDF9 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,

@@ -11,8 +11,6 @@
 #import "Photo.h"
 #import <Social/Social.h>
 #import <VKSdk/VKActivity.h>
-#import "FBActivity.h"
-#import "UIImageView+AFNetworking.h"
 
 @implementation SocialPostHelper
 
@@ -27,12 +25,19 @@
     
     BOOL vkIsAuthorizedBeforePost = [[VkontakteHelper sharedHelper] isAuthorized];
     
-    applicationActivities = @[[VKActivity new], [FBActivity new]];
-    excludeActivities = @[UIActivityTypeAirDrop,
+    applicationActivities = @[[VKActivity new]];
+    excludeActivities = @[UIActivityTypePostToTwitter,
+                          UIActivityTypePostToWeibo,
+                          UIActivityTypeMessage,
+                          UIActivityTypeAirDrop,
                           UIActivityTypePrint,
+                          UIActivityTypeCopyToPasteboard,
                           UIActivityTypeAssignToContact,
                           UIActivityTypeSaveToCameraRoll,
-                          UIActivityTypeAddToReadingList,];
+                          UIActivityTypeAddToReadingList,
+                          UIActivityTypePostToFlickr,
+                          UIActivityTypePostToVimeo,
+                          UIActivityTypePostToTencentWeibo];
     
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
                                                         initWithActivityItems:items

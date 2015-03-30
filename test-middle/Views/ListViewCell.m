@@ -16,6 +16,7 @@
 #import "UIFont+Styles.h"
 #import "NSDate+Helper.h"
 #import "UIImageView+AFNetworking.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 @interface ListViewCell ()
 
@@ -168,8 +169,6 @@
 }
 
 - (void)setImageFromURL:(NSURL *)URL {
-    //[self.photo setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    //[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
@@ -178,9 +177,7 @@
     [self.photoView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"placeholder"]
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                               weakPhoto.image = image;
-                              //[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                           } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                              //[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                           }];
 }
 

@@ -10,6 +10,7 @@
 #import "ListViewCell.h"
 #import "ListViewCellDelegate.h"
 #import "VKManager.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 #import "UIFont+Styles.h"
 
@@ -117,6 +118,8 @@ typedef NS_ENUM(NSInteger, ListType) {
     self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationItem.title = (self.listType == AlbumsList) ? [MCLocalization stringForKey:@"photo_albums"] : [MCLocalization stringForKey:@"photos"];
+    
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     // настраиваем navigation bar
     [self customizeNavigationBar];

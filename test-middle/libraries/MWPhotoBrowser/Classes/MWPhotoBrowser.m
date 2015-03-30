@@ -12,8 +12,8 @@
 #import "MWPhotoBrowserPrivate.h"
 #import "SDImageCache.h"
 
-#import "VkontakteHelper.h"
-#import "SocialPostHelper.h"
+#import "VKManager.h"
+#import "SocialPoster.h"
 #import "PhotoShow.h"
 #import "Photo.h"
 #import "GoogleMapViewController.h"
@@ -330,7 +330,7 @@
 // обновляем содержимое описания фото
 - (void)updateContentView {
     PhotoShow *photo = [self photoAtIndex:_currentPageIndex];
-    self.author.text = [VkontakteHelper sharedHelper].login;
+    self.author.text = [VKManager sharedHelper].login;
     self.likeImageView.image = photo.photoModel.isUserLike.boolValue ? [UIImage imageNamed:@"icon_like_yes"] : [UIImage imageNamed:@"icon_like_no"];
     self.isHaveLike = photo.photoModel.isUserLike.boolValue;
     self.countLikes.text = [photo.photoModel.likes stringValue];
@@ -368,7 +368,7 @@
         sender.view.userInteractionEnabled = YES;
     }];
     
-    [[VkontakteHelper sharedHelper] postLike:self.isHaveLike toPhotoID:photo.photoModel.uid withComplitionBlock:^(NSNumber *likes, NSError *error, VKResponse *response) {
+    [[VKManager sharedHelper] postLike:self.isHaveLike toPhotoID:photo.photoModel.uid withComplitionBlock:^(NSNumber *likes, NSError *error, VKResponse *response) {
         // апдейт лайков
         self.countLikes.text = [likes stringValue];
         sender.enabled = YES;
@@ -668,7 +668,7 @@
 
 - (void)sharePhoto {
     PhotoShow *photo = [self photoAtIndex:_currentPageIndex];
-    [SocialPostHelper postPhoto:photo.photoModel fromViewController:self];
+    [SocialPoster postPhoto:photo.photoModel fromViewController:self];
 }
 
 - (void)storePreviousNavBarAppearance {

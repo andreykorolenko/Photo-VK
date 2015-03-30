@@ -1,5 +1,5 @@
 //
-//  SocialPostHelper.h
+//  SocialPoster.h
 //  test-middle
 //
 //  Created by Андрей on 30.03.15.
@@ -10,7 +10,7 @@
 
 @class Photo;
 
-@interface SocialPostHelper : NSObject
+@interface SocialPoster : NSObject
 
 + (void)postPhoto:(Photo *)photo fromViewController:(UIViewController *)fromViewController;
 

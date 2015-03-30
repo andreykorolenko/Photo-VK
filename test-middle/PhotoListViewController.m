@@ -2,14 +2,15 @@
 //  PhotoListViewController.m
 //  test-middle
 //
-//  Created by Андрей on 26.03.15.
+//  Created by Андрей on 29.03.15.
 //  Copyright (c) 2015 sebbia. All rights reserved.
 //
 
 #import "PhotoListViewController.h"
-#import "VkontakteHelper.h"
 #import "ListViewCell.h"
 #import "ListViewCellDelegate.h"
+#import "VKManager.h"
+
 #import "UIFont+Styles.h"
 
 #import "AlbumManager.h"
@@ -130,38 +131,6 @@ typedef NS_ENUM(NSInteger, ListType) {
     [self updateDataSourceFromServerWithType:self.listType];
 }
 
-- (void)showMessageEmptyWithType:(ListType)type {
-    
-    [self.emptyAlbumsView removeFromSuperview];
-    
-    // если альбомов или фото нет
-    if (self.dataSource.count == 0) {
-        self.emptyAlbumsView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.emptyAlbumsView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.emptyAlbumsView.backgroundColor = [UIColor whiteColor];
-        self.emptyAlbumsView.alpha = 0.0;
-        [self.view addSubview:self.emptyAlbumsView];
-        
-        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        messageLabel.font = [UIFont thinFontWithSize:22.0];
-        messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.numberOfLines = 0;
-        messageLabel.text = (type == AlbumsList) ? [MCLocalization stringForKey:@"album_list_is_empty"] : [MCLocalization stringForKey:@"photo_list_is_empty"];
-        [self.emptyAlbumsView addSubview:messageLabel];
-        
-        NSDictionary *views = @{@"emptyAlbums": self.emptyAlbumsView, @"message": messageLabel};
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[emptyAlbums]|" options:0 metrics:nil views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[emptyAlbums]|" options:0 metrics:nil views:views]];
-        
-        [self.emptyAlbumsView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[message]|" options:0 metrics:nil views:views]];
-        [self.emptyAlbumsView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[message]|" options:0 metrics:nil views:views]];
-        [UIView animateWithDuration:0.3 animations:^{
-            self.emptyAlbumsView.alpha = 1.0;
-        }];
-    }
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
@@ -225,12 +194,42 @@ typedef NS_ENUM(NSInteger, ListType) {
     });
 }
 
-- (void)closePhotoLibrary {
-    [self dismissViewControllerAnimated:YES completion:nil];
+// сообщение - нет альбомов/фото
+- (void)showMessageEmptyWithType:(ListType)type {
+    
+    [self.emptyAlbumsView removeFromSuperview];
+    
+    // если альбомов или фото нет
+    if (self.dataSource.count == 0) {
+        self.emptyAlbumsView = [[UIView alloc] initWithFrame:CGRectZero];
+        self.emptyAlbumsView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.emptyAlbumsView.backgroundColor = [UIColor whiteColor];
+        self.emptyAlbumsView.alpha = 0.0;
+        [self.view addSubview:self.emptyAlbumsView];
+        
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        messageLabel.font = [UIFont thinFontWithSize:22.0];
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.numberOfLines = 0;
+        messageLabel.text = (type == AlbumsList) ? [MCLocalization stringForKey:@"album_list_is_empty"] : [MCLocalization stringForKey:@"photo_list_is_empty"];
+        [self.emptyAlbumsView addSubview:messageLabel];
+        
+        NSDictionary *views = @{@"emptyAlbums": self.emptyAlbumsView, @"message": messageLabel};
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[emptyAlbums]|" options:0 metrics:nil views:views]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[emptyAlbums]|" options:0 metrics:nil views:views]];
+        
+        [self.emptyAlbumsView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[message]|" options:0 metrics:nil views:views]];
+        [self.emptyAlbumsView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[message]|" options:0 metrics:nil views:views]];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.emptyAlbumsView.alpha = 1.0;
+        }];
+    }
 }
 
 #pragma mark - Load Content
 
+// загрузка из core data
 - (void)loadDataSourceWithType:(ListType)type {
     if (type == AlbumsList) {
         self.dataSource = [AlbumManager allAlbums];
@@ -240,13 +239,10 @@ typedef NS_ENUM(NSInteger, ListType) {
     }
 }
 
-- (void)refresh:(UIRefreshControl *)sender {
-    [self updateDataSourceFromServerWithType:self.listType];
-}
-
+// загрузка из сети
 - (void)updateDataSourceFromServerWithType:(ListType)type {
     if (type == AlbumsList) {
-        [[VkontakteHelper sharedHelper] getAlbumsWithComplitionBlock:^(NSArray *responseObject, NSError *error, VKResponse *response) {
+        [[VKManager sharedHelper] getAlbumsWithComplitionBlock:^(NSArray *responseObject, NSError *error, VKResponse *response) {
             if (!error && responseObject) {
                 self.dataSource = responseObject;
                 [self.tableView reloadData];
@@ -257,7 +253,7 @@ typedef NS_ENUM(NSInteger, ListType) {
             }
         }];
     } else {
-        [[VkontakteHelper sharedHelper] getPhotosFromAlbum:self.selectedAlbum withComplitionBlock:^(id responseObject, NSError *error, VKResponse *response) {
+        [[VKManager sharedHelper] getPhotosFromAlbum:self.selectedAlbum withComplitionBlock:^(id responseObject, NSError *error, VKResponse *response) {
             if (!error && responseObject) {
                 self.dataSource = responseObject;
                 [self.tableView reloadData];
@@ -271,6 +267,16 @@ typedef NS_ENUM(NSInteger, ListType) {
     }
 }
 
+- (void)refresh:(UIRefreshControl *)sender {
+    [self updateDataSourceFromServerWithType:self.listType];
+}
+
+#pragma mark - All Methods
+
+- (void)closePhotoLibrary {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 // создает объекты фото для просмотра в photobrowser
 - (void)updatePhotosForBrowser {
     
@@ -280,6 +286,18 @@ typedef NS_ENUM(NSInteger, ListType) {
         [photos addObject:photoShow];
     }
     self.photos = photos;
+}
+
+// возвращает номер фотографии по счету
+- (NSInteger)numberPhotoInListByUID:(NSNumber *)uid {
+    NSInteger result = 0;
+    for (Photo *photo in self.dataSource) {
+        if (photo.uidValue == uid.integerValue) {
+            return result;
+        }
+        result++;
+    }
+    return -1;
 }
 
 #pragma mark - UITableViewDataSource
@@ -320,6 +338,7 @@ typedef NS_ENUM(NSInteger, ListType) {
 
 #pragma mark - ListViewCellDelegate
 
+// пользователь нажал на фото
 - (void)userDidSelectPhoto:(NSNumber *)uid {
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
     browser.displayActionButton = NO;
@@ -330,17 +349,6 @@ typedef NS_ENUM(NSInteger, ListType) {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:browser];
     navigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:navigationController animated:YES completion:nil];
-}
-
-- (NSInteger)numberPhotoInListByUID:(NSNumber *)uid {
-    NSInteger result = 0;
-    for (Photo *photo in self.dataSource) {
-        if (photo.uidValue == uid.integerValue) {
-            return result;
-        }
-        result++;
-    }
-    return -1;
 }
 
 #pragma mark - MWPhotoBrowserDelegate

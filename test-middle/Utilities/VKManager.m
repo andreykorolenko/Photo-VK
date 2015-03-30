@@ -1,12 +1,12 @@
 //
-//  VkontakteHelper.m
+//  VKManager.m
 //  test-middle
 //
-//  Created by Андрей on 26.03.15.
+//  Created by Андрей on 29.03.15.
 //  Copyright (c) 2015 sebbia. All rights reserved.
 //
 
-#import "VkontakteHelper.h"
+#import "VKManager.h"
 #import <VKSdk/VKSdk.h>
 
 #import "AlbumManager.h"
@@ -18,21 +18,21 @@ NSString * const AppID = @"4844768";
 //NSString * const kVKOwnerID = @"3845529"; // лу
 //NSString * const kVKOwnerID = @"80074128"; // чулаков
 
-@interface VkontakteHelper () <VKSdkDelegate>
+@interface VKManager () <VKSdkDelegate>
 
 @property (nonatomic, strong) AuthBlock authCompletionBlock;
 
 @end
 
-@implementation VkontakteHelper
+@implementation VKManager
 
 + (void)load {
-    [VkontakteHelper sharedHelper];
+    [VKManager sharedHelper];
 }
 
 + (instancetype)sharedHelper {
     static dispatch_once_t pred;
-    static VkontakteHelper *shared = nil;
+    static VKManager *shared = nil;
     
     dispatch_once(&pred, ^{
         shared = [[self alloc] init];
@@ -172,20 +172,6 @@ NSString * const AppID = @"4844768";
             NSLog(@"VK error: %@", error);
         }
     }];
-}
-
-// загрузка изображения
-- (void)downloadImageWithURL:(NSURL *)url onCompletion:(void(^)(UIImage *image, NSError *error))completion {
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
-    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Response: %@", responseObject);
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Image error: %@", error);
-    }];
-    [requestOperation start];
 }
 
 - (instancetype)init {

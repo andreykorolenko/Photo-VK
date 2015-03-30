@@ -7,10 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "AuthViewController.h"
 #import <VKSdk/VKSdk.h>
-#import "VkontakteHelper.h"
 #import <GoogleMaps/GoogleMaps.h>
+
+#import "AuthViewController.h"
+#import "VKManager.h"
 
 static NSString * const kStorageName = @"test_middle.sqlite";
 static NSString * const kGoogleAPIKey = @"AIzaSyBM_dtwX4rbJ6sQ-r4T1t8yLh_f_uTJy1Q";
@@ -33,7 +34,7 @@ static NSString * const kGoogleAPIKey = @"AIzaSyBM_dtwX4rbJ6sQ-r4T1t8yLh_f_uTJy1
     [MagicalRecord setupCoreDataStackWithStoreNamed:kStorageName];
     
     // vk
-    [VkontakteHelper load];
+    [VKManager load];
     
     // google maps
     [GMSServices provideAPIKey:kGoogleAPIKey];

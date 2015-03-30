@@ -1,6 +1,6 @@
 //
 //  NSDate+Helper.m
-//  vedomosti
+//  test-middle
 //
 //  Created by Андрей on 05.01.15.
 //  Copyright (c) 2015 Sebbia. All rights reserved.
@@ -26,6 +26,7 @@ static NSDateFormatter *dateFromStringFormatter = nil;
     });
 }
 
+// возвращает дату - "Сегодня", "Вчера" или полную дату
 + (NSString *)stringFromDate:(NSDate *)date {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *currentComponents = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:[NSDate date]];

@@ -1,18 +1,19 @@
 //
-//  SocialPostHelper.m
+//  SocialPoster.m
 //  vedomosti
 //
 //  Created by Андрей on 30.03.15.
 //  Copyright (c) 2015 Sebbia. All rights reserved.
 //
 
-#import "SocialPostHelper.h"
-#import "VkontakteHelper.h"
-#import "Photo.h"
+#import "SocialPoster.h"
 #import <Social/Social.h>
 #import <VKSdk/VKActivity.h>
 
-@implementation SocialPostHelper
+#import "VKManager.h"
+#import "Photo.h"
+
+@implementation SocialPoster
 
 + (void)postPhoto:(Photo *)photo fromViewController:(UIViewController *)fromViewController {
     
@@ -23,7 +24,7 @@
     NSArray *applicationActivities = nil;
     NSArray *excludeActivities = nil;
     
-    BOOL vkIsAuthorizedBeforePost = [[VkontakteHelper sharedHelper] isAuthorized];
+    BOOL vkIsAuthorizedBeforePost = [[VKManager sharedHelper] isAuthorized];
     
     applicationActivities = @[[VKActivity new]];
     excludeActivities = @[UIActivityTypePostToWeibo,
@@ -44,8 +45,8 @@
     
     [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
         if ([activityType isEqualToString:VKActivityTypePost]){
-            if (!vkIsAuthorizedBeforePost && [[VkontakteHelper sharedHelper] isAuthorized]) {
-                [[VkontakteHelper sharedHelper] updateUserNameWithComplitionBlock:nil];
+            if (!vkIsAuthorizedBeforePost && [[VKManager sharedHelper] isAuthorized]) {
+                [[VKManager sharedHelper] updateUserNameWithComplitionBlock:nil];
             }
         }
     }];

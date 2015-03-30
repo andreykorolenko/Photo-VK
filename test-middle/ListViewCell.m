@@ -2,15 +2,16 @@
 //  ListViewCell.m
 //  test-middle
 //
-//  Created by Андрей on 27.03.15.
+//  Created by Андрей on 29.03.15.
 //  Copyright (c) 2015 sebbia. All rights reserved.
 //
 
 #import "ListViewCell.h"
 #import "ListViewCellDelegate.h"
+
 #import "Album.h"
 #import "Photo.h"
-#import "VkontakteHelper.h"
+#import "VKManager.h"
 
 #import "UIFont+Styles.h"
 #import "NSDate+Helper.h"
@@ -87,7 +88,6 @@
     NSDictionary *metrics = @{@"size": @70, @"side": @15, @"top": @10};
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[photo(size)]-side-[name]-side-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[photo]-side-[info]-side-|" options:0 metrics:metrics views:views]];
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[name][info(==name)]-top-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[photo(size)]" options:0 metrics:metrics views:views]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.photoView
                                                                  attribute:NSLayoutAttributeCenterY
@@ -124,10 +124,6 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)];
     self.photoView.userInteractionEnabled = YES;
     [self.photoView addGestureRecognizer:tapGesture];
-    
-#warning сделать названия фото
-    self.nameLabel.backgroundColor = [UIColor yellowColor];
-    //self.nameLabel.text = [MCLocalization stringForKey:@"photo"];
     
     UIView *likeBackround = [[UIView alloc] initWithFrame:CGRectZero];
     likeBackround.translatesAutoresizingMaskIntoConstraints = NO;
@@ -216,7 +212,7 @@
         
     }];
     
-    [[VkontakteHelper sharedHelper] postLike:self.isHaveLike toPhotoID:self.photoUID withComplitionBlock:^(NSNumber *likes, NSError *error, VKResponse *response) {
+    [[VKManager sharedHelper] postLike:self.isHaveLike toPhotoID:self.photoUID withComplitionBlock:^(NSNumber *likes, NSError *error, VKResponse *response) {
         // апдейт лайков
         self.countLikes.text = [likes stringValue];
         sender.enabled = YES;

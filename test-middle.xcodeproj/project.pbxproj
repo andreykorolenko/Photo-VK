@@ -82,7 +82,7 @@
 		554229C81AC9BED500C18934 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 554229C71AC9BED500C18934 /* GoogleMaps.bundle */; };
 		554229CF1AC9D9E400C18934 /* MCLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 554229CE1AC9D9E400C18934 /* MCLocalization.m */; };
 		554229D11AC9DA2000C18934 /* strings.json in Resources */ = {isa = PBXBuildFile; fileRef = 554229D01AC9DA2000C18934 /* strings.json */; };
-		554586AD1AC95E5800698324 /* SocialPostHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 554586AC1AC95E5800698324 /* SocialPostHelper.m */; };
+		554586AD1AC95E5800698324 /* SocialPoster.m in Sources */ = {isa = PBXBuildFile; fileRef = 554586AC1AC95E5800698324 /* SocialPoster.m */; };
 		554586BA1AC96D0200698324 /* VKSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554586B81AC96D0200698324 /* VKSdk.framework */; };
 		554586BB1AC96D0200698324 /* VKSdkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 554586B91AC96D0200698324 /* VKSdkResources.bundle */; };
 		554586C31AC96DA700698324 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554586C21AC96DA700698324 /* FacebookSDK.framework */; };
@@ -97,7 +97,7 @@
 		556563C91AC4C3EB00881517 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563C01AC4C3EB00881517 /* UIRefreshControl+AFNetworking.m */; };
 		556563CA1AC4C3EB00881517 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 556563C21AC4C3EB00881517 /* UIWebView+AFNetworking.m */; };
 		556759661AC43A2C0071059B /* PhotoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 556759651AC43A2C0071059B /* PhotoListViewController.m */; };
-		5576728E1AC8429E00D9B166 /* VkontakteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 557672871AC8429E00D9B166 /* VkontakteHelper.m */; };
+		5576728E1AC8429E00D9B166 /* VKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 557672871AC8429E00D9B166 /* VKManager.m */; };
 		5576728F1AC8429E00D9B166 /* UIColor+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = 557672891AC8429E00D9B166 /* UIColor+Styles.m */; };
 		557672901AC8429E00D9B166 /* UIFont+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = 5576728B1AC8429E00D9B166 /* UIFont+Styles.m */; };
 		557672911AC8429E00D9B166 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5576728D1AC8429E00D9B166 /* NSDate+Helper.m */; };
@@ -282,8 +282,8 @@
 		554229CD1AC9D9E400C18934 /* MCLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalization.h; sourceTree = "<group>"; };
 		554229CE1AC9D9E400C18934 /* MCLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLocalization.m; sourceTree = "<group>"; };
 		554229D01AC9DA2000C18934 /* strings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = strings.json; sourceTree = "<group>"; };
-		554586AB1AC95E5800698324 /* SocialPostHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocialPostHelper.h; path = Utilities/SocialPostHelper.h; sourceTree = "<group>"; };
-		554586AC1AC95E5800698324 /* SocialPostHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocialPostHelper.m; path = Utilities/SocialPostHelper.m; sourceTree = "<group>"; };
+		554586AB1AC95E5800698324 /* SocialPoster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocialPoster.h; path = Utilities/SocialPoster.h; sourceTree = "<group>"; };
+		554586AC1AC95E5800698324 /* SocialPoster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocialPoster.m; path = Utilities/SocialPoster.m; sourceTree = "<group>"; };
 		554586B81AC96D0200698324 /* VKSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdk.framework; path = Libraries/VKSDK/VKSdk.framework; sourceTree = "<group>"; };
 		554586B91AC96D0200698324 /* VKSdkResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = VKSdkResources.bundle; path = Libraries/VKSDK/VKSdkResources.bundle; sourceTree = "<group>"; };
 		554586C21AC96DA700698324 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Libraries/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -311,8 +311,8 @@
 		556563C21AC4C3EB00881517 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		556759641AC43A2C0071059B /* PhotoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoListViewController.h; sourceTree = "<group>"; };
 		556759651AC43A2C0071059B /* PhotoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoListViewController.m; sourceTree = "<group>"; };
-		557672861AC8429E00D9B166 /* VkontakteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VkontakteHelper.h; path = Utilities/VkontakteHelper.h; sourceTree = "<group>"; };
-		557672871AC8429E00D9B166 /* VkontakteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VkontakteHelper.m; path = Utilities/VkontakteHelper.m; sourceTree = "<group>"; };
+		557672861AC8429E00D9B166 /* VKManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKManager.h; path = Utilities/VKManager.h; sourceTree = "<group>"; };
+		557672871AC8429E00D9B166 /* VKManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKManager.m; path = Utilities/VKManager.m; sourceTree = "<group>"; };
 		557672881AC8429E00D9B166 /* UIColor+Styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Styles.h"; path = "Utilities/UIColor+Styles.h"; sourceTree = "<group>"; };
 		557672891AC8429E00D9B166 /* UIColor+Styles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Styles.m"; path = "Utilities/UIColor+Styles.m"; sourceTree = "<group>"; };
 		5576728A1AC8429E00D9B166 /* UIFont+Styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+Styles.h"; path = "Utilities/UIFont+Styles.h"; sourceTree = "<group>"; };
@@ -633,10 +633,10 @@
 		554229A21AC9821200C18934 /* Social */ = {
 			isa = PBXGroup;
 			children = (
-				557672861AC8429E00D9B166 /* VkontakteHelper.h */,
-				557672871AC8429E00D9B166 /* VkontakteHelper.m */,
-				554586AB1AC95E5800698324 /* SocialPostHelper.h */,
-				554586AC1AC95E5800698324 /* SocialPostHelper.m */,
+				557672861AC8429E00D9B166 /* VKManager.h */,
+				557672871AC8429E00D9B166 /* VKManager.m */,
+				554586AB1AC95E5800698324 /* SocialPoster.h */,
+				554586AC1AC95E5800698324 /* SocialPoster.m */,
 			);
 			name = Social;
 			sourceTree = "<group>";
@@ -1217,7 +1217,7 @@
 				554229C61AC9BDB400C18934 /* GoogleMapViewController.m in Sources */,
 				558476BF1AC80DEE00E60568 /* AlbumManager.m in Sources */,
 				552F10C91AC874740028EDF9 /* README.md in Sources */,
-				5576728E1AC8429E00D9B166 /* VkontakteHelper.m in Sources */,
+				5576728E1AC8429E00D9B166 /* VKManager.m in Sources */,
 				55FA2CCD1AC3125600B7706B /* AFNetworkReachabilityManager.m in Sources */,
 				55FA2C9D1AC3110100B7706B /* NSObject+MagicalDataImport.m in Sources */,
 				55FA2CCF1AC3125600B7706B /* AFURLConnectionOperation.m in Sources */,
@@ -1233,7 +1233,7 @@
 				552F10C71AC874740028EDF9 /* PSTGridLayoutSection.m in Sources */,
 				552F10B71AC874740028EDF9 /* MWZoomingScrollView.m in Sources */,
 				552F10C61AC874740028EDF9 /* PSTGridLayoutRow.m in Sources */,
-				554586AD1AC95E5800698324 /* SocialPostHelper.m in Sources */,
+				554586AD1AC95E5800698324 /* SocialPoster.m in Sources */,
 				55FA2CCA1AC3125600B7706B /* AFHTTPRequestOperation.m in Sources */,
 				552F10B61AC874740028EDF9 /* MWTapDetectingView.m in Sources */,
 				55FA2CD21AC3125600B7706B /* AFURLSessionManager.m in Sources */,

@@ -2,14 +2,14 @@
 //  AuthViewController.m
 //  test-middle
 //
-//  Created by Андрей on 25.03.15.
+//  Created by Андрей on 29.03.15.
 //  Copyright (c) 2015 sebbia. All rights reserved.
 //
 
 #import "AuthViewController.h"
-#import "Button.h"
-#import "VkontakteHelper.h"
 #import "PhotoListViewController.h"
+#import "VKManager.h"
+#import "Button.h"
 
 @interface AuthViewController ()
 
@@ -59,7 +59,6 @@
     [self updateLogoLayout];
 }
 
-// logo layout
 - (void)updateLogoLayout {
     [self layoutLogoForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
@@ -103,7 +102,6 @@
     self.photoButton = [Button buttonWithColorType:ButtonFullColor text:@"" target:self action:@selector(showAlbums)];
     [self.backgroundButtons addSubview:self.photoButton];
     
-    //
     UIView *view1 = [[UIView alloc] initWithFrame:CGRectZero];
     view1.translatesAutoresizingMaskIntoConstraints = NO;
     [self.backgroundButtons addSubview:view1];
@@ -180,7 +178,7 @@
 }
 
 - (void)updateAuthUI {
-    if ([[VkontakteHelper sharedHelper] isAuthorized]) {
+    if ([[VKManager sharedHelper] isAuthorized]) {
         self.navigationItem.title = [MCLocalization stringForKey:@"profile"];
         [self.authButton setColorType:ButtonEmptyColor];
         [self.authButton setTitle:[MCLocalization stringForKey:@"logout"] forState:UIControlStateNormal];
@@ -195,7 +193,7 @@
         [self.authButton addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
         [self.photoButton setColorType:ButtonGrayLockedColor];
     }
-    NSString *userName = [VkontakteHelper sharedHelper].login;
+    NSString *userName = [VKManager sharedHelper].login;
     self.nameLabel.text = (userName) ? [NSString stringWithFormat:@"%@, %@", [MCLocalization stringForKey:@"hello"], userName] : [MCLocalization stringForKey:@"please_authorize"];
     [self.photoButton setTitle:(userName) ? [MCLocalization stringForKey:@"view_photo_album"] : [MCLocalization stringForKey:@"photo_albums_not_available"] forState:UIControlStateNormal];
 }
@@ -203,13 +201,13 @@
 #pragma mark - Authorization
 
 - (void)login {
-    [[VkontakteHelper sharedHelper] authWithCompletionBlock:^(NSString *accessToken, NSString *secret) {
+    [[VKManager sharedHelper] authWithCompletionBlock:^(NSString *accessToken, NSString *secret) {
         [self updateAuthUI];
     }];
 }
 
 - (void)logout {
-    [[VkontakteHelper sharedHelper] deauth];
+    [[VKManager sharedHelper] deauth];
     [self updateAuthUI];
 }
 

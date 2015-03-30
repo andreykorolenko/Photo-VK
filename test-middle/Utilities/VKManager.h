@@ -1,8 +1,8 @@
 //
-//  VkontakteHelper.h
+//  VKManager.h
 //  test-middle
 //
-//  Created by Андрей on 26.03.15.
+//  Created by Андрей on 29.03.15.
 //  Copyright (c) 2015 sebbia. All rights reserved.
 //
 
@@ -13,9 +13,10 @@ typedef void (^RequestCompletionBlock)(id responseObject, NSError* error, VKResp
 
 static NSString * const kLoginVK = @"kLoginVK";
 static NSString * const kOwnerID = @"kOwnerID";
+
 @class Album;
 
-@interface VkontakteHelper : NSObject
+@interface VKManager : NSObject
 
 @property (nonatomic, strong) NSString *login;
 @property (nonatomic, strong) NSString *ownerID;
@@ -25,7 +26,6 @@ static NSString * const kOwnerID = @"kOwnerID";
 - (void)getAlbumsWithComplitionBlock:(RequestCompletionBlock)completion;
 - (void)getPhotosFromAlbum:(Album *)album withComplitionBlock:(RequestCompletionBlock)completion;
 - (void)postLike:(BOOL)like toPhotoID:(NSNumber *)uid withComplitionBlock:(RequestCompletionBlock)completion;
-- (void)downloadImageWithURL:(NSURL *)url onCompletion:(void(^)(UIImage *image, NSError *error))completion;
 - (void)updateUserNameWithComplitionBlock:(void (^)(void))completionBlock;
 - (void)deauth;
 - (BOOL)isAuthorized;

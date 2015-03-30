@@ -334,9 +334,20 @@
 #pragma mark - Gestures
 
 - (void)tapLike:(UITapGestureRecognizer *)sender {
+    PhotoShow *photo = [self photoAtIndex:_currentPageIndex];
     self.isHaveLike = self.isHaveLike ? NO : YES;
     UIImageView *likeView = [sender.view.subviews firstObject];
     likeView.image = self.isHaveLike ? [UIImage imageNamed:@"icon_like_yes"] : [UIImage imageNamed:@"icon_like_no"];
+    [UIView animateWithDuration:0.20 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseOut animations:^{
+        likeView.transform = CGAffineTransformMakeScale(1.4, 1.4);
+    } completion:^(BOOL finished) {
+        likeView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    }];
+    
+    [[VkontakteHelper sharedHelper] postLike:self.isHaveLike toPhotoID:photo.photoModel.uid withComplitionBlock:^(NSNumber *likes, NSError *error, VKResponse *response) {
+        // апдейт лайков
+        self.countLikes.text = [likes stringValue];
+    }];
 }
 
 - (void)performLayout {

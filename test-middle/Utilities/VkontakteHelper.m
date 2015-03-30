@@ -117,6 +117,32 @@ NSString * const kVKOwnerID = @"3845529"; // лу
     }];
 }
 
+- (void)postLike:(BOOL)like toPhotoID:(NSNumber *)uid withComplitionBlock:(RequestCompletionBlock)completion {
+    NSString *method = like ? @"likes.add" : @"likes.delete";
+    VKRequest *postLikes = [VKRequest requestWithMethod:method andParameters:@{VK_API_OWNER_ID : kVKOwnerID, @"type": @"photo", @"item_id": uid} andHttpMethod:@"POST"];
+    
+    [postLikes executeWithResultBlock:^(VKResponse * response) {
+        NSArray *photos = [Photo fetchPhotosFetchRequest:[NSManagedObjectContext defaultContext] uid:uid];
+        
+        Photo *photo = nil;
+        if (photos.count > 0) {
+            photo = [photos firstObject];
+        }
+        
+        like ? photo.likesValue++ : photo.likesValue--;
+        [[NSManagedObjectContext defaultContext] saveToPersistentStoreAndWait];
+        completion(photo.likes, nil, response);
+        
+    } errorBlock:^(NSError * error) {
+        if (error.code != VK_API_ERROR) {
+            [error.vkError.request repeat];
+        } else {
+            NSLog(@"VK error: %@", error);
+            completion(nil, error, nil);
+        }
+    }];
+}
+
 - (void)updateUserNameWithComplitionBlock:(void (^)(void))completionBlock {
     __typeof(self) __weak welf = self;
     VKRequest * meRequest = [[VKApi users] get];
@@ -158,16 +184,6 @@ NSString * const kVKOwnerID = @"3845529"; // лу
     [requestOperation start];
 }
 
-//- (NSURLSessionDataTask *)downloadImageWithURLString:(NSString *)urlString onCompletion:(void(^)(UIImage *image, NSError *error))completion {
-//    NSURLSessionDataTask *task = [self.imageSessionManager GET:urlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//        completion(responseObject, nil);
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        completion(nil, error);
-//    }];
-//    [task resume];
-//    return task;
-//}
-
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -182,7 +198,7 @@ NSString * const kVKOwnerID = @"3845529"; // лу
 
 - (void)authWithCompletionBlock:(AuthBlock)completionBlock {
     self.authCompletionBlock = completionBlock;
-    [VKSdk authorize:@[VK_PER_PHOTOS] revokeAccess:NO forceOAuth:NO inApp:NO];
+    [VKSdk authorize:@[VK_PER_PHOTOS, VK_PER_WALL] revokeAccess:NO forceOAuth:NO inApp:NO];
 }
 
 - (void)deauth {

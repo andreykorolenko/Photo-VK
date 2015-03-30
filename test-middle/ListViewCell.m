@@ -10,6 +10,7 @@
 #import "ListViewCellDelegate.h"
 #import "Album.h"
 #import "Photo.h"
+#import "VkontakteHelper.h"
 
 #import "UIFont+Styles.h"
 #import "NSDate+Helper.h"
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) __block UIImageView *photoView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIView *infoView;
+@property (nonatomic, strong) UILabel *countLikes;
 @property (nonatomic, assign) BOOL isHaveLike;
 
 @property (nonatomic, strong) NSNumber *photoUID;
@@ -133,11 +135,11 @@
     self.isHaveLike = photo.isUserLike.boolValue;
     [likeBackround addSubview:likeImageView];
     
-    UILabel *countLikes = [[UILabel alloc] initWithFrame:CGRectZero];
-    countLikes.translatesAutoresizingMaskIntoConstraints = NO;
-    countLikes.font = [UIFont thinFontWithSize:18.0];
-    countLikes.text = [photo.likes stringValue];
-    [self.infoView addSubview:countLikes];
+    self.countLikes = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.countLikes.translatesAutoresizingMaskIntoConstraints = NO;
+    self.countLikes.font = [UIFont thinFontWithSize:18.0];
+    self.countLikes.text = [photo.likes stringValue];
+    [self.infoView addSubview:self.countLikes];
     
     UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -146,7 +148,7 @@
     dateLabel.text = [NSDate stringFromDate:photo.date];
     [self.infoView addSubview:dateLabel];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(likeBackround, likeImageView, countLikes, dateLabel);
+    NSDictionary *views = @{@"likeBackround": likeBackround, @"likeImageView": likeImageView, @"countLikes": self.countLikes, @"dateLabel": dateLabel};
     NSDictionary *metrics = @{@"likeSide": @35};
     
     [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeBackround(likeSide)][countLikes][dateLabel]|" options:0 metrics:metrics views:views]];
@@ -190,6 +192,16 @@
     self.isHaveLike = self.isHaveLike ? NO : YES;
     UIImageView *likeView = [sender.view.subviews firstObject];
     likeView.image = self.isHaveLike ? [UIImage imageNamed:@"icon_like_yes"] : [UIImage imageNamed:@"icon_like_no"];
+    [UIView animateWithDuration:0.20 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseOut animations:^{
+        likeView.transform = CGAffineTransformMakeScale(1.4, 1.4);
+    } completion:^(BOOL finished) {
+        likeView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    }];
+    
+    [[VkontakteHelper sharedHelper] postLike:self.isHaveLike toPhotoID:self.photoUID withComplitionBlock:^(NSNumber *likes, NSError *error, VKResponse *response) {
+        // апдейт лайков
+        self.countLikes.text = [likes stringValue];
+    }];
 }
 
 #pragma mark - All Methods

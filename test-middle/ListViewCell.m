@@ -87,7 +87,7 @@
     NSDictionary *metrics = @{@"size": @70, @"side": @15, @"top": @10};
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[photo(size)]-side-[name]-side-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[photo]-side-[info]-side-|" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[name][info(==name)]-top-|" options:0 metrics:metrics views:views]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[name][info(==name)]-top-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[photo(size)]" options:0 metrics:metrics views:views]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.photoView
                                                                  attribute:NSLayoutAttributeCenterY
@@ -108,8 +108,11 @@
     countPhotoLabel.text = [NSString stringWithFormat:@"%@ %@", album.countPhoto, [self stringPhotoCount:album.countPhoto]];
     [self.infoView addSubview:countPhotoLabel];
     
-    [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[countPhotoLabel]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(countPhotoLabel)]];
-    [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[countPhotoLabel]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(countPhotoLabel)]];
+    NSDictionary *views = @{@"contentView": self.contentView, @"name": self.nameLabel, @"info": self.infoView, @"countPhotoLabel": countPhotoLabel};
+    NSDictionary *metrics = @{@"top": @10};
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[name][info(==name)]-top-|" options:0 metrics:metrics views:views]];
+    [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[countPhotoLabel]|" options:0 metrics:metrics views:views]];
+    [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[countPhotoLabel]|" options:0 metrics:metrics views:views]];
     
     [self setImageFromURL:[NSURL URLWithString:album.coverURL]];
 }
@@ -123,7 +126,8 @@
     [self.photoView addGestureRecognizer:tapGesture];
     
 #warning сделать названия фото
-    self.nameLabel.text = [MCLocalization stringForKey:@"photo"];
+    self.nameLabel.backgroundColor = [UIColor yellowColor];
+    //self.nameLabel.text = [MCLocalization stringForKey:@"photo"];
     
     UIView *likeBackround = [[UIView alloc] initWithFrame:CGRectZero];
     likeBackround.translatesAutoresizingMaskIntoConstraints = NO;
@@ -151,9 +155,10 @@
     dateLabel.text = [NSDate stringFromDate:photo.date];
     [self.infoView addSubview:dateLabel];
     
-    NSDictionary *views = @{@"likeBackround": likeBackround, @"likeImageView": self.likeImageView, @"countLikes": self.countLikes, @"dateLabel": dateLabel};
-    NSDictionary *metrics = @{@"likeSide": @35};
+    NSDictionary *views = @{@"likeBackround": likeBackround, @"likeImageView": self.likeImageView, @"countLikes": self.countLikes, @"dateLabel": dateLabel, @"info": self.infoView};
+    NSDictionary *metrics = @{@"likeSide": @35, @"top": @10};
     
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[info]-top-|" options:0 metrics:metrics views:views]];
     [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeBackround(likeSide)][countLikes][dateLabel]|" options:0 metrics:metrics views:views]];
     [self.infoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeBackround]|" options:0 metrics:metrics views:views]];
     

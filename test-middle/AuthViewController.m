@@ -76,7 +76,7 @@
     self.logoView = [[UIImageView alloc] initWithFrame:CGRectZero];
     self.logoView.translatesAutoresizingMaskIntoConstraints = NO;
     self.logoView.contentMode = UIViewContentModeScaleAspectFit;
-    self.logoView.image = [UIImage imageNamed:@"logo"];
+    self.logoView.image = [[MCLocalization sharedInstance].language isEqualToString:@"ru"] ? [UIImage imageNamed:@"logo"] : [UIImage imageNamed:@"logo_en"];
     [upView addSubview:self.logoView];
     
     // name

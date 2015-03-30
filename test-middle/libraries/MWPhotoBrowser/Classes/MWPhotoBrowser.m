@@ -16,6 +16,7 @@
 #import "SocialPostHelper.h"
 #import "PhotoShow.h"
 #import "Photo.h"
+#import "GoogleMapViewController.h"
 
 #import "NSDate+Helper.h"
 
@@ -29,6 +30,7 @@
 @property (nonatomic, strong) UIImageView *likeImageView;
 @property (nonatomic, strong) UILabel *countLikes;
 @property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UIView *backgroundMap;
 @property (nonatomic, assign) BOOL isHaveLike;
 
 @property (nonatomic, assign) BOOL isHiddenContentView;
@@ -229,7 +231,7 @@
     
     self.contentView = [[UIView alloc] initWithFrame:CGRectZero];
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.contentView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
+    self.contentView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
     [self.view addSubview:self.contentView];
     
     UITapGestureRecognizer *mainTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startTimerHide:)];
@@ -273,20 +275,19 @@
     [infoView addSubview:self.dateLabel];
     
     // map icon
-    UIView *backgroundMap = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundMap.translatesAutoresizingMaskIntoConstraints = NO;
-    backgroundMap.multipleTouchEnabled = YES;
-    [self.contentView addSubview:backgroundMap];
+    self.backgroundMap = [[UIView alloc] initWithFrame:CGRectZero];
+    self.backgroundMap.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.contentView addSubview:self.backgroundMap];
     
     UITapGestureRecognizer *mapTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTap:)];
-    [backgroundMap addGestureRecognizer:mapTapGesture];
+    [self.backgroundMap addGestureRecognizer:mapTapGesture];
     
     UIImageView *mapPinView = [[UIImageView alloc] initWithFrame:CGRectZero];
     mapPinView.translatesAutoresizingMaskIntoConstraints = NO;
     mapPinView.multipleTouchEnabled = YES;
     mapPinView.alpha = 0.9;
     mapPinView.image = [UIImage imageNamed:@"map_pin"];
-    [backgroundMap addSubview:mapPinView];
+    [self.backgroundMap addSubview:mapPinView];
     
     NSDictionary *views = @{@"content": self.contentView,
                             @"author": self.author,
@@ -295,7 +296,7 @@
                             @"likeImageView": self.likeImageView,
                             @"countLikes": self.countLikes,
                             @"dateLabel": self.dateLabel,
-                            @"backgroundMap": backgroundMap,
+                            @"backgroundMap": self.backgroundMap,
                             @"mapPinView": mapPinView};
     
     NSDictionary *metrics = @{@"side": @20,
@@ -310,7 +311,7 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[author][backgroundMap]" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-side-[infoView][backgroundMap]" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[author][infoView(infoHeight)]-7-|" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[backgroundMap(80)]|" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[backgroundMap(80)]-5-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[backgroundMap]|" options:0 metrics:metrics views:views]];
     
     // map
@@ -326,7 +327,7 @@
     [likeBackround addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[likeImageView]" options:0 metrics:metrics views:views]];
 }
 
-// обновляем содержимое описания
+// обновляем содержимое описания фото
 - (void)updateContentView {
     PhotoShow *photo = [self photoAtIndex:_currentPageIndex];
     self.author.text = [VkontakteHelper sharedHelper].login;
@@ -334,6 +335,15 @@
     self.isHaveLike = photo.photoModel.isUserLike.boolValue;
     self.countLikes.text = [photo.photoModel.likes stringValue];
     self.dateLabel.text = [NSDate stringFromDate:photo.photoModel.date];
+    
+    // если есть данные о местоположении
+    if (photo.photoModel.haveMapValue) {
+        self.backgroundMap.alpha = 1.0;
+        self.backgroundMap.userInteractionEnabled = YES;
+    } else {
+        self.backgroundMap.alpha = 0.3;
+        self.backgroundMap.userInteractionEnabled = NO;
+    }
     [UIView animateWithDuration:0.25 animations:^{
         [self.contentView updateConstraints];
     }];
@@ -367,13 +377,14 @@
 
 - (void)mapTap:(UITapGestureRecognizer *)sender {
     [self startTimerHide:nil];
-//    sender.enabled = NO;
-//    [UIView animateKeyframesWithDuration:0.25 delay:0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseOut animations:^{
-//        sender.view.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
-//    } completion:^(BOOL finished) {
-//        sender.enabled = YES;
-//        sender.view.backgroundColor = [UIColor clearColor];
-//    }];
+    
+    PhotoShow *photo = [self photoAtIndex:_currentPageIndex];
+    GoogleMapViewController *mapViewController = [GoogleMapViewController mapWithLatitude:photo.photoModel.latitude.doubleValue
+                                                                                longitude:photo.photoModel.longitude.doubleValue];
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)startTimerHide:(UITapGestureRecognizer *)sender {
@@ -637,13 +648,18 @@
         [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsLandscapePhone];
     }
     
+//    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+//    [navigationBar setBackgroundImage:[UIImage imageNamed:@"main_color"] forBarMetrics:UIBarMetricsDefault];
+//    navigationBar.translucent = YES;
+//    navigationBar.tintColor = [UIColor whiteColor];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont regularFontWithSize:18.f],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_close"] style:UIBarButtonItemStylePlain target:self action:@selector(closePhotoBrowser)];
     self.navigationItem.leftBarButtonItem = closeButton;
     
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_share"] style:UIBarButtonItemStylePlain target:self action:@selector(sharePhoto)];
     self.navigationItem.rightBarButtonItem = shareButton;
-    
-    [navBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont regularFontWithSize:18.f],NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 
 - (void)closePhotoBrowser {
@@ -1535,11 +1551,11 @@
         self.isHiddenContentView = hidden;
         //CGRect contentFrame = self.contentView.frame;
         //contentFrame.origin.x = self.contentView.frame.origin.x; // Reset X
-        if (hidden) {
-            self.contentView.frame = CGRectOffset(self.contentView.frame, 0, animatonOffset);
-        } else {
-            self.contentView.frame = CGRectOffset(self.contentView.frame, 0, -animatonOffset);
-        }
+//        if (hidden) {
+//            self.contentView.frame = CGRectOffset(self.contentView.frame, 0, animatonOffset);
+//        } else {
+//            self.contentView.frame = CGRectOffset(self.contentView.frame, 0, -animatonOffset);
+//        }
         
         // Toolbar
         if (slideAndFade) {

@@ -27,6 +27,15 @@ static NSDateFormatter *dateFromStringFormatter = nil;
 }
 
 + (NSString *)stringFromDate:(NSDate *)date {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *currentComponents = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:[NSDate date]];
+    NSDateComponents *photoComponents = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:date];
+    
+    if (currentComponents.year == photoComponents.year && currentComponents.month == photoComponents.month && currentComponents.day == photoComponents.day) {
+        return @"Сегодня";
+    } else if (currentComponents.year == photoComponents.year && currentComponents.month == photoComponents.month && currentComponents.day == photoComponents.day + 1) {
+        return @"Вчера";
+    }
     return [dateFromStringFormatter stringFromDate:date];
 }
 

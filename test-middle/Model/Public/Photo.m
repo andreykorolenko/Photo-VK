@@ -64,6 +64,8 @@
     self.longitude = OBJ_OR_NIL(dictionary[@"long"], NSNumber);
     if (self.latitude && self.longitude) {
         self.haveMap = @YES;
+    } else {
+        self.haveMap = @NO;
     }
 }
 

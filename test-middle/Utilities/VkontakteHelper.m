@@ -16,7 +16,7 @@
 NSString * const AppID = @"4844768";
 //NSString * const kVKOwnerID = @"284922027";
 //NSString * const kVKOwnerID = @"3845529"; // лу
-NSString * const kVKOwnerID = @"80074128"; // чулаков
+//NSString * const kVKOwnerID = @"80074128"; // чулаков
 
 @interface VkontakteHelper () <VKSdkDelegate>
 
@@ -47,7 +47,7 @@ NSString * const kVKOwnerID = @"80074128"; // чулаков
 }
 
 - (void)getAlbumsWithComplitionBlock:(RequestCompletionBlock)completion {
-    VKRequest *getAlbums = [VKRequest requestWithMethod:@"photos.getAlbums" andParameters:@{VK_API_OWNER_ID : kVKOwnerID, @"need_covers": @YES} andHttpMethod:@"GET"];
+    VKRequest *getAlbums = [VKRequest requestWithMethod:@"photos.getAlbums" andParameters:@{VK_API_OWNER_ID : self.ownerID, @"need_covers": @YES} andHttpMethod:@"GET"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     [getAlbums executeWithResultBlock:^(VKResponse * response) {
@@ -84,7 +84,7 @@ NSString * const kVKOwnerID = @"80074128"; // чулаков
 }
 
 - (void)getPhotosFromAlbum:(Album *)album withComplitionBlock:(RequestCompletionBlock)completion {
-    VKRequest *getPhotos = [VKRequest requestWithMethod:@"photos.get" andParameters:@{VK_API_OWNER_ID : kVKOwnerID, VK_API_ALBUM_ID: album.uid, @"rev": @YES, @"extended": @YES} andHttpMethod:@"GET"];
+    VKRequest *getPhotos = [VKRequest requestWithMethod:@"photos.get" andParameters:@{VK_API_OWNER_ID : self.ownerID, VK_API_ALBUM_ID: album.uid, @"rev": @YES, @"extended": @YES} andHttpMethod:@"GET"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     [getPhotos executeWithResultBlock:^(VKResponse * response) {
@@ -120,7 +120,7 @@ NSString * const kVKOwnerID = @"80074128"; // чулаков
 
 - (void)postLike:(BOOL)like toPhotoID:(NSNumber *)uid withComplitionBlock:(RequestCompletionBlock)completion {
     NSString *method = like ? @"likes.add" : @"likes.delete";
-    VKRequest *postLikes = [VKRequest requestWithMethod:method andParameters:@{VK_API_OWNER_ID : kVKOwnerID, @"type": @"photo", @"item_id": uid} andHttpMethod:@"POST"];
+    VKRequest *postLikes = [VKRequest requestWithMethod:method andParameters:@{VK_API_OWNER_ID : self.ownerID, @"type": @"photo", @"item_id": uid} andHttpMethod:@"POST"];
     
     [postLikes executeWithResultBlock:^(VKResponse * response) {
         NSArray *photos = [Photo fetchPhotosFetchRequest:[NSManagedObjectContext defaultContext] uid:uid];

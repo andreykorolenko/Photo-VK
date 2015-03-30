@@ -79,6 +79,8 @@
 		554229BE1AC9BB8700C18934 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554229BD1AC9BB8600C18934 /* QuartzCore.framework */; };
 		554229C01AC9BB9000C18934 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554229BF1AC9BB9000C18934 /* SystemConfiguration.framework */; };
 		554229C21AC9BCC000C18934 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554229C11AC9BCC000C18934 /* GLKit.framework */; };
+		554229C61AC9BDB400C18934 /* GoogleMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 554229C51AC9BDB400C18934 /* GoogleMapViewController.m */; };
+		554229C81AC9BED500C18934 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 554229C71AC9BED500C18934 /* GoogleMaps.bundle */; };
 		554586AD1AC95E5800698324 /* SocialPostHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 554586AC1AC95E5800698324 /* SocialPostHelper.m */; };
 		554586BA1AC96D0200698324 /* VKSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554586B81AC96D0200698324 /* VKSdk.framework */; };
 		554586BB1AC96D0200698324 /* VKSdkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 554586B91AC96D0200698324 /* VKSdkResources.bundle */; };
@@ -275,6 +277,9 @@
 		554229BD1AC9BB8600C18934 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		554229BF1AC9BB9000C18934 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		554229C11AC9BCC000C18934 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		554229C41AC9BDB400C18934 /* GoogleMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleMapViewController.h; sourceTree = "<group>"; };
+		554229C51AC9BDB400C18934 /* GoogleMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleMapViewController.m; sourceTree = "<group>"; };
+		554229C71AC9BED500C18934 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
 		554586AB1AC95E5800698324 /* SocialPostHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocialPostHelper.h; path = Utilities/SocialPostHelper.h; sourceTree = "<group>"; };
 		554586AC1AC95E5800698324 /* SocialPostHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocialPostHelper.m; path = Utilities/SocialPostHelper.m; sourceTree = "<group>"; };
 		554586B81AC96D0200698324 /* VKSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdk.framework; path = Libraries/VKSDK/VKSdk.framework; sourceTree = "<group>"; };
@@ -639,10 +644,30 @@
 		554229A81AC9BB0000C18934 /* GoogleMapsSDK */ = {
 			isa = PBXGroup;
 			children = (
+				554229C71AC9BED500C18934 /* GoogleMaps.bundle */,
 				554229A91AC9BB0000C18934 /* GoogleMaps.framework */,
 			);
 			name = GoogleMapsSDK;
 			path = Libraries/GoogleMapsSDK;
+			sourceTree = "<group>";
+		};
+		554229C31AC9BD5C00C18934 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				554229C11AC9BCC000C18934 /* GLKit.framework */,
+				554229BF1AC9BB9000C18934 /* SystemConfiguration.framework */,
+				554229BD1AC9BB8600C18934 /* QuartzCore.framework */,
+				554229BB1AC9BB7F00C18934 /* OpenGLES.framework */,
+				554229B91AC9BB7300C18934 /* libz.dylib */,
+				554229B71AC9BB6200C18934 /* libicucore.dylib */,
+				554229B51AC9BB5700C18934 /* libc++.1.dylib */,
+				554229B31AC9BB4700C18934 /* ImageIO.framework */,
+				554229AF1AC9BB3E00C18934 /* CoreLocation.framework */,
+				554229B01AC9BB3E00C18934 /* CoreText.framework */,
+				554229AD1AC9BB2E00C18934 /* CoreData.framework */,
+				554229AB1AC9BB2500C18934 /* AVFoundation.framework */,
+			);
+			name = Others;
 			sourceTree = "<group>";
 		};
 		554586AF1AC965CD00698324 /* FacebookSDK */ = {
@@ -699,6 +724,8 @@
 				557DF6911AC2E926008E26C9 /* AuthViewController.m */,
 				556759641AC43A2C0071059B /* PhotoListViewController.h */,
 				556759651AC43A2C0071059B /* PhotoListViewController.m */,
+				554229C41AC9BDB400C18934 /* GoogleMapViewController.h */,
+				554229C51AC9BDB400C18934 /* GoogleMapViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -744,18 +771,6 @@
 		557DF67A1AC2E926008E26C9 = {
 			isa = PBXGroup;
 			children = (
-				554229C11AC9BCC000C18934 /* GLKit.framework */,
-				554229BF1AC9BB9000C18934 /* SystemConfiguration.framework */,
-				554229BD1AC9BB8600C18934 /* QuartzCore.framework */,
-				554229BB1AC9BB7F00C18934 /* OpenGLES.framework */,
-				554229B91AC9BB7300C18934 /* libz.dylib */,
-				554229B71AC9BB6200C18934 /* libicucore.dylib */,
-				554229B51AC9BB5700C18934 /* libc++.1.dylib */,
-				554229B31AC9BB4700C18934 /* ImageIO.framework */,
-				554229AF1AC9BB3E00C18934 /* CoreLocation.framework */,
-				554229B01AC9BB3E00C18934 /* CoreText.framework */,
-				554229AD1AC9BB2E00C18934 /* CoreData.framework */,
-				554229AB1AC9BB2500C18934 /* AVFoundation.framework */,
 				557DF6851AC2E926008E26C9 /* test-middle */,
 				557DF6A21AC2E926008E26C9 /* test-middleTests */,
 				557DF6841AC2E926008E26C9 /* Products */,
@@ -832,6 +847,7 @@
 		5599F42D1AC2F49F003D673C /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				554229C31AC9BD5C00C18934 /* Others */,
 				554229A81AC9BB0000C18934 /* GoogleMapsSDK */,
 				554586AF1AC965CD00698324 /* FacebookSDK */,
 				552F104C1AC874740028EDF9 /* MWPhotoBrowser */,
@@ -1089,6 +1105,7 @@
 				557DF69A1AC2E926008E26C9 /* LaunchScreen.xib in Resources */,
 				554586BB1AC96D0200698324 /* VKSdkResources.bundle in Resources */,
 				552F10C81AC874740028EDF9 /* LICENSE in Resources */,
+				554229C81AC9BED500C18934 /* GoogleMaps.bundle in Resources */,
 				557DF6971AC2E926008E26C9 /* Images.xcassets in Resources */,
 				552F10DA1AC874740028EDF9 /* MWPhotoBrowser.bundle in Resources */,
 			);
@@ -1176,6 +1193,7 @@
 				552F10B91AC874740028EDF9 /* MBProgressHUD.m in Sources */,
 				552F10E11AC87D310028EDF9 /* PhotoShow.m in Sources */,
 				55FA2CB21AC3110100B7706B /* MagicalRecord+ShorthandSupport.m in Sources */,
+				554229C61AC9BDB400C18934 /* GoogleMapViewController.m in Sources */,
 				558476BF1AC80DEE00E60568 /* AlbumManager.m in Sources */,
 				552F10C91AC874740028EDF9 /* README.md in Sources */,
 				5576728E1AC8429E00D9B166 /* VkontakteHelper.m in Sources */,

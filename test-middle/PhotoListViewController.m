@@ -18,7 +18,8 @@
 
 #import "MWPhotoBrowser.h"
 #import "PhotoShow.h"
-#import "CaptionView.h"
+
+#import "GoogleMapViewController.h"
 
 CGFloat const kHeightRow = 80.f;
 
@@ -305,13 +306,6 @@ typedef NS_ENUM(NSInteger, ListType) {
     }
     return -1;
 }
-
-//- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
-//    PhotoShow *photo = [self.photos objectAtIndex:index];
-//    self.captionView = [[CaptionView alloc] init];
-//    [self.captionView updateInfoWithPhoto:photo];
-//    return self.captionView;
-//}
 
 #pragma mark - MWPhotoBrowserDelegate
 

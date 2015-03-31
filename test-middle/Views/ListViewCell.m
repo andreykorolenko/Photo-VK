@@ -201,11 +201,13 @@
     sender.enabled = NO;
     sender.view.userInteractionEnabled = NO;
     
-    [UIView animateWithDuration:0.20 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseOut animations:^{
-        self.likeImageView.transform = CGAffineTransformMakeScale(1.4, 1.4);
+    [UIView animateWithDuration:0.20 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.likeImageView.layer.affineTransform = CGAffineTransformMakeScale(1.4, 1.4);
     } completion:^(BOOL finished) {
-        self.likeImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        sender.view.userInteractionEnabled = YES;
+        [UIView animateWithDuration:0.20 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.likeImageView.layer.affineTransform = CGAffineTransformMakeScale(1.0, 1.0);
+            sender.view.userInteractionEnabled = YES;
+        } completion:nil];
     }];
     
     [[VKManager sharedHelper] postLike:self.isHaveLike toPhotoID:self.photoUID withComplitionBlock:^(NSNumber *likes, NSError *error, VKResponse *response) {

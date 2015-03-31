@@ -29,7 +29,7 @@
     <fetchRequest name="PhotosFetchRequest" entity="Photo" predicateString="uid == $uid"/>
     <elements>
         <element name="Album" positionX="-56" positionY="-183" width="128" height="148"/>
-        <element name="AlbumManager" positionX="-54" positionY="-90" width="128" height="58"/>
+        <element name="AlbumManager" positionX="-54" positionY="-90" width="128" height="60"/>
         <element name="Photo" positionX="-54" positionY="9" width="128" height="195"/>
     </elements>
 </model>

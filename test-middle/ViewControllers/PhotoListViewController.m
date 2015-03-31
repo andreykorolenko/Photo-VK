@@ -253,6 +253,8 @@ typedef NS_ENUM(NSInteger, ListType) {
                 [self showMessageEmptyWithType:type];
             } else {
                 // невозможно обновить ленту
+                [self showMessageEmptyWithType:type];
+                [self.refreshControl endRefreshing];
             }
         }];
     } else {
@@ -265,6 +267,8 @@ typedef NS_ENUM(NSInteger, ListType) {
                 [self showMessageEmptyWithType:type];
             } else {
                 // невозможно обновить ленту
+                [self showMessageEmptyWithType:type];
+                [self.refreshControl endRefreshing];
             }
         }];
     }

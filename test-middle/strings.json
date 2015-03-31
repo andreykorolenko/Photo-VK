@@ -1,6 +1,5 @@
 {
     "en": {
-        "locale": "en",
         "profile": "Profile",
         "logout": "Logout",
         "login": "Login",
@@ -24,7 +23,6 @@
         "photo_of": "of"
     },
     "ru": {
-        "locale": "ru",
         "profile": "Профиль",
         "logout": "Выйти",
         "login": "Войти",

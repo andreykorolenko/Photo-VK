@@ -56,6 +56,7 @@
         popover.sourceView = fromViewController.view;
         popover.sourceView = [fromViewController.navigationItem.rightBarButtonItem valueForKey:@"view"];
     } else {
+        activityViewController.popoverPresentationController.sourceView = [fromViewController.navigationItem.rightBarButtonItem valueForKey:@"view"];
         [fromViewController presentViewController:activityViewController animated:YES completion:nil];
     }
 }

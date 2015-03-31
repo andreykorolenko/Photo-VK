@@ -21,6 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		550762811ACA9FF70068374E /* MCLocalizationDummyDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5507627C1ACA9FF70068374E /* MCLocalizationDummyDataSource.m */; };
+		550762821ACA9FF70068374E /* MCLocalizationOneJSONFilePerLanguageDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5507627E1ACA9FF70068374E /* MCLocalizationOneJSONFilePerLanguageDataSource.m */; };
+		550762831ACA9FF70068374E /* MCLocalizationSingleJSONFileDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 550762801ACA9FF70068374E /* MCLocalizationSingleJSONFileDataSource.m */; };
 		552F10B01AC874740028EDF9 /* MWCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F104F1AC874740028EDF9 /* MWCaptionView.m */; };
 		552F10B11AC874740028EDF9 /* MWGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10521AC874740028EDF9 /* MWGridCell.m */; };
 		552F10B21AC874740028EDF9 /* MWGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F10541AC874740028EDF9 /* MWGridViewController.m */; };
@@ -169,6 +172,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5507627A1ACA9FF70068374E /* MCLocalizationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalizationDataSource.h; sourceTree = "<group>"; };
+		5507627B1ACA9FF70068374E /* MCLocalizationDummyDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalizationDummyDataSource.h; sourceTree = "<group>"; };
+		5507627C1ACA9FF70068374E /* MCLocalizationDummyDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLocalizationDummyDataSource.m; sourceTree = "<group>"; };
+		5507627D1ACA9FF70068374E /* MCLocalizationOneJSONFilePerLanguageDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalizationOneJSONFilePerLanguageDataSource.h; sourceTree = "<group>"; };
+		5507627E1ACA9FF70068374E /* MCLocalizationOneJSONFilePerLanguageDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLocalizationOneJSONFilePerLanguageDataSource.m; sourceTree = "<group>"; };
+		5507627F1ACA9FF70068374E /* MCLocalizationSingleJSONFileDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalizationSingleJSONFileDataSource.h; sourceTree = "<group>"; };
+		550762801ACA9FF70068374E /* MCLocalizationSingleJSONFileDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLocalizationSingleJSONFileDataSource.m; sourceTree = "<group>"; };
 		552F104E1AC874740028EDF9 /* MWCaptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCaptionView.h; sourceTree = "<group>"; };
 		552F104F1AC874740028EDF9 /* MWCaptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCaptionView.m; sourceTree = "<group>"; };
 		552F10501AC874740028EDF9 /* MWCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCommon.h; sourceTree = "<group>"; };
@@ -681,6 +691,13 @@
 			children = (
 				554229CD1AC9D9E400C18934 /* MCLocalization.h */,
 				554229CE1AC9D9E400C18934 /* MCLocalization.m */,
+				5507627A1ACA9FF70068374E /* MCLocalizationDataSource.h */,
+				5507627B1ACA9FF70068374E /* MCLocalizationDummyDataSource.h */,
+				5507627C1ACA9FF70068374E /* MCLocalizationDummyDataSource.m */,
+				5507627D1ACA9FF70068374E /* MCLocalizationOneJSONFilePerLanguageDataSource.h */,
+				5507627E1ACA9FF70068374E /* MCLocalizationOneJSONFilePerLanguageDataSource.m */,
+				5507627F1ACA9FF70068374E /* MCLocalizationSingleJSONFileDataSource.h */,
+				550762801ACA9FF70068374E /* MCLocalizationSingleJSONFileDataSource.m */,
 			);
 			name = MCLocalization;
 			path = Libraries/MCLocalization;
@@ -1168,6 +1185,7 @@
 				55FA2C9A1AC3110100B7706B /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				55FA2CA51AC3110100B7706B /* NSManagedObjectContext+MagicalChainSave.m in Sources */,
 				554229E11ACA066900C18934 /* PhotoListViewController.m in Sources */,
+				550762821ACA9FF70068374E /* MCLocalizationOneJSONFilePerLanguageDataSource.m in Sources */,
 				554229E41ACA068200C18934 /* PhotoShow.m in Sources */,
 				552F10C01AC874740028EDF9 /* PSTCollectionViewFlowLayout.m in Sources */,
 				558476BD1AC80DEE00E60568 /* Album.m in Sources */,
@@ -1214,6 +1232,7 @@
 				552F10B91AC874740028EDF9 /* MBProgressHUD.m in Sources */,
 				55FA2CB21AC3110100B7706B /* MagicalRecord+ShorthandSupport.m in Sources */,
 				558476BF1AC80DEE00E60568 /* AlbumManager.m in Sources */,
+				550762811ACA9FF70068374E /* MCLocalizationDummyDataSource.m in Sources */,
 				5576728E1AC8429E00D9B166 /* VKManager.m in Sources */,
 				55FA2CCD1AC3125600B7706B /* AFNetworkReachabilityManager.m in Sources */,
 				55FA2C9D1AC3110100B7706B /* NSObject+MagicalDataImport.m in Sources */,
@@ -1257,6 +1276,7 @@
 				554229D71ACA065C00C18934 /* Button.m in Sources */,
 				552F10CD1AC874740028EDF9 /* SDWebImageCompat.m in Sources */,
 				55FA2CAA1AC3110100B7706B /* NSManagedObjectModel+MagicalRecord.m in Sources */,
+				550762831ACA9FF70068374E /* MCLocalizationSingleJSONFileDataSource.m in Sources */,
 				55FA2C9C1AC3110100B7706B /* NSNumber+MagicalDataImport.m in Sources */,
 				552F10C11AC874740028EDF9 /* PSTCollectionViewItemKey.m in Sources */,
 				556563CA1AC4C3EB00881517 /* UIWebView+AFNetworking.m in Sources */,

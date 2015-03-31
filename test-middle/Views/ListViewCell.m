@@ -206,7 +206,6 @@
     } completion:^(BOOL finished) {
         self.likeImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
         sender.view.userInteractionEnabled = YES;
-        
     }];
     
     [[VKManager sharedHelper] postLike:self.isHaveLike toPhotoID:self.photoUID withComplitionBlock:^(NSNumber *likes, NSError *error, VKResponse *response) {
